@@ -88,4 +88,5 @@ sw.*
 
 # Vim swap files
 *.swp
-/public_html/
+
+/public_html
