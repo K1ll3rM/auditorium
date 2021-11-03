@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1>Hai</h1>
-        <NuxtLink to="/test">Test2</NuxtLink>
     </div>
 </template>
 
