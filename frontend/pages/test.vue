@@ -11,12 +11,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import {Songs} from "@/shared/Song";
 
 export default Vue.extend({
     components: {},
     data() {
         return {
-            songs: {}
+            songs: <Songs>{}
         }
     },
     methods: {
