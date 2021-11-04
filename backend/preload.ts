@@ -1,4 +1,5 @@
 import {contextBridge, ipcRenderer} from "electron";
+import {Storage} from "./lib/Storage";
 
 contextBridge.exposeInMainWorld(
     "api", {
@@ -22,3 +23,5 @@ contextBridge.exposeInMainWorld(
         }
     }
 );
+
+contextBridge.exposeInMainWorld('storagePath', Storage.getStorage());

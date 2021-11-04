@@ -1,30 +1,13 @@
 'use strict';
-import {promises as fs} from 'fs';
-import {Storage} from "../backend/lib/Storage";
-import {getFileName} from "./helpers";
 
 export class Song {
 
     static getSongsPath() {
-        return Storage.getStorage() + '/songs';
-    }
-
-    static async getSongs() {
-        let files = await fs.readdir(this.getSongsPath());
-        let songs: Songs = {};
-
-        for (let file of files) {
-            let song = new Song(file);
-            await song.loadManifest();
-
-            songs[getFileName(file)] = song;
-        }
-
-        return songs;
+        return window.storagePath + '/songs';
     }
 
     path: string;
-    manifest: Manifest;
+    manifest: Manifest = {};
 
     constructor(path: string) {
         this.path = path;
@@ -33,19 +16,12 @@ export class Song {
     getSongPath() {
         return Song.getSongsPath() + '/' + this.path;
     }
-
-    async loadManifest() {
-        let file = await fs.readFile(this.getSongPath() + '/manifest.json');
-        this.manifest = JSON.parse(file.toString());
-    }
-
-
 }
 
-interface Manifest {
-    name: string;
+export interface Manifest {
+    name?: string;
 }
 
-interface Songs {
+export interface Songs {
     [key: string]: Song
 }

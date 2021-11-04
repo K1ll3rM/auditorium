@@ -1,5 +1,5 @@
 import {ipcMain} from "electron";
-import {Song} from "../../shared/Song";
+import {Song} from "../lib/Song";
 
 
 ipcMain.on('music-request', async (event) => {

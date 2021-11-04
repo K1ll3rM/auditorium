@@ -3,6 +3,9 @@
         <h1>Testing</h1>
         <NuxtLink to="/">Test2</NuxtLink>
         <button @click="refreshSongs()">refresh</button>
+        <div v-for="(song, id) in songs" :key="id" :ref="`song-${id}`">
+            {{ song.manifest.name }}
+        </div>
     </div>
 </template>
 
@@ -11,15 +14,16 @@ import Vue from 'vue'
 
 export default Vue.extend({
     components: {},
+    data() {
+        return {
+            songs: {}
+        }
+    },
     methods: {
         refreshSongs() {
-            refreshSongs();
+            this.songs = window.api.sendSync('music-request');
+            console.log(this.$refs)
         }
     }
 });
-
-
-function refreshSongs() {
-    console.log(window.api.sendSync('music-request'));
-}
 </script>

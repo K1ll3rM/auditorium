@@ -1,3 +1,4 @@
 declare interface Window {
-    api: Api
+    api: Api,
+    storagePath: string
 }
