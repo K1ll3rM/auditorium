@@ -2,7 +2,7 @@
   "name": "auditorium",
   "version": "0.0.1",
   "private": true,
-  "main": "build/main.js",
+  "main": "backend/main.js",
   "build": {
     "icon": "static/favicon.png",
     "productName": "Auditorium",

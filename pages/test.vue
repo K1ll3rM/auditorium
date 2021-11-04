@@ -1,17 +1,25 @@
 <template>
     <div>
-        <h1>Hai</h1>
+        <h1>Testing</h1>
+        <NuxtLink to="/">Test2</NuxtLink>
+        <button @click="refreshSongs()">refresh</button>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Electron from 'electron'
 
 export default Vue.extend({
-    components: {}
+    components: {},
+    methods: {
+        refreshSongs() {
+            refreshSongs();
+        }
+    }
 });
 
-let ipcRenderer = Electron.ipcRenderer;
-console.log(ipcRenderer.sendSync('music-request', 'testing123'));
+
+function refreshSongs() {
+    console.log(window.api.sendSync('music-request', 'testing123'));
+}
 </script>
