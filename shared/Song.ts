@@ -1,6 +1,6 @@
 'use strict';
 import {promises as fs} from 'fs';
-import {Storage} from "./Storage";
+import {Storage} from "../backend/lib/Storage";
 import {getFileName} from "./helpers";
 
 export class Song {

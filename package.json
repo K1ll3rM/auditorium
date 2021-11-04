@@ -14,10 +14,10 @@
     "mac": {}
   },
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "dev": "cd frontend && nuxt",
+    "build": "cd frontend && nuxt build",
+    "start": "cd frontend && nuxt start",
+    "generate": "cd frontend && nuxt generate",
     "electron": "wait-on http://localhost:3000 && electron .",
     "electron-dev": "concurrently \"yarn dev\" \"yarn electron\"",
     "preelectron-pack": "yarn generate",
