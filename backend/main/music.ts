@@ -1,10 +1,7 @@
 import {ipcMain} from "electron";
-import { promises as fs } from 'fs';
-
-ipcMain.on('music-request', async (event, args) => {
-    let files = await fs.readdir('.');
+import {Song} from "../lib/Song";
 
 
-    console.log(args);
-    event.returnValue = files;
+ipcMain.on('music-request', async (event) => {
+    event.returnValue = await Song.getSongs();
 });

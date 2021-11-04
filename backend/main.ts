@@ -1,7 +1,6 @@
 // Modules to control application life and create native browser window
 import { app, BrowserWindow } from "electron";
-import {Auditorium} from "./lib/Storage";
-import Storage = Auditorium.Storage;
+import {Storage} from "./lib/Storage";
 const serve = require("electron-serve");
 const path = require("path");
 const loadURL = serve({ directory: "build" });
@@ -78,5 +77,7 @@ app.on("activate", function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-Storage.createStorage();
-require('./main/music.js');
+(async () => {
+    await Storage.createStorage();
+    require('./main/music.js');
+})();

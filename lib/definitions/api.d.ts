@@ -1,4 +1,4 @@
 interface Api {
 
-    sendSync(channel: string, data: any): any;
+    sendSync(channel: string, data?: any): any;
 }

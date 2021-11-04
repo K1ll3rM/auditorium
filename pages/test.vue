@@ -20,6 +20,6 @@ export default Vue.extend({
 
 
 function refreshSongs() {
-    console.log(window.api.sendSync('music-request', 'testing123'));
+    console.log(window.api.sendSync('music-request'));
 }
 </script>
