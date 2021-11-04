@@ -6,7 +6,7 @@ const loadURL = serve({ directory: "build" });
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow: BrowserWindow;
+let mainWindow: BrowserWindow|null;
 
 function isDev() {
     return !app.isPackaged;
@@ -51,8 +51,8 @@ function createWindow() {
 
     // Emitted when the window is ready to be shown
     // This helps in showing the window gracefully.
-    mainWindow.once("ready-to-show", () => {
-        mainWindow.show();
+    mainWindow?.once("ready-to-show", () => {
+        mainWindow?.show();
     });
 }
 

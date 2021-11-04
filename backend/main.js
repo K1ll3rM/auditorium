@@ -46,8 +46,8 @@ function createWindow() {
     });
     // Emitted when the window is ready to be shown
     // This helps in showing the window gracefully.
-    mainWindow.once("ready-to-show", function () {
-        mainWindow.show();
+    mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.once("ready-to-show", function () {
+        mainWindow === null || mainWindow === void 0 ? void 0 : mainWindow.show();
     });
 }
 // This method will be called when Electron has finished
