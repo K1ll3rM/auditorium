@@ -1,6 +1,7 @@
 'use strict';
 import {promises as fs} from 'fs';
 import {Storage} from "./Storage";
+import {getFileName} from "./helpers";
 
 export class Song {
 
@@ -10,13 +11,13 @@ export class Song {
 
     static async getSongs() {
         let files = await fs.readdir(this.getSongsPath());
-        let songs = [];
+        let songs: Songs = {};
 
         for (let file of files) {
             let song = new Song(file);
             await song.loadManifest();
 
-            songs.push(song);
+            songs[getFileName(file)] = song;
         }
 
         return songs;
@@ -43,4 +44,8 @@ export class Song {
 
 interface Manifest {
     name: string;
+}
+
+interface Songs {
+    [key: string]: Song
 }
