@@ -27,6 +27,7 @@
     "electron-serve": "^1.1.0"
   },
   "devDependencies": {
+    "@types/node": "^16.11.6",
     "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/axios": "^5.13.6",
