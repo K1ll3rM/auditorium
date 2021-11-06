@@ -14,7 +14,7 @@
     "mac": {}
   },
   "scripts": {
-    "compile": "tsc -p shared/tsconfig.json -p backend/tsconfig.json -w",
+    "compile": "tsc -w",
     "dev": "cd frontend && nuxt",
     "build": "cd frontend && nuxt build",
     "start": "cd frontend && nuxt start",

@@ -10,26 +10,32 @@
     ],
     "esModuleInterop": true,
     "allowJs": true,
-    "sourceMap": true,
     "strict": true,
-    "noEmit": true,
     "experimentalDecorators": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": [
-        "./*"
+      "~backend/*": [
+        "./backend/*"
+      ],
+      "~shared/*": [
+        "./shared/*"
       ],
       "@/*": [
-        "./../*"
+        "./*"
       ]
     },
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
       "@types/node"
+    ],
+    "rootDirs": [
+      "./backend",
+      "./shared"
     ]
   },
   "exclude": [
-    "./node_modules"
+    "./node_modules",
+    "./frontend",
   ]
 }
