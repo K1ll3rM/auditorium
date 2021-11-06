@@ -1,3 +1,5 @@
+import ExtraWatchWebpackPlugin from 'extra-watch-webpack-plugin';
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -57,13 +59,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    build: {
-      extend (config, { isClient }) {
-        if (isClient) {
-          config.target = 'electron-renderer'
-        }
-      }
-    }
+    plugins: [
+      new ExtraWatchWebpackPlugin({
+        files: [  ],
+        dirs: [ 'assets' ],
+      }),
+    ],
   },
 
   generate: {
