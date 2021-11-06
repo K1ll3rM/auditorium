@@ -1,4 +1,5 @@
 import ExtraWatchWebpackPlugin from 'extra-watch-webpack-plugin';
+import { resolve } from 'path';
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -62,12 +63,16 @@ export default {
     plugins: [
       new ExtraWatchWebpackPlugin({
         files: [  ],
-        dirs: [ 'assets' ],
+        dirs: [ 'assets', '../shared' ],
       }),
     ],
   },
 
   generate: {
     dir: 'build'
+  },
+
+  alias: {
+    '@': resolve(__dirname, '../')
   }
 }
