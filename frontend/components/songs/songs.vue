@@ -1,6 +1,7 @@
 <template>
     <card>
-        Songs
+        <button class="btn btn-secondary" @click="refreshSongs">Refresh</button>
+        <song v-for="(song, id) in songs" :key="id" :song="song"></song>
     </card>
 </template>
 
@@ -10,21 +11,21 @@
 import {Songs} from "@/shared/Song";
 import Card from "~/components/Card.vue";
 import Vue from "vue";
+import Song from "~/components/songs/song.vue";
+import {Song as SongClass} from "~/lib/Song";
 
 export default Vue.extend({
-    components: {Card},
+    components: {Song, Card},
+    props: [],
     data() {
         return {
             songs: <Songs>{}
         }
     },
     methods: {
-        refreshSongs() {
-            this.songs = window.api.sendSync('music-request');
-            console.log(this.$refs);
+        async refreshSongs() {
+            this.songs = await SongClass.getSongs();
         }
     }
 });
-
-console.log(window.api);
 </script>
