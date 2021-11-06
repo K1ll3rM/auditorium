@@ -2,16 +2,17 @@ import {ManifestInterface} from "@/shared/ManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
 
 export class Song implements SongInterface{
+    readonly id: string;
+    readonly path: string;
 
-    manifestDefault: ManifestInterface = {
+    readonly manifestDefault: ManifestInterface = {
         name: "Missing name!"
     };
-
-    id: string;
     manifest: ManifestInterface = {};
 
     constructor(id: string, manifest: ManifestInterface) {
         this.id = id;
+        this.path = this.getSongPath();
         this.loadManifest(manifest);
     }
 

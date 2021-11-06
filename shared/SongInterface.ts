@@ -1,7 +1,9 @@
 import {ManifestInterface} from "./ManifestInterface";
 
 export interface SongInterface {
-    manifestDefault: ManifestInterface;
-    id: string;
+    readonly id: string;
+    readonly path: string;
+
+    readonly manifestDefault: ManifestInterface;
     manifest: ManifestInterface;
 }
