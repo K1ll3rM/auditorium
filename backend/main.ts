@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
-import { app, BrowserWindow } from "electron";
+import {app, BrowserWindow, ipcMain} from "electron";
 import {Storage} from "./lib/Storage";
+import {Song} from "./lib/Song";
 const serve = require("electron-serve");
 const path = require("path");
 const loadURL = serve({ directory: "frontend/build" });
@@ -60,7 +61,12 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", async () => {
+    await Storage.createStorage();
+    require('./main/music');
+
+    createWindow();
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function () {
@@ -86,9 +92,3 @@ if(isDev()) {
             .catch((err: Error) => console.log('An error occurred: ', err));
     });
 }
-
-
-(async () => {
-    await Storage.createStorage();
-    require('./main/music.js');
-})();

@@ -8,8 +8,12 @@
     "productName": "Auditorium",
     "files": [
       "frontend/build/**/*",
-      "backend/**/*"
+      "backend/**/*",
+      "shared/**/*"
     ],
+    "directories": {
+      "output": "dist"
+    },
     "win": {},
     "linux": {},
     "mac": {}

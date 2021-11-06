@@ -1,5 +1,5 @@
 import {Songs} from "@/shared/Song";
 
 interface Api {
-    getSongs(): Songs;
+    getSongs(): Songs|string;
 }
