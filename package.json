@@ -5,7 +5,7 @@
   "main": "backend/main.js",
   "build": {
     "icon": "frontend/static/favicon.png",
-    "productName": "Auditorium",
+    "productName": "auditorium",
     "files": [
       "frontend/build/**/*",
       "backend/**/*",
