@@ -1,10 +1,9 @@
 // Modules to control application life and create native browser window
 import { app, BrowserWindow } from "electron";
 import {Storage} from "./lib/Storage";
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 const serve = require("electron-serve");
 const path = require("path");
-const loadURL = serve({ directory: "build" });
+const loadURL = serve({ directory: "frontend/build" });
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -79,10 +78,12 @@ app.on("activate", function () {
 // code. You can also put them in separate files and require them here.
 
 if(isDev()) {
+    const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer');
+
     app.whenReady().then(() => {
         installExtension(VUEJS_DEVTOOLS)
-            .then((name) => console.log(`Added Extension:  ${name}`))
-            .catch((err) => console.log('An error occurred: ', err));
+            .then((name: string) => console.log(`Added Extension:  ${name}`))
+            .catch((err: Error) => console.log('An error occurred: ', err));
     });
 }
 
