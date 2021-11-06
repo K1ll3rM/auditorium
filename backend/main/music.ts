@@ -26,7 +26,7 @@ ipcMain.on(CHANNEL_GETSONGS, async (event) => {
 });
 
 ipcMain.on(CHANNEL_GETSONGFILES, async (event, song) => {
-
+    event.returnValue = 'boop';
 });
 
 

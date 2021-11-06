@@ -37,6 +37,10 @@ export class Song implements SongInterface{
     loadManifest(manifest: ManifestInterface) {
         this.manifest = Object.assign({}, this.manifestDefault, manifest);
     }
+
+    getFiles() {
+        return window.api.getSongFiles(this);
+    }
 }
 
 export interface Songs {

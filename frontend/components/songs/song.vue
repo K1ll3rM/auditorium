@@ -27,7 +27,7 @@ export default Vue.extend({
     },
     methods: {
         play() {
-            console.log(this.song.getSongsPath());
+            console.log(this.song.getFiles());
         }
     }
 });
