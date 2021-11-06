@@ -13,17 +13,6 @@
     "strict": true,
     "experimentalDecorators": true,
     "baseUrl": "./",
-    "paths": {
-      "~backend/*": [
-        "./backend/*"
-      ],
-      "~shared/*": [
-        "./shared/*"
-      ],
-      "@/*": [
-        "./*"
-      ]
-    },
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
