@@ -1,7 +1,8 @@
 'use strict';
 
-import {api} from "~/preload";
+import {api} from "../preload";
+import {ipcRenderer} from "electron";
 
-api['test'] = () => {
-    console.log(43214321);
+api['getSongs'] = () => {
+    return ipcRenderer.sendSync('music-request');
 };

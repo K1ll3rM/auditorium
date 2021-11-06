@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 import { app, BrowserWindow } from "electron";
 import {Storage} from "./lib/Storage";
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 const serve = require("electron-serve");
 const path = require("path");
 const loadURL = serve({ directory: "build" });
@@ -16,8 +17,8 @@ function isDev() {
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1900,
+        height: 1080,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -31,6 +32,7 @@ function createWindow() {
 
     if (isDev()) {
         mainWindow.loadURL("http://localhost:3000/");
+        mainWindow.webContents.openDevTools();
     } else {
         loadURL(mainWindow);
     }
@@ -40,7 +42,6 @@ function createWindow() {
 
     // Open the DevTools and also disable Electron Security Warning.
     process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = String(true);
-    // mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
@@ -76,6 +77,13 @@ app.on("activate", function () {
 });
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+app.whenReady().then(() => {
+    installExtension(VUEJS_DEVTOOLS)
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log('An error occurred: ', err));
+});
+
 
 (async () => {
     await Storage.createStorage();

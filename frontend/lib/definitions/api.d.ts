@@ -1,4 +1,5 @@
-interface Api {
+import {Songs} from "@/shared/Song";
 
-    sendSync(channel: string, data?: any): any;
+interface Api {
+    getSongs(): Songs;
 }
