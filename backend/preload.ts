@@ -1,7 +1,7 @@
 import {contextBridge, ipcRenderer} from "electron";
 import {Storage} from "./lib/Storage";
 
-export let api = {
+export const api: Api = {
     send(channel: string, data: any) {
         let validChannels = ['music-request'];
         if (validChannels.includes(channel)) {
@@ -19,9 +19,6 @@ export let api = {
         if (validChannels.includes(channel)) {
             ipcRenderer.on(channel, (event, ...args) => func(...args));
         }
-    },
-    extend(name, func) {
-        api[name] = func
     }
 };
 
@@ -31,3 +28,8 @@ console.log(api);
 
 contextBridge.exposeInMainWorld("api", api);
 contextBridge.exposeInMainWorld('storagePath', Storage.getStorage());
+
+
+interface Api {
+    [name: string]: (...args: any[]) => any;
+}
