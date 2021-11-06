@@ -17,6 +17,9 @@ import {Song as SongClass} from "~/lib/Song";
 export default Vue.extend({
     components: {Song, Card},
     props: [],
+    created() {
+        this.refreshSongs();
+    },
     data() {
         return {
             songs: <Songs>{}

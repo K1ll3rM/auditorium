@@ -7,7 +7,8 @@
     "icon": "static/favicon.png",
     "productName": "Auditorium",
     "files": [
-      "build/**/*"
+      "frontend/build/**/*",
+      "backend/**/*"
     ],
     "win": {},
     "linux": {},
@@ -22,7 +23,7 @@
     "electron": "wait-on http://localhost:3000 && electron .",
     "electron-dev": "concurrently \"yarn dev\" \"yarn electron\"",
     "preelectron-pack": "yarn generate",
-    "electron-pack": "electron-builder -wl"
+    "electron-pack": "electron-builder"
   },
   "dependencies": {
     "bootstrap-dark-5": "^1.1.3",
@@ -46,6 +47,7 @@
     "nuxt": "^2.15.7",
     "sass": "^1.43.4",
     "sass-loader": "^10.1.1",
+    "ts-loader": "^8.0.14",
     "wait-on": "^6.0.0"
   }
 }

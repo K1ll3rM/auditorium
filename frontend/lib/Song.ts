@@ -4,7 +4,7 @@ import {getFileName} from "@/shared/helpers";
 
 export class Song extends SharedSong {
     static async getSongs() {
-        return window.api.sendSync('music-request');
+        return window.api.getSongs();
     }
 
     getSongsPath() {
