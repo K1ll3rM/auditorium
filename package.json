@@ -4,7 +4,7 @@
   "private": true,
   "main": "backend/main.js",
   "build": {
-    "icon": "static/favicon.png",
+    "icon": "frontend/static/favicon.png",
     "productName": "Auditorium",
     "files": [
       "frontend/build/**/*",
