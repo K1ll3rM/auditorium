@@ -6,6 +6,10 @@ import {getFileName} from "../../shared/helpers";
 
 export class Song extends SharedSong {
 
+    getSongsPath(): string {
+        return Song.getSongsPath();
+    }
+
     static getSongsPath() {
         return Storage.getStorage() + '/songs';
     }
@@ -32,4 +36,6 @@ export class Song extends SharedSong {
         let file = await fs.readFile(this.getSongPath() + '/manifest.json');
         this.manifest = JSON.parse(file.toString());
     }
+
+
 }

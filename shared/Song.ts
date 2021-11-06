@@ -1,10 +1,8 @@
 'use strict';
 
-export class Song {
+export abstract class Song {
 
-    static getSongsPath() {
-        return window.storagePath + '/songs';
-    }
+    abstract getSongsPath(): string;
 
     path: string;
     manifest: Manifest = {};
@@ -14,7 +12,7 @@ export class Song {
     }
 
     getSongPath() {
-        return Song.getSongsPath() + '/' + this.path;
+        return this.getSongsPath() + '/' + this.path;
     }
 }
 
