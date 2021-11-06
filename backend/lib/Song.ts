@@ -34,7 +34,7 @@ export class Song extends SharedSong {
 
     async loadManifest() {
         let file = await fs.readFile(this.getSongPath() + '/manifest.json');
-        this.manifest = JSON.parse(file.toString());
+        this.manifest = Object.assign({}, this.manifestDefault, JSON.parse(file.toString()));
     }
 
 

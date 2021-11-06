@@ -1,8 +1,9 @@
 'use strict';
 
 export abstract class Song {
-
-    abstract getSongsPath(): string;
+    manifestDefault: Manifest = {
+        name: "Missing name!"
+    };
 
     path: string;
     manifest: Manifest = {};
@@ -10,6 +11,8 @@ export abstract class Song {
     constructor(path: string) {
         this.path = path;
     }
+
+    abstract getSongsPath(): string;
 
     getSongPath() {
         return this.getSongsPath() + '/' + this.path;
