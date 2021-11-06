@@ -1,15 +1,16 @@
 <template>
     <card class="bg-dark">
         {{ song.manifest.name }}
+        <button class="btn btn-primary" @click="play()">Play</button>
     </card>
 </template>
 
 <style>
 </style>
 <script lang="ts">
-import {Song, Songs} from "@/shared/Song";
 import Card from "~/components/Card.vue";
 import Vue from "vue";
+import {Song} from "~/lib/Song";
 
 export default Vue.extend({
     components: {Card},
@@ -25,6 +26,9 @@ export default Vue.extend({
         }
     },
     methods: {
+        play() {
+            console.log(this.song.getSongsPath());
+        }
     }
 });
 </script>

@@ -8,11 +8,10 @@
 <style>
 </style>
 <script lang="ts">
-import {Songs} from "@/shared/Song";
 import Card from "~/components/Card.vue";
 import Vue from "vue";
 import Song from "~/components/songs/song.vue";
-import {Song as SongClass} from "~/lib/Song";
+import {Song as SongClass, Songs} from "~/lib/Song";
 
 export default Vue.extend({
     components: {Song, Card},

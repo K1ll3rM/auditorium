@@ -2,6 +2,16 @@ import {contextBridge, ipcRenderer} from "electron";
 import {Storage} from "./lib/Storage";
 
 export const api: Api = {
+    checkReply(reply) {
+        if(reply === 'reply was never sent') {
+            console.log(reply);
+            throw new Error('Expected reply but didn\'t get any');
+        }
+        return reply;
+    }
+
+
+
     // send(channel: string, data: any) {
     //     let validChannels = ['music-request'];
     //     if (validChannels.includes(channel)) {

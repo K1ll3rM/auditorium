@@ -3,5 +3,5 @@ import {ipcRenderer} from "electron";
 import {CHANNEL_GETSONGS} from "../lib/Constants";
 
 api['getSongs'] = () => {
-    return ipcRenderer.sendSync(CHANNEL_GETSONGS);
+    return api.checkReply(ipcRenderer.sendSync(CHANNEL_GETSONGS));
 };

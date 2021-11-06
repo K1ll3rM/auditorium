@@ -1,4 +1,4 @@
-import {Songs} from "@/shared/Song";
+import {Songs} from "~/lib/Song";
 
 interface Api {
     getSongs(): Songs|string;

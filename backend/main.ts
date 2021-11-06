@@ -1,7 +1,6 @@
 // Modules to control application life and create native browser window
 import {app, BrowserWindow, ipcMain} from "electron";
 import {Storage} from "./lib/Storage";
-import {Song} from "./lib/Song";
 const serve = require("electron-serve");
 const path = require("path");
 const loadURL = serve({ directory: "frontend/build" });
