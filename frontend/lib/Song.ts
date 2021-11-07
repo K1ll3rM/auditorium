@@ -1,7 +1,10 @@
 import {ManifestInterface} from "@/shared/ManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
+import SongComponent from "~/components/songs/song.vue";
 
 export class Song implements SongInterface{
+    static currentSong: any|typeof SongComponent = null;
+
     readonly id: string;
     readonly path: string;
 

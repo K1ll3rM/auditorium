@@ -10,8 +10,6 @@
 import Vue from 'vue'
 import Songs from "~/components/songs/songs.vue";
 
-let test: string = 'fdas';
-
 export default Vue.extend({
     head() {
         return {
