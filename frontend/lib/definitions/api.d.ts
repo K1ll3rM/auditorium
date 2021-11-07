@@ -1,6 +1,7 @@
 import {Song, Songs} from "~/lib/Song";
+import {SongFilesInterface} from "@/shared/SongFilesInterface";
 
-interface Api {
+declare interface Api {
     getSongs(): Songs|string;
-    getSongFiles(song: Song): any;
+    getSongFiles(song: Song): SongFilesInterface;
 }

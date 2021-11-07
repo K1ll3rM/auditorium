@@ -22,12 +22,16 @@ export default Vue.extend({
     },
     data() {
         return {
-
+            current: {
+                intro: new AudioContext(),
+                loop: new AudioContext()
+            }
         }
     },
     methods: {
-        play() {
-            console.log(this.song.getFiles());
+         async play() {
+            let files = this.song.getFiles();
+            await this.current.intro.decodeAudioData(files.intro.buffer);
         }
     }
 });

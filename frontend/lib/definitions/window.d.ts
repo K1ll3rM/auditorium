@@ -1,4 +1,4 @@
 declare interface Window {
-    api: Api,
+    api: import('~/lib/definitions/api').Api,
     storagePath: string
 }
