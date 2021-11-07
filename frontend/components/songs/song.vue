@@ -22,16 +22,33 @@ export default Vue.extend({
     },
     data() {
         return {
-            current: {
-                intro: new AudioContext(),
-                loop: new AudioContext()
-            }
+            introContext: new AudioContext(),
+            loopContext: new AudioContext(),
+            introTrack: {} as AudioBufferSourceNode,
+            loopTrack: {} as AudioBufferSourceNode,
         }
     },
     methods: {
-         async play() {
+        async init() {
             let files = this.song.getFiles();
-            await this.current.intro.decodeAudioData(files.intro.buffer);
+
+            this.introTrack = this.introContext.createBufferSource();
+            this.introTrack.buffer = await this.introContext.decodeAudioData(files.intro.buffer);
+            this.introTrack.connect(this.introContext.destination);
+
+            this.loopTrack = this.loopContext.createBufferSource();
+            this.loopTrack.buffer = await this.loopContext.decodeAudioData(files.loop.buffer);
+            this.loopTrack.connect(this.loopContext.destination);
+
+            this.loopTrack.loop = true;
+        },
+        async play() {
+            await this.init();
+
+            this.introTrack.start(0);
+            this.introTrack.addEventListener('ended', () => {
+                this.loopTrack.start(0);
+            });
         }
     }
 });
