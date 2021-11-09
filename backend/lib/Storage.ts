@@ -2,7 +2,7 @@
 import * as os from 'os';
 import { promises as fs } from 'fs';
 import {getDocumentsFolder} from 'platform-folders';
-import {defaultConfig} from "../main/config";
+import {DEFAULT_CONFIG} from "./Constants";
 
 export class Storage {
 
@@ -21,6 +21,8 @@ export class Storage {
     }
 
     static async createStorage() {
+        this.createConfig();
+
         let path = this.getStorage();
 
         await this.createDir(path);
@@ -46,7 +48,7 @@ export class Storage {
             await fs.stat(file);
         }
         catch (e) {
-            await fs.writeFile(file, JSON.stringify(defaultConfig));
+            await fs.writeFile(file, JSON.stringify(DEFAULT_CONFIG));
         }
     }
 

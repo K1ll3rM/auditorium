@@ -3,9 +3,9 @@ import {SongFilesInterface} from "@/shared/SongFilesInterface";
 import {ConfigInterface} from "@/shared/ConfigInterface";
 
 declare interface Api {
-    getSongs(): Songs|string;
+    getSongs(): Songs;
     getSongFiles(song: Song): SongFilesInterface;
 
-    getConfig(): ConfigInterface|string;
+    getConfig(): ConfigInterface;
     setConfig(config: ConfigInterface): void;
 }
