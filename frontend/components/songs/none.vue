@@ -1,8 +1,7 @@
 <template>
-    <card class="bg-dark">
-        None
-        <button class="btn btn-primary" @click="play()">Play</button>
-    </card>
+    <div @click="play">
+        <song-style name="None"/>
+    </div>
 </template>
 
 <style>
@@ -14,9 +13,10 @@ import {Song} from "~/lib/Song";
 import {Global} from "~/lib/Global";
 import {Config} from "~/lib/Config";
 import {easeInOutQuad, timeout} from "@/shared/helpers";
+import SongStyle from "~/components/songs/song-style.vue";
 
 export default Vue.extend({
-    components: {Card},
+    components: {SongStyle, Card},
     data() {
         return {
         }
