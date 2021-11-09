@@ -12,6 +12,7 @@ import Card from "~/components/Card.vue";
 import Vue from "vue";
 import {Song} from "~/lib/Song";
 import {Global} from "~/lib/Global";
+import {Config} from "~/lib/Config";
 
 export default Vue.extend({
     components: {Card},
@@ -56,8 +57,8 @@ export default Vue.extend({
             this.updateVolume();
         },
         updateVolume() {
-            this.introVolume.gain.value = Global.volume;
-            this.loopVolume.gain.value = Global.volume;
+            this.introVolume.gain.value = Config.data.volume;
+            this.loopVolume.gain.value = Config.data.volume;
         },
         async play() {
             if(Global.songChanging) {

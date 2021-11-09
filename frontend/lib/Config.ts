@@ -8,4 +8,8 @@ export class Config {
         this.data = window.api.getConfig();
     }
 
+    public static async save() {
+        window.api.setConfig(this.data);
+    }
+
 }

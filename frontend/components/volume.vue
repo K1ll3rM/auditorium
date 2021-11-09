@@ -10,6 +10,8 @@
 <script lang="ts">
 import Vue from "vue";
 import {Global} from "~/lib/Global";
+import {Config} from "~/lib/Config";
+import {debounce} from "@/shared/helpers";
 
 export default Vue.extend({
     components: {},
@@ -17,16 +19,18 @@ export default Vue.extend({
     },
     data() {
         return {
-            volume: Global.volume
+            volume: Config.data.volume
         }
     },
     methods: {
         setVolume() {
-            Global.volume = this.volume;
+            Config.data.volume = this.volume;
             Global.currentSong?.updateVolume();
-
-            console.log(Global.volume);
-        }
+            this.saveConfig();
+        },
+        saveConfig: debounce(() => {
+            Config.save();
+        }, 2000)
     }
 });
 </script>
