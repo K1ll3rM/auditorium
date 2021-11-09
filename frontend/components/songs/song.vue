@@ -39,7 +39,6 @@ export default Vue.extend({
 
             this.introTrack = this.introContext.createBufferSource();
             this.introTrack.buffer = await this.introContext.decodeAudioData(files.intro.buffer);
-            this.introTrack.connect(this.introContext.destination);
 
             this.introVolume = this.introContext.createGain();
             this.introVolume.connect(this.introContext.destination);
@@ -47,7 +46,6 @@ export default Vue.extend({
 
             this.loopTrack = this.loopContext.createBufferSource();
             this.loopTrack.buffer = await this.loopContext.decodeAudioData(files.loop.buffer);
-            this.loopTrack.connect(this.loopContext.destination);
 
             this.loopVolume = this.loopContext.createGain();
             this.loopVolume.connect(this.loopContext.destination);
@@ -58,7 +56,7 @@ export default Vue.extend({
             this.updateVolume();
         },
         updateVolume() {
-            this.introVolume.gain.value = 0.1;
+            this.introVolume.gain.value = Global.volume;
             this.loopVolume.gain.value = Global.volume;
         },
         async play() {
