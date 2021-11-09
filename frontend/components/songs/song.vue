@@ -13,6 +13,7 @@ import Vue from "vue";
 import {Song} from "~/lib/Song";
 import {Global} from "~/lib/Global";
 import {Config} from "~/lib/Config";
+import {easeInOutQuad, timeout} from "@/shared/helpers";
 
 export default Vue.extend({
     components: {Card},
@@ -31,7 +32,8 @@ export default Vue.extend({
             introVolume: {} as GainNode,
             loopVolume: {} as GainNode,
             inIntro: false,
-            stopped: false
+            stopped: false,
+            gainMod: 1
         }
     },
     methods: {
@@ -54,11 +56,12 @@ export default Vue.extend({
 
             this.loopTrack.loop = true;
 
+            this.gainMod = 0;
             this.updateVolume();
         },
         updateVolume() {
-            this.introVolume.gain.value = Config.data.volume;
-            this.loopVolume.gain.value = Config.data.volume;
+            this.introVolume.gain.value = Config.data.volume * this.gainMod;
+            this.loopVolume.gain.value = Config.data.volume * this.gainMod;
         },
         async play() {
             if(Global.songChanging) {
@@ -88,11 +91,24 @@ export default Vue.extend({
                 }
             });
 
-            Global.songChanging = false;
             Global.currentSong = this;
+
+            for (let i = 0; i < 100; i++) {
+                await timeout(20);
+                this.gainMod = easeInOutQuad(i / 100);
+                this.updateVolume();
+            }
+
+            Global.songChanging = false;
         },
         async stop() {
             this.stopped = true;
+
+            for (let i = 0; i < 100; i++) {
+                await timeout(20);
+                this.gainMod = 1 - easeInOutQuad(i / 100);
+                this.updateVolume();
+            }
 
             if(this.inIntro) {
                 this.introTrack.stop();

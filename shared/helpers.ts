@@ -25,3 +25,15 @@ export function debounce (fn: () => void, delay: number) {
         }, delay)
     }
 }
+
+export function easeInOutQuad(x: number): number {
+    return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+}
+
+export function timeout(delay: number) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(null);
+        }, delay);
+    });
+}
