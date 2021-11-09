@@ -98,7 +98,7 @@ export default Vue.extend({
                     break;
                 }
 
-                await timeout(20);
+                await timeout(10);
                 this.gainMod = easeInOutQuad(i / 100);
                 this.updateVolume();
             }
@@ -106,9 +106,9 @@ export default Vue.extend({
         async stop() {
             this.stopped = true;
 
-            for (let i = this.gainMod * 100; i < 100; i++) {
-                await timeout(20);
-                this.gainMod = 1 - easeInOutQuad(i / 100);
+            for (let i = this.gainMod * 100; i > 0; i--) {
+                await timeout(15);
+                this.gainMod = easeInOutQuad(i / 100);
                 this.updateVolume();
             }
 
