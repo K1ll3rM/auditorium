@@ -74,12 +74,11 @@ export default Vue.extend({
 
             Global.songChanging = true;
 
-            await this.init();
-
-
             if(Global.currentSong) {
                 await Global.currentSong.stop();
             }
+
+            await this.init();
 
             this.stopped = false
             this.inIntro = true;
@@ -92,19 +91,22 @@ export default Vue.extend({
             });
 
             Global.currentSong = this;
+            Global.songChanging = false;
 
-            for (let i = 0; i < 100; i++) {
+            for (let i = this.gainMod * 100; i < 100; i++) {
+                if(this.stopped) {
+                    break;
+                }
+
                 await timeout(20);
                 this.gainMod = easeInOutQuad(i / 100);
                 this.updateVolume();
             }
-
-            Global.songChanging = false;
         },
         async stop() {
             this.stopped = true;
 
-            for (let i = 0; i < 100; i++) {
+            for (let i = this.gainMod * 100; i < 100; i++) {
                 await timeout(20);
                 this.gainMod = 1 - easeInOutQuad(i / 100);
                 this.updateVolume();
