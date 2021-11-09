@@ -9,7 +9,6 @@
 </style>
 <script lang="ts">
 import Vue from "vue";
-import {Global} from "~/lib/Global";
 import {Config} from "~/lib/Config";
 import {debounce} from "@/shared/helpers";
 
@@ -25,7 +24,7 @@ export default Vue.extend({
     methods: {
         setVolume() {
             Config.data.volume = this.volume;
-            Global.currentSong?.updateVolume();
+            this.$music.currentSong?.updateVolume();
             this.saveConfig();
         },
         saveConfig: debounce(() => {

@@ -1,6 +1,6 @@
 <template>
     <div @click="play">
-        <song-style :name="song.manifest.name"/>
+        <song-style :class="$music.currentSong && $music.currentSong.song.id === song.id ? 'selected' : ''" :name="song.manifest.name"/>
     </div>
 </template>
 
@@ -10,7 +10,6 @@
 import Card from "~/components/Card.vue";
 import Vue from "vue";
 import {Song} from "~/lib/Song";
-import {Global} from "~/lib/Global";
 import {Config} from "~/lib/Config";
 import {easeInOutQuad, timeout} from "@/shared/helpers";
 import SongStyle from "~/components/songs/song-style.vue";
@@ -64,18 +63,18 @@ export default Vue.extend({
             this.loopVolume.gain.value = Config.data.volume * this.gainMod;
         },
         async play() {
-            if(Global.songChanging) {
+            if(this.$music.songChanging) {
                 return;
             }
 
-            if(Global.currentSong?.song?.id === this.song.id) {
+            if(this.$music.currentSong?.song?.id === this.song.id) {
                 return;
             }
 
-            Global.songChanging = true;
+            this.$music.songChanging = true;
 
-            if(Global.currentSong) {
-                await Global.currentSong.stop();
+            if(this.$music.currentSong) {
+                await this.$music.currentSong.stop();
             }
 
             await this.init();
@@ -90,8 +89,8 @@ export default Vue.extend({
                 }
             });
 
-            Global.currentSong = this;
-            Global.songChanging = false;
+            this.$music.currentSong = this;
+            this.$music.songChanging = false;
 
             for (let i = this.gainMod * 100; i < 100; i++) {
                 if(this.stopped) {
