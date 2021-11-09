@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-import {app, BrowserWindow, ipcMain} from "electron";
+import {app, BrowserWindow} from "electron";
 import {Storage} from "./lib/Storage";
 const serve = require("electron-serve");
 const path = require("path");
@@ -63,6 +63,7 @@ function createWindow() {
 app.on("ready", async () => {
     await Storage.createStorage();
     require('./main/music');
+    require('./main/config');
 
     createWindow();
 });

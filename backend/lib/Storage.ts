@@ -2,6 +2,7 @@
 import * as os from 'os';
 import { promises as fs } from 'fs';
 import {getDocumentsFolder} from 'platform-folders';
+import {defaultConfig} from "../main/config";
 
 export class Storage {
 
@@ -35,6 +36,17 @@ export class Storage {
         }
         catch (e) {
             await fs.mkdir(path);
+        }
+    }
+
+    static async createConfig() {
+        let file = this.getStorage() + '/config.json';
+
+        try {
+            await fs.stat(file);
+        }
+        catch (e) {
+            await fs.writeFile(file, JSON.stringify(defaultConfig));
         }
     }
 

@@ -1,4 +1,4 @@
-import {contextBridge, ipcRenderer} from "electron";
+import {contextBridge} from "electron";
 import {Storage} from "./lib/Storage";
 
 export const api: Api = {
@@ -33,6 +33,7 @@ export const api: Api = {
 };
 
 require('./preload/music');
+require('./preload/config');
 
 contextBridge.exposeInMainWorld("api", api);
 contextBridge.exposeInMainWorld('storagePath', Storage.getStorage());
