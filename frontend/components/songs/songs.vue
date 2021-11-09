@@ -1,7 +1,8 @@
 <template>
     <card>
         <button class="btn btn-secondary" @click="refreshSongs">Refresh</button>
-        <song v-for="(song, id) in songs" :key="id" :song="song"></song>
+        <none/>
+        <song v-for="(song, id) in songs" :key="id" :song="song"/>
     </card>
 </template>
 
@@ -12,9 +13,10 @@ import Card from "~/components/Card.vue";
 import Vue from "vue";
 import Song from "~/components/songs/song.vue";
 import {Song as SongClass, Songs} from "~/lib/Song";
+import None from "~/components/songs/none.vue";
 
 export default Vue.extend({
-    components: {Song, Card},
+    components: {None, Song, Card},
     props: [],
     created() {
         this.refreshSongs();
