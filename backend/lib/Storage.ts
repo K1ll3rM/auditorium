@@ -1,6 +1,7 @@
 'use strict';
 import * as os from 'os';
 import { promises as fs } from 'fs';
+import {getDocumentsFolder} from 'platform-folders';
 
 export class Storage {
 
@@ -13,7 +14,7 @@ export class Storage {
         switch (os.platform()) {
             case "win32":
             case "linux":
-                return os.homedir() + '/Documents/auditorium';
+                return getDocumentsFolder() + '/auditorium';
             default:
                 throw new Error('Platform not supported');
         }
