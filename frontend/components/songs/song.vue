@@ -62,11 +62,18 @@ export default Vue.extend({
             this.loopVolume.gain.value = Global.volume;
         },
         async play() {
-            await this.init();
+            if(Global.songChanging) {
+                return;
+            }
 
             if(Global.currentSong?.song?.id === this.song.id) {
                 return;
             }
+
+            Global.songChanging = true;
+
+            await this.init();
+
 
             if(Global.currentSong) {
                 await Global.currentSong.stop();
@@ -82,6 +89,7 @@ export default Vue.extend({
                 }
             });
 
+            Global.songChanging = false;
             Global.currentSong = this;
         },
         async stop() {

@@ -9,7 +9,6 @@ export class Storage {
         '/songs'
     ];
 
-
     static getStorage() {
         switch (os.platform()) {
             case "win32":
