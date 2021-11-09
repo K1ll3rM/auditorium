@@ -1,6 +1,6 @@
 <template>
     <card>
-        <button class="btn btn-secondary" @click="refreshSongs">Refresh</button>
+        <button class="btn btn-secondary mb-3" @click="refreshSongs">Refresh</button>
         <none/>
         <song v-for="(song, id) in songs" :key="id" :song="song"/>
     </card>

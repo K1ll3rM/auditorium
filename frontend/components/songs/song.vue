@@ -74,10 +74,14 @@ export default Vue.extend({
             this.$music.songChanging = true;
 
             if(this.$music.currentSong) {
-                await this.$music.currentSong.stop();
+                await Promise.allSettled([
+                    this.$music.currentSong.stop(),
+                    this.init()
+                ]);
             }
-
-            await this.init();
+            else {
+                await this.init();
+            }
 
             this.stopped = false
             this.inIntro = true;

@@ -12,11 +12,11 @@
     transition: border ease-in-out .1s;
 
     &:hover {
-        border-color: deepskyblue;
+        border-color: #FFB400;
     }
 
     &.selected {
-        border-color: forestgreen;
+        border-color: deepskyblue;
     }
 }
 </style>
