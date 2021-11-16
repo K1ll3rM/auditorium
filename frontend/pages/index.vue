@@ -12,9 +12,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import Songs from "~/components/songs/songs.vue";
-import Volume from "~/components/volume.vue";
+import Volume from "~/components/controls/volume.vue";
 import {Config} from "~/lib/Config";
-import ControlBar from "~/components/ControlBar.vue";
+import ControlBar from "~/components/controls/ControlBar.vue";
 
 export default Vue.extend({
     head() {

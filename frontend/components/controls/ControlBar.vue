@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Volume from "~/components/volume.vue";
+import Volume from "~/components/controls/volume.vue";
 
 export default Vue.extend({
     components: {Volume},
