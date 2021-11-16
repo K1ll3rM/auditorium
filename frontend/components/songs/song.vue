@@ -1,6 +1,6 @@
 <template>
     <div @click="play">
-        <song-style :class="$music.currentSong && $music.currentSong.song.id === song.id ? 'selected' : ''" :name="song.manifest.name"/>
+        <song-style :class="($music.currentSong && $music.currentSong.song.id === song.id ? 'selected' : '') + (transitioning ? ' transitioning' : '')" :name="song.manifest.name"/>
     </div>
 </template>
 
@@ -32,7 +32,8 @@ export default Vue.extend({
             loopVolume: {} as GainNode,
             inIntro: false,
             stopped: false,
-            gainMod: 1
+            gainMod: 1,
+            transitioning: false
         }
     },
     methods: {
@@ -71,6 +72,7 @@ export default Vue.extend({
                 return;
             }
 
+            this.transitioning = true;
             this.$music.songChanging = true;
 
             if(this.$music.currentSong) {
@@ -93,6 +95,7 @@ export default Vue.extend({
                 }
             });
 
+            this.transitioning = false;
             this.$music.currentSong = this;
             this.$music.songChanging = false;
 

@@ -15,6 +15,10 @@
         border-color: #FFB400;
     }
 
+    &.transitioning {
+        border-color: white;
+    }
+
     &.selected {
         border-color: deepskyblue;
     }
