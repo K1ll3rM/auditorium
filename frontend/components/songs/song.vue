@@ -33,7 +33,8 @@ export default Vue.extend({
             inIntro: false,
             stopped: false,
             gainMod: 1,
-            transitioning: false
+            transitioning: false,
+            paused: false
         }
     },
     methods: {
@@ -72,6 +73,7 @@ export default Vue.extend({
                 return;
             }
 
+            this.paused = false;
             this.transitioning = true;
             this.$music.songChanging = true;
 
@@ -134,6 +136,7 @@ export default Vue.extend({
             }
         },
         async pause() {
+            this.paused = true;
             await this.fadeOut(10);
 
             if(this.inIntro) {
@@ -144,14 +147,14 @@ export default Vue.extend({
             }
         },
         async unPause() {
-            await this.fadeIn(10);
-
             if(this.inIntro) {
                 await this.introContext.resume();
             }
             else {
                 await this.loopContext.resume();
             }
+            this.paused = false;
+            await this.fadeIn(10);
         },
         purge() {
             this.introContext = new AudioContext();

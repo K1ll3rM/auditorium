@@ -1,7 +1,9 @@
 <template>
     <div class="bar bg-gray">
         <div class="container">
-            <div class="left"></div>
+            <div class="left">
+                <play-pause/>
+            </div>
             <div class="middle">
 
             </div>
@@ -38,9 +40,10 @@
 <script lang="ts">
 import Vue from "vue";
 import Volume from "~/components/controls/volume.vue";
+import PlayPause from "~/components/controls/PlayPause.vue";
 
 export default Vue.extend({
-    components: {Volume},
+    components: {PlayPause, Volume},
     props: {
     },
     data() {
