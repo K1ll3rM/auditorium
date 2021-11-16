@@ -50,6 +50,16 @@
         pointer-events: all;
     }
 
+    &:after {
+        top: -10%;
+        left: -100%;
+        width: 300%;
+        height: 120%;
+        content: '';
+        position: absolute;
+        z-index: -1;
+    }
+
     .range-bar {
         height: 1rem;
         width: .25rem;
