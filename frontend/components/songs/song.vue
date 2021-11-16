@@ -99,24 +99,12 @@ export default Vue.extend({
             this.$music.currentSong = this;
             this.$music.songChanging = false;
 
-            for (let i = this.gainMod * 100; i < 100; i++) {
-                if(this.stopped) {
-                    break;
-                }
-
-                await timeout(10);
-                this.gainMod = easeInOutQuad(i / 100);
-                this.updateVolume();
-            }
+            await this.fadeIn();
         },
         async stop() {
             this.stopped = true;
 
-            for (let i = this.gainMod * 100; i > 0; i--) {
-                await timeout(15);
-                this.gainMod = easeInOutQuad(i / 100);
-                this.updateVolume();
-            }
+            await this.fadeOut();
 
             if(this.inIntro) {
                 this.introTrack.stop();
@@ -126,6 +114,44 @@ export default Vue.extend({
             }
 
             this.purge();
+        },
+        async fadeOut(delay: number = 15) {
+            for (let i = this.gainMod * 100; i > 0; i--) {
+                await timeout(delay);
+                this.gainMod = easeInOutQuad(i / 100);
+                this.updateVolume();
+            }
+        },
+        async fadeIn(delay: number = 10) {
+            for (let i = this.gainMod * 100; i < 100; i++) {
+                if(this.stopped) {
+                    break;
+                }
+
+                await timeout(delay);
+                this.gainMod = easeInOutQuad(i / 100);
+                this.updateVolume();
+            }
+        },
+        async pause() {
+            await this.fadeOut(10);
+
+            if(this.inIntro) {
+                await this.introContext.suspend();
+            }
+            else {
+                await this.loopContext.suspend();
+            }
+        },
+        async unPause() {
+            await this.fadeIn(10);
+
+            if(this.inIntro) {
+                await this.introContext.resume();
+            }
+            else {
+                await this.loopContext.resume();
+            }
         },
         purge() {
             this.introContext = new AudioContext();

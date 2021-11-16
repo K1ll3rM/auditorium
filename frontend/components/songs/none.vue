@@ -32,7 +32,9 @@ export default Vue.extend({
                 this.transitioning = false;
                 this.$music.currentSong = null;
             }
-        }
+        },
+        async pause() {},
+        async unPause() {},
     }
 });
 </script>
