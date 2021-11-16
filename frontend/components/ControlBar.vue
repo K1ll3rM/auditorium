@@ -1,7 +1,14 @@
 <template>
     <div class="bar bg-gray">
         <div class="container">
-            <volume/>
+            <div class="left"></div>
+            <div class="middle">
+
+            </div>
+            <div class="right">
+                <volume/>
+
+            </div>
         </div>
     </div>
 </template>
@@ -12,6 +19,23 @@
     bottom: 0;
     padding: 1rem;
     width: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left, .right {
+    flex: 0 0 auto;
+}
+
+.right {
+    width: 4rem;
+}
+
+.middle {
+    flex: 1 0 0;
 }
 </style>
 
