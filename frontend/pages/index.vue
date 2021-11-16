@@ -1,11 +1,12 @@
 <template>
-    <div class="container" v-if="initialized">
-        <h1>Auditorium</h1>
+    <main>
+        <control-bar/>
+        <div class="container" v-if="initialized">
+            <h1>Auditorium</h1>
 
-        <volume/>
-
-        <songs></songs>
-    </div>
+            <songs></songs>
+        </div>
+    </main>
 </template>
 
 <script lang="ts">
@@ -13,6 +14,7 @@ import Vue from 'vue'
 import Songs from "~/components/songs/songs.vue";
 import Volume from "~/components/volume.vue";
 import {Config} from "~/lib/Config";
+import ControlBar from "~/components/ControlBar.vue";
 
 export default Vue.extend({
     head() {
@@ -20,7 +22,7 @@ export default Vue.extend({
             title: 'Auditorium'
         }
     },
-    components: {Volume, Songs},
+    components: {ControlBar, Volume, Songs},
     async created() {
         await Config.init();
         this.initialized = true;

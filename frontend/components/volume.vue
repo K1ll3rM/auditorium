@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-3">
+    <div>
         <label for="volume" class="form-label">Volume</label>
         <input type="range" class="form-range" id="volume" v-model.number="volume" @input="setVolume()" min="0" max="1" step="0.005">
     </div>
