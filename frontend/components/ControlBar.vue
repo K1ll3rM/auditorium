@@ -7,7 +7,6 @@
             </div>
             <div class="right">
                 <volume/>
-
             </div>
         </div>
     </div>
@@ -28,10 +27,6 @@
 
 .left, .right {
     flex: 0 0 auto;
-}
-
-.right {
-    width: 4rem;
 }
 
 .middle {
