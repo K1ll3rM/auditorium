@@ -41,7 +41,7 @@
     position: absolute;
     opacity: 0;
     pointer-events: none;
-    top: -($height + $padding);
+    top: -$height;
     height: $height;
     padding: .5rem;
     border-radius: .25rem;
@@ -55,6 +55,7 @@
     .volume {
         -webkit-appearance: slider-vertical;
         width: 1rem;
+        height: 100%;
 
         &:hover + .bubble {
             opacity: 1;
