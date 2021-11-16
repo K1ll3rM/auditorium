@@ -6,6 +6,7 @@
             <div v-if="volume >= .75" class="bi bi-volume-up"></div>
         </div>
         <div class="popout bg-gray">
+            <div class="range-bar" ref="rangeBar"></div>
             <input type="range" class="volume" ref="volume" v-model.number="volume" @input="setVolume()" min="0" max="1" step="0.005">
             <output class="bubble" ref="bubble"></output>
         </div>
@@ -13,6 +14,8 @@
 </template>
 
 <style lang="scss" scoped>
+@use "sass:math";
+
 .volume {
     position: relative;
 }
@@ -28,12 +31,6 @@
     }
 }
 
-@keyframes disable-pointer-events {
-    0%, 99% {
-        pointer-events: none;
-    }
-}
-
 .popout {
     $height: 8rem;
     $padding: .5rem;
@@ -43,22 +40,56 @@
     pointer-events: none;
     top: -$height;
     height: $height;
-    padding: .5rem;
+    padding: 3.75rem $padding;
     border-radius: .25rem;
     transition: opacity .1s ease-in-out;
+    left: .5rem;
 
     &:hover {
         opacity: 1;
         pointer-events: all;
     }
 
+    .range-bar {
+        height: 1rem;
+        width: .25rem;
+        background: #FFB400;
+        position: absolute;
+        bottom: .65rem;
+        left: .4rem;
+        z-index: 2;
+        pointer-events: none;
+        cursor: pointer;
+    }
+
     .volume {
-        -webkit-appearance: slider-vertical;
-        width: 1rem;
-        height: 100%;
+        -webkit-appearance: none;
+        left: -3rem;
+        width: 7rem;
+        height: .25rem;
+        position: absolute;
+        transform: rotate(-90deg);
 
         &:hover + .bubble {
             opacity: 1;
+        }
+
+        &:focus-visible {
+            outline: none;
+        }
+
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: .25rem;
+            width: 1rem;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        &::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8.4px;
+            cursor: pointer;
         }
     }
 
@@ -66,7 +97,7 @@
         position: absolute;
         opacity: 0;
         pointer-events: none;
-        left: -2rem;
+        left: -2.1rem;
         background: rgba(63, 62, 62, 0.2);
         border-radius: .25rem;
         padding: .25rem;
@@ -120,6 +151,7 @@ export default Vue.extend({
         setBubble() {
             let range = <HTMLInputElement>this.$refs.volume;
             let bubble = <HTMLElement>this.$refs.bubble;
+            let rangeBar = <HTMLElement>this.$refs.rangeBar;
 
             const val = Number(range.value);
             const min = range.min ? Number(range.min) : 0;
@@ -128,7 +160,8 @@ export default Vue.extend({
             bubble.innerHTML = String(round(val * 100, 0));
 
             // Sorta magic numbers based on size of the native UI thumb
-            bubble.style.bottom = `calc(${newVal}% + (${-16 - newVal * 0.15}px))`;
+            bubble.style.bottom = `calc(${newVal}% + (${-newVal * 0.32}px))`;
+            rangeBar.style.height = `calc(${newVal}% + (${-newVal * 0.165}px))`;
         }
     }
 });

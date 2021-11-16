@@ -18,6 +18,7 @@
     bottom: 0;
     padding: 1rem;
     width: 100%;
+    z-index: 9001;
 }
 
 .container {
