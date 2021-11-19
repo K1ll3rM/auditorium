@@ -7,7 +7,8 @@ import {DEFAULT_CONFIG} from "./Constants";
 export class Storage {
 
     static folders: string[] = [
-        '/songs'
+        '/songs',
+        '/categories'
     ];
 
     static getStorage() {

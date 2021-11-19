@@ -29,6 +29,7 @@ export default Vue.extend({
     methods: {
         async refreshSongs() {
             this.songs = await SongClass.getSongs();
+            await SongClass.getSongsByCategory();
         }
     }
 });

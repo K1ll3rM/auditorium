@@ -6,7 +6,8 @@ export class Song implements SongInterface{
     readonly path: string;
 
     readonly manifestDefault: ManifestInterface = {
-        name: "Missing name!"
+        name: "Missing name!",
+        category: ""
     };
     manifest: ManifestInterface = {};
 
@@ -16,7 +17,7 @@ export class Song implements SongInterface{
         this.loadManifest(manifest);
     }
 
-    static async getSongs() {
+    static async getSongs(): Promise<Songs> {
         let reply = window.api.getSongs();
         let songs: Songs = {};
 
@@ -25,6 +26,19 @@ export class Song implements SongInterface{
         }
 
         return songs;
+    }
+
+    static async getSongsByCategory() {
+        let songs = await this.getSongs();
+        let categories = {};
+
+        for (let [id, song] of Object.entries(songs)) {
+
+        }
+    }
+
+    categorize() {
+
     }
 
     getSongPath() {
@@ -46,4 +60,8 @@ export class Song implements SongInterface{
 
 export interface Songs {
     [key: string]: Song
+}
+
+export interface Categories {
+
 }

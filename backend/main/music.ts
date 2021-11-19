@@ -1,12 +1,14 @@
 import {ipcMain} from "electron";
-import {CHANNEL_GETSONGFILES, CHANNEL_GETSONGS} from "../lib/Constants";
+import {CHANNEL_GETCATEGORIES, CHANNEL_GETSONGFILES, CHANNEL_GETSONGS} from "../lib/Constants";
 import {promises as fs} from "fs";
 import {getFileName} from "../../shared/helpers";
 import {Storage} from "../lib/Storage";
 import {ManifestInterface} from "../../shared/ManifestInterface";
 import {SongInterface} from "../../shared/SongInterface";
+import {CategoryInterface} from "../../shared/CategoryInterface";
 
 export const songPath = Storage.getStorage() + '/songs';
+export const categoryPath = Storage.getStorage() + '/categories';
 
 ipcMain.on(CHANNEL_GETSONGS, async (event) => {
     let files = await fs.readdir(songPath);
@@ -34,7 +36,26 @@ ipcMain.on(CHANNEL_GETSONGFILES, async (event, song: SongInterface) => {
     };
 });
 
+ipcMain.on(CHANNEL_GETCATEGORIES, async (event) => {
+    let files = await fs.readdir(categoryPath);
+    let categories: Categories = {};
+
+    for (let file of files) {
+        let id = getFileName(file).replace('.json', '');
+        let path = categoryPath + '/' + id;
+
+        let manifestFile = await fs.readFile(path + '.json');
+
+        categories[id] = JSON.parse(manifestFile.toString());
+    }
+
+    event.returnValue = categories;
+});
+
 
 interface Songs {
     [id: string]: ManifestInterface
+}
+interface Categories {
+    [id: string]: CategoryInterface
 }
