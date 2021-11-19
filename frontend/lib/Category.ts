@@ -59,6 +59,14 @@ export class Category {
         }
     }
 
+    pushToSongs(song: Song) {
+        this.songs.push(song);
+
+        if(this.parent) {
+            this.parent.pushToSongs(song);
+        }
+    }
+
     getBreadcrumb() {
         let cat: Category = this;
         let breadcrumb: Category[] = [];

@@ -42,7 +42,7 @@ export class Song implements SongInterface{
                 throw new Error(`Song ${id} calls for category ${song.manifest.category} that doesn't exist.`);
             }
 
-            categories[song.manifest.category].songs.push(song);
+            categories[song.manifest.category].pushToSongs(song);
         }
 
         return [categories, sorted];

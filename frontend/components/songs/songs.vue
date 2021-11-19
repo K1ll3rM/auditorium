@@ -1,12 +1,15 @@
 <template>
-    <card>
+    <div>
         <button class="btn btn-secondary mb-3" @click="refreshSongs">Refresh</button>
-        <Category :categories="sortedCategories"/>
-        <div class="songs" v-if="$music.currentCategory">
-            <none/>
-            <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
-        </div>
-    </card>
+        <card>
+            <Category :categories="sortedCategories"/>
+            <div class="songs mt-3" v-if="$music.currentCategory">
+                <h5>Songs:</h5>
+                <none/>
+                <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
+            </div>
+        </card>
+    </div>
 </template>
 
 <script lang="ts">
