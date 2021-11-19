@@ -1,34 +1,36 @@
 <template>
     <card>
         <button class="btn btn-secondary mb-3" @click="refreshSongs">Refresh</button>
-        <none/>
-        <song v-for="(song, id) in songs" :key="id" :song="song"/>
+        <CategoryButtons :categories="categories"/>
+        <div class="songs" v-if="$music.currentCategory">
+            <none/>
+            <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
+        </div>
     </card>
 </template>
 
-<style>
-</style>
 <script lang="ts">
 import Card from "~/components/Card.vue";
 import Vue from "vue";
 import Song from "~/components/songs/song.vue";
-import {Song as SongClass, Songs} from "~/lib/Song";
+import {Categories as CategoriesClass, Song as SongClass} from "~/lib/Song";
 import None from "~/components/songs/none.vue";
+import CategoryButtons from "~/components/Categories/CategoryButtons.vue";
 
 export default Vue.extend({
-    components: {None, Song, Card},
+    components: {CategoryButtons, None, Song, Card},
     props: [],
     created() {
         this.refreshSongs();
     },
     data() {
         return {
-            songs: <Songs>{}
+            categories: <CategoriesClass>{}
         }
     },
     methods: {
         async refreshSongs() {
-            this.songs = await SongClass.getSongs();
+            this.categories = await SongClass.getSongsByCategory();
         }
     }
 });

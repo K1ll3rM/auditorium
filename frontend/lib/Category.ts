@@ -4,6 +4,8 @@ import {Categories, Song} from "~/lib/Song";
 export class Category {
     readonly id: string;
 
+    parent: Category|null = null;
+
     children: Category[] = [];
     songs: Song[] = [];
 
@@ -40,6 +42,7 @@ export class Category {
                 }
 
                 categories[parentId].children.push(category);
+                category.parent = categories[parentId];
             }
         }
 
@@ -48,5 +51,17 @@ export class Category {
 
     loadManifest(manifest: CategoryManifestInterface) {
         this.manifest = Object.assign({}, this.manifestDefault, manifest);
+    }
+
+    getBreadcrumb() {
+        let cat: Category = this;
+        let breadcrumb: Category[] = [];
+
+        while(cat.parent) {
+            cat = cat.parent;
+            breadcrumb.unshift(cat);
+        }
+
+        return breadcrumb;
     }
 }
