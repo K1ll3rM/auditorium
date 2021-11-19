@@ -1,5 +1,6 @@
 import {SongManifestInterface} from "@/shared/SongManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
+import {Category} from "~/lib/Category";
 
 export class Song implements SongInterface{
     readonly id: string;
@@ -7,7 +8,7 @@ export class Song implements SongInterface{
 
     readonly manifestDefault: SongManifestInterface = {
         name: "Missing name!",
-        category: ""
+        category: "unsorted"
     };
     manifest: SongManifestInterface = {};
 
@@ -30,15 +31,21 @@ export class Song implements SongInterface{
 
     static async getSongsByCategory() {
         let songs = await this.getSongs();
-        let categories = {};
+        let [categories, sorted] = await Category.getCategories();
 
         for (let [id, song] of Object.entries(songs)) {
+            if(!song.manifest.category) {
+                song.manifest.category = 'unsorted';
+            }
 
+            if(!categories[song.manifest.category]) {
+                throw new Error(`Song ${id} calls for category ${song.manifest.category} that doesn't exist.`);
+            }
+
+            categories[song.manifest.category].songs.push(song);
         }
-    }
 
-    categorize() {
-
+        return sorted;
     }
 
     getSongPath() {
@@ -63,5 +70,5 @@ export interface Songs {
 }
 
 export interface Categories {
-
+    [key: string]: Category
 }

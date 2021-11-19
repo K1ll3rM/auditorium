@@ -1,7 +1,7 @@
 <template>
-    <main>
+    <main v-if="initialized">
         <control-bar/>
-        <div class="container" v-if="initialized">
+        <div class="container">
             <h1>Auditorium</h1>
 
             <songs></songs>
