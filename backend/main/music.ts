@@ -3,9 +3,9 @@ import {CHANNEL_GETCATEGORIES, CHANNEL_GETSONGFILES, CHANNEL_GETSONGS} from "../
 import {promises as fs} from "fs";
 import {getFileName} from "../../shared/helpers";
 import {Storage} from "../lib/Storage";
-import {ManifestInterface} from "../../shared/ManifestInterface";
+import {SongManifestInterface} from "../../shared/SongManifestInterface";
 import {SongInterface} from "../../shared/SongInterface";
-import {CategoryInterface} from "../../shared/CategoryInterface";
+import {CategoryManifestInterface} from "../../shared/CategoryManifestInterface";
 
 export const songPath = Storage.getStorage() + '/songs';
 export const categoryPath = Storage.getStorage() + '/categories';
@@ -54,8 +54,8 @@ ipcMain.on(CHANNEL_GETCATEGORIES, async (event) => {
 
 
 interface Songs {
-    [id: string]: ManifestInterface
+    [id: string]: SongManifestInterface
 }
 interface Categories {
-    [id: string]: CategoryInterface
+    [id: string]: CategoryManifestInterface
 }

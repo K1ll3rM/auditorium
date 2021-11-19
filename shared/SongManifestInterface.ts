@@ -1,4 +1,4 @@
-export interface ManifestInterface {
+export interface SongManifestInterface {
     name?: string;
     category?: string;
 }

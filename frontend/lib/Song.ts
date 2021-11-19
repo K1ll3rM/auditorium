@@ -1,17 +1,17 @@
-import {ManifestInterface} from "@/shared/ManifestInterface";
+import {SongManifestInterface} from "@/shared/SongManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
 
 export class Song implements SongInterface{
     readonly id: string;
     readonly path: string;
 
-    readonly manifestDefault: ManifestInterface = {
+    readonly manifestDefault: SongManifestInterface = {
         name: "Missing name!",
         category: ""
     };
-    manifest: ManifestInterface = {};
+    manifest: SongManifestInterface = {};
 
-    constructor(id: string, manifest: ManifestInterface) {
+    constructor(id: string, manifest: SongManifestInterface) {
         this.id = id;
         this.path = this.getSongPath();
         this.loadManifest(manifest);
@@ -22,7 +22,7 @@ export class Song implements SongInterface{
         let songs: Songs = {};
 
         for (const [id, manifest] of Object.entries(reply)) {
-            songs[id] = new Song(id, manifest as ManifestInterface);
+            songs[id] = new Song(id, manifest as SongManifestInterface);
         }
 
         return songs;
@@ -49,7 +49,7 @@ export class Song implements SongInterface{
         return window.storagePath + '/songs';
     }
 
-    loadManifest(manifest: ManifestInterface) {
+    loadManifest(manifest: SongManifestInterface) {
         this.manifest = Object.assign({}, this.manifestDefault, manifest);
     }
 
