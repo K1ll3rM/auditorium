@@ -45,7 +45,7 @@ export class Song implements SongInterface{
             categories[song.manifest.category].songs.push(song);
         }
 
-        return sorted;
+        return [categories, sorted];
     }
 
     getSongPath() {
@@ -67,8 +67,4 @@ export class Song implements SongInterface{
 
 export interface Songs {
     [key: string]: Song
-}
-
-export interface Categories {
-    [key: string]: Category
 }

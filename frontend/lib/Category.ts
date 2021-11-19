@@ -1,5 +1,5 @@
 import {CategoryManifestInterface} from "@/shared/CategoryManifestInterface";
-import {Categories, Song} from "~/lib/Song";
+import {Song} from "~/lib/Song";
 
 export class Category {
     readonly id: string;
@@ -10,10 +10,12 @@ export class Category {
     songs: Song[] = [];
 
     readonly manifestDefault: CategoryManifestInterface = {
-        name: "Missing name!"
+        name: "Missing name!",
+        fullName: null,
+        description: null
     };
 
-    manifest: CategoryManifestInterface = {};
+    manifest: CategoryManifestInterface = {} as CategoryManifestInterface;
 
     constructor(id: string, manifest: CategoryManifestInterface) {
         this.id = id;
@@ -51,6 +53,10 @@ export class Category {
 
     loadManifest(manifest: CategoryManifestInterface) {
         this.manifest = Object.assign({}, this.manifestDefault, manifest);
+
+        if(this.manifest.fullName === null) {
+            this.manifest.fullName = this.manifest.name;
+        }
     }
 
     getBreadcrumb() {
@@ -64,4 +70,12 @@ export class Category {
 
         return breadcrumb;
     }
+}
+
+export interface Categories {
+    [key: string]: Category
+}
+
+export interface CategoryManifests {
+    [key: string]: CategoryManifestInterface
 }
