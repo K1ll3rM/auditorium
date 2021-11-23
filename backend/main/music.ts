@@ -27,8 +27,16 @@ ipcMain.on(CHANNEL_GETSONGS, async (event) => {
 });
 
 ipcMain.on(CHANNEL_GETSONGFILES, async (event, song: SongInterface) => {
-    let intro = await fs.readFile(song.path + "/intro.wav");
-    let loop = await fs.readFile(song.path + "/loop.wav");
+    let dirCont = await fs.readdir(song.path);
+    let introPath = dirCont.filter(function(elm) {
+        return elm.match(/intro\..*/ig);
+    })[0];
+    let loopPath = dirCont.filter(function(elm) {
+        return elm.match(/loop\..*/ig);
+    })[0];
+
+    let intro = await fs.readFile(song.path + '/' + introPath);
+    let loop = await fs.readFile(song.path + '/' + loopPath);
 
     event.returnValue = {
         intro: intro,
