@@ -44,6 +44,7 @@
     border-radius: .25rem;
     transition: opacity .1s ease-in-out;
     left: .5rem;
+    user-select: none;
 
     &:hover {
         opacity: 1;
@@ -107,6 +108,7 @@
         position: absolute;
         opacity: 0;
         pointer-events: none;
+        user-select: none;
         left: -2.1rem;
         background: rgba(63, 62, 62, 0.2);
         border-radius: .25rem;
