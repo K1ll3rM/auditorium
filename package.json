@@ -21,9 +21,9 @@
   "scripts": {
     "compile": "tsc -w",
     "dev": "nuxt frontend",
-    "build": "nuxt frontend build",
-    "start": "nuxt frontend start",
-    "generate": "nuxt generate",
+    "build": "nuxt build frontend",
+    "start": "nuxt start frontend",
+    "generate": "nuxt generate frontend",
     "electron": "wait-on http://localhost:3000 && electron .",
     "electron-dev": "concurrently \"yarn dev\" \"yarn electron\"",
     "preelectron-pack": "yarn generate",
