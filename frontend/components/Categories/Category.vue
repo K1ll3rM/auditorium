@@ -13,7 +13,6 @@
             </div>
             <div class="breadcrumb-item" v-if="$music.currentCategory">
                 {{ $music.currentCategory.manifest.name }}
-<!--                <CategoryButton button-class="btn-sm" :key="$music.currentCategory.id" :category="$music.currentCategory" @select="select()"/>-->
             </div>
         </div>
 
@@ -22,11 +21,6 @@
             <p v-if="this.$music.currentCategory.manifest.description">{{ this.$music.currentCategory.manifest.description }}</p>
         </div>
 
-
-
-<!--        <div v-if="$music.currentCategory && $music.currentCategory.parent">-->
-<!--            <CategoryButton v-for="(category, id) in $music.currentCategory.parent.children" :key="category.id" :category="category"  @select="select()"/>-->
-<!--        </div>-->
         <div v-if="$music.currentCategory && $music.currentCategory.children">
             <CategoryButton v-for="(category) in $music.currentCategory.children" class="me-2" :key="category.id" :category="category" @select="select()"/>
         </div>
