@@ -8,7 +8,7 @@ export function round(number: number, places: number) {
     return +(Math.round(Number(number + "e+" + places))  + "e-" + places);
 }
 
-export function debounce (fn: () => void, delay: number) {
+export function debounce (fn: (...args: any[]) => void, delay: number) {
     let timeoutID: NodeJS.Timeout|null = null
     return function () {
         if(timeoutID) {
