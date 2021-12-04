@@ -10,8 +10,6 @@
 import Card from "~/components/Card.vue";
 import Vue from "vue";
 import {Song} from "~/lib/Songs/Song";
-import {Config} from "~/lib/Config";
-import {easeInOutQuad, timeout} from "@/shared/helpers";
 import SongStyle from "~/components/songs/song-style.vue";
 import {SongPlayer} from "~/lib/Songs/SongPlayer";
 
