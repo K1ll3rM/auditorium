@@ -36,8 +36,15 @@ export default Vue.extend({
     methods: {
         async refreshSongs() {
             [this.categories, this.sortedCategories] = await SongClass.getSongsByCategory();
-            if(this.$music.currentCategory) {
+            if (this.$music.currentCategory) {
                 this.$music.currentCategory = this.categories[this.$music.currentCategory.id];
+            }
+
+            if (this.$music.currentSong) {
+                if(SongClass.songs[this.$music.currentSong.song.id]) {
+                    this.$music.currentSong.song = SongClass.songs[this.$music.currentSong.song.id];
+                    this.$music.currentSong.updateVolume();
+                }
             }
         }
     }

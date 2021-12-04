@@ -4,13 +4,16 @@ import {Category} from "~/lib/Category";
 import {SongFilesInterface} from "@/shared/SongFilesInterface";
 
 export class Song implements SongInterface {
+    static songs: Songs = {};
+
     readonly id: string;
     readonly path: string;
 
     readonly manifestDefault: SongManifestInterface = {
         name: "Missing name!",
         category: "unsorted",
-        player: "default"
+        player: "default",
+        gainMod: 1
     };
     manifest: SongManifestInterface = {};
 
@@ -32,10 +35,10 @@ export class Song implements SongInterface {
     }
 
     static async getSongsByCategory() {
-        let songs = await this.getSongs();
+        this.songs = await this.getSongs();
         let [categories, sorted] = await Category.getCategories();
 
-        for (let [id, song] of Object.entries(songs)) {
+        for (let [id, song] of Object.entries(this.songs)) {
             if(!song.manifest.category) {
                 song.manifest.category = 'unsorted';
             }

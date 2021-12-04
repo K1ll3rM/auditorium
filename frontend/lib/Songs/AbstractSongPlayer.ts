@@ -41,7 +41,7 @@ export abstract class AbstractSongPlayer {
     }
 
     public getVolume() {
-        return Config.data.volume * this.gainMod;
+        return Config.data.volume * this.gainMod * (this.song.manifest.gainMod ?? 1);
     }
 
     updateVolume() {
