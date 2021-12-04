@@ -28,8 +28,8 @@ ipcMain.on(CHANNEL_GETSONGS, async (event) => {
 
 ipcMain.on(CHANNEL_GETSONGFILES, async (event, song: SongInterface) => {
     switch (song.manifest.player) {
-        case "fade":
-            event.returnValue = await getFadeFiles(song);
+        case "loop":
+            event.returnValue = await getLoopFiles(song);
             break;
         case "default":
         default:
@@ -56,7 +56,7 @@ async function getDefaultFiles(song: SongInterface) {
     };
 }
 
-async function getFadeFiles(song: SongInterface) {
+async function getLoopFiles(song: SongInterface) {
     let dirCont = await fs.readdir(song.path);
     let loopPath = dirCont.filter(function(elm) {
         return elm.match(/loop\..*/ig);

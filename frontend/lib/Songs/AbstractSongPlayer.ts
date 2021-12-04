@@ -22,6 +22,10 @@ export abstract class AbstractSongPlayer {
     }
 
     protected async initTrack(track: TrackInterface, file: Uint8Array) {
+        if(!(file instanceof Uint8Array)) {
+            throw new Error('Given file is not of type Uint8Array');
+        }
+
         track.buffer = track.context.createBufferSource();
         track.buffer.buffer = await track.context.decodeAudioData(file.buffer);
 
