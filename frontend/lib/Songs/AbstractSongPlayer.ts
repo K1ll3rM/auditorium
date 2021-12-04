@@ -54,14 +54,79 @@ export abstract class AbstractSongPlayer {
         }
     }
 
+    async init() {
+        await this.initTracks();
+
+        this.tracks.intro.buffer.loop = true;
+
+        this.gainMod = 0;
+        this.updateVolume();
+    }
+
+    public async play() {
+        if(this.root.$music.songChanging) {
+            return;
+        }
+
+        if(this.root.$music.currentSong?.song?.id === this.song.id) {
+            return;
+        }
+
+        this.paused = false;
+        this.transitioning = true;
+        this.root.$music.songChanging = true;
+
+        if(this.root.$music.currentSong) {
+            await Promise.allSettled([
+                this.root.$music.currentSong.stop(),
+                this.init()
+            ]);
+        }
+        else {
+            await this.init();
+        }
+
+        this.stopped = false;
+        await this.startTracks();
+
+        this.transitioning = false;
+        this.root.$music.currentSong = this;
+        this.root.$music.songChanging = false;
+
+        await this.fadeIn();
+    }
+
+    public async stop() {
+        this.stopped = true;
+
+        await this.fadeOut();
+        await this.stopTracks();
+
+        this.purgeTracks();
+    }
+
+    public async pause() {
+        this.paused = true;
+        await this.fadeOut(10);
+
+        await this.pauseTracks();
+    }
+
+    public async unPause() {
+        await this.unPauseTracks();
+        this.paused = false;
+        await this.fadeIn(10);
+    }
+
     abstract updateVolume(): void;
 
-    abstract play(): Promise<void>;
-    abstract stop(): Promise<void>;
+    protected abstract initTracks(): Promise<void>;
+    protected abstract startTracks(): Promise<void>;
+    protected abstract stopTracks(): Promise<void>;
 
-    abstract pause(): Promise<void>;
-    abstract unPause(): Promise<void>;
-    abstract purge(): void;
+    protected abstract pauseTracks(): Promise<void>;
+    protected abstract unPauseTracks(): Promise<void>;
+    protected abstract purgeTracks(): void;
 }
 
 export interface TracksObjectInterface {
