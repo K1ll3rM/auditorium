@@ -21,7 +21,7 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
 
     updateVolume() {
         this.tracks.intro.gain.gain.value = this.getVolume();
-        this.tracks.intro.gain.gain.value = this.getVolume();
+        this.tracks.loop.gain.gain.value = this.getVolume();
     }
 
     protected async initTracks(): Promise<void> {
@@ -37,7 +37,7 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         this.tracks.intro.buffer.addEventListener('ended', () => {
             this.inIntro = false;
             if (!this.stopped) {
-                this.tracks.intro.buffer.start(0);
+                this.tracks.loop.buffer.start(0);
             }
         });
     }
@@ -46,22 +46,20 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         if (this.inIntro) {
             this.tracks.intro.buffer.stop();
         } else {
-            this.tracks.intro.buffer.stop();
+            this.tracks.loop.buffer.stop();
         }
     }
 
     protected purgeTracks(): void {
-        this.tracks.intro.context = new AudioContext();
-        this.tracks.intro.context = new AudioContext();
-        this.tracks.intro.buffer = {} as AudioBufferSourceNode;
-        this.tracks.intro.buffer = {} as AudioBufferSourceNode;
+        this.purgeTrack(this.tracks.intro);
+        this.purgeTrack(this.tracks.loop);
     }
 
     protected async pauseTracks(): Promise<void> {
         if (this.inIntro) {
             await this.tracks.intro.context.suspend();
         } else {
-            await this.tracks.intro.context.suspend();
+            await this.tracks.loop.context.suspend();
         }
     }
 
@@ -69,7 +67,7 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         if (this.inIntro) {
             await this.tracks.intro.context.resume();
         } else {
-            await this.tracks.intro.context.resume();
+            await this.tracks.loop.context.resume();
         }
     }
 }

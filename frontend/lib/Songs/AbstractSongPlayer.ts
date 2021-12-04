@@ -21,13 +21,19 @@ export abstract class AbstractSongPlayer {
         this.root = root;
     }
 
-    async initTrack(track: TrackInterface, file: Uint8Array) {
+    protected async initTrack(track: TrackInterface, file: Uint8Array) {
         track.buffer = track.context.createBufferSource();
         track.buffer.buffer = await track.context.decodeAudioData(file.buffer);
 
         track.gain = track.context.createGain();
         track.gain.connect(track.context.destination);
         track.buffer.connect(track.gain);
+    }
+
+    protected purgeTrack(track: TrackInterface) {
+        track.context = new AudioContext();
+        track.buffer = {} as AudioBufferSourceNode;
+        track.gain = {} as GainNode;
     }
 
     public getVolume() {
