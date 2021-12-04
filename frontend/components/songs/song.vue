@@ -28,10 +28,19 @@ export default Vue.extend({
         }
     },
     created() {
-        this.songPlayer = SongPlayerFactory.create(this.song, this.$root);
+        this.setSongPlayer();
+    },
+    updated() {
+        this.setSongPlayer();
     },
     methods: {
+        setSongPlayer() {
+            if(this.songPlayer?.song?.id === this.song.id) {
+                return;
+            }
 
+            this.songPlayer = SongPlayerFactory.create(this.song, this.$root);
+        }
     }
 });
 </script>
