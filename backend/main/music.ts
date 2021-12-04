@@ -27,6 +27,18 @@ ipcMain.on(CHANNEL_GETSONGS, async (event) => {
 });
 
 ipcMain.on(CHANNEL_GETSONGFILES, async (event, song: SongInterface) => {
+    switch (song.manifest.player) {
+        case "fade":
+            event.returnValue = await getFadeFiles(song);
+            break;
+        case "default":
+        default:
+            event.returnValue = await getDefaultFiles(song);
+            break;
+    }
+});
+
+async function getDefaultFiles(song: SongInterface) {
     let dirCont = await fs.readdir(song.path);
     let introPath = dirCont.filter(function(elm) {
         return elm.match(/intro\..*/ig);
@@ -38,11 +50,24 @@ ipcMain.on(CHANNEL_GETSONGFILES, async (event, song: SongInterface) => {
     let intro = await fs.readFile(song.path + '/' + introPath);
     let loop = await fs.readFile(song.path + '/' + loopPath);
 
-    event.returnValue = {
+    return  {
         intro: intro,
         loop: loop
     };
-});
+}
+
+async function getFadeFiles(song: SongInterface) {
+    let dirCont = await fs.readdir(song.path);
+    let loopPath = dirCont.filter(function(elm) {
+        return elm.match(/loop\..*/ig);
+    })[0];
+
+    let loop = await fs.readFile(song.path + '/' + loopPath);
+
+    return  {
+        loop: loop
+    };
+}
 
 ipcMain.on(CHANNEL_GETCATEGORIES, async (event) => {
     let files = await fs.readdir(categoryPath);

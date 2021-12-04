@@ -1,4 +1,5 @@
 import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
+import {DefaultSongFilesInterface} from "@/shared/DefaultSongFilesInterface";
 
 /**
  * The default song player
@@ -25,7 +26,7 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
     }
 
     protected async initTracks(): Promise<void> {
-        let files = this.song.getFiles();
+        let files = this.song.getFiles<DefaultSongFilesInterface>();
 
         await this.initTrack(this.tracks.intro, files.intro);
         await this.initTrack(this.tracks.loop, files.loop);

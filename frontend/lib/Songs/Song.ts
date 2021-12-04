@@ -1,9 +1,7 @@
 import {SongManifestInterface} from "@/shared/SongManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
 import {Category} from "~/lib/Category";
-import Vue from "vue";
-import {Config} from "~/lib/Config";
-import {easeInOutQuad, timeout} from "@/shared/helpers";
+import {SongFilesInterface} from "@/shared/SongFilesInterface";
 
 export class Song implements SongInterface {
     readonly id: string;
@@ -63,8 +61,8 @@ export class Song implements SongInterface {
         this.manifest = Object.assign({}, this.manifestDefault, manifest);
     }
 
-    getFiles() {
-        return window.api.getSongFiles(this);
+    getFiles<T extends SongFilesInterface>() {
+        return window.api.getSongFiles<T>(this);
     }
 }
 
