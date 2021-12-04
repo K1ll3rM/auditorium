@@ -11,7 +11,8 @@ import Card from "~/components/Card.vue";
 import Vue from "vue";
 import {Song} from "~/lib/Songs/Song";
 import SongStyle from "~/components/songs/song-style.vue";
-import {SongPlayer} from "~/lib/Songs/SongPlayer";
+import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
+import {SongPlayerFactory} from "~/lib/Songs/SongPlayerFactory";
 
 export default Vue.extend({
     components: {SongStyle, Card},
@@ -23,11 +24,11 @@ export default Vue.extend({
     },
     data() {
         return {
-            songPlayer: {} as SongPlayer
+            songPlayer: {} as AbstractSongPlayer
         }
     },
     created() {
-        this.songPlayer = new SongPlayer(this.song, this.$root);
+        this.songPlayer = SongPlayerFactory.create(this.song, this.$root);
     },
     methods: {
 
