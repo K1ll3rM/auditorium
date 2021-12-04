@@ -9,7 +9,8 @@ export class Song implements SongInterface {
 
     readonly manifestDefault: SongManifestInterface = {
         name: "Missing name!",
-        category: "unsorted"
+        category: "unsorted",
+        player: "default"
     };
     manifest: SongManifestInterface = {};
 
