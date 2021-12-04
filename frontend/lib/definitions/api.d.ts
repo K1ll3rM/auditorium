@@ -1,4 +1,4 @@
-import {Song, Songs} from "~/lib/Song";
+import {Song, Songs} from "~/lib/Songs/Song";
 import {SongFilesInterface} from "@/shared/SongFilesInterface";
 import {ConfigInterface} from "@/shared/ConfigInterface";
 import {CategoryManifests} from "~/lib/Category";

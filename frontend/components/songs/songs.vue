@@ -16,7 +16,7 @@
 import Card from "~/components/Card.vue";
 import Vue from "vue";
 import Song from "~/components/songs/song.vue";
-import {Song as SongClass} from "~/lib/Song";
+import {Song as SongClass} from "~/lib/Songs/Song";
 import None from "~/components/songs/none.vue";
 import Category from "~/components/Categories/Category.vue";
 import {Categories} from "~/lib/Category";
@@ -35,7 +35,7 @@ export default Vue.extend({
     },
     methods: {
         async refreshSongs() {
-            [this.categories, this.sortedCategories] = await SongClass.getSongsByCategory();
+            [this.categories, this.sortedCategories] = await SongClass.getSongsByCategory(this.$root);
             if(this.$music.currentCategory) {
                 this.$music.currentCategory = this.categories[this.$music.currentCategory.id];
             }

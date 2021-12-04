@@ -1,5 +1,5 @@
 import {CategoryManifestInterface} from "@/shared/CategoryManifestInterface";
-import {Song} from "~/lib/Song";
+import {Song} from "~/lib/Songs/Song";
 
 export class Category {
     readonly id: string;

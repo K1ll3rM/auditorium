@@ -1,8 +1,11 @@
 import {SongManifestInterface} from "@/shared/SongManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
 import {Category} from "~/lib/Category";
+import Vue from "vue";
+import {Config} from "~/lib/Config";
+import {easeInOutQuad, timeout} from "@/shared/helpers";
 
-export class Song implements SongInterface{
+export class Song implements SongInterface {
     readonly id: string;
     readonly path: string;
 
