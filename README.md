@@ -2,6 +2,7 @@
 
 ## Todo
 
+- Per song volume modifier
 - Random song button
 - Replace errors with toasts for user-friendliness
 - Add error handling for JSON errors
