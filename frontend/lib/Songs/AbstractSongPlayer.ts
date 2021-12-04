@@ -63,8 +63,6 @@ export abstract class AbstractSongPlayer {
     async init() {
         await this.initTracks();
 
-        this.tracks.intro.buffer.loop = true;
-
         this.gainMod = 0;
         this.updateVolume();
     }

@@ -30,6 +30,8 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
 
         await this.initTrack(this.tracks.intro, files.intro);
         await this.initTrack(this.tracks.loop, files.loop);
+
+        this.tracks.loop.buffer.loop = true;
     }
 
     protected async startTracks(): Promise<void> {
