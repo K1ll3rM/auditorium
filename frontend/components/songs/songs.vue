@@ -35,7 +35,7 @@ export default Vue.extend({
     },
     methods: {
         async refreshSongs() {
-            [this.categories, this.sortedCategories] = await SongClass.getSongsByCategory(this.$root);
+            [this.categories, this.sortedCategories] = await SongClass.getSongsByCategory();
             if(this.$music.currentCategory) {
                 this.$music.currentCategory = this.categories[this.$music.currentCategory.id];
             }
