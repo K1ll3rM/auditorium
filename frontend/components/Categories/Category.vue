@@ -22,6 +22,8 @@
         </div>
 
         <div v-if="$music.currentCategory && $music.currentCategory.children">
+            <CategoryButton v-if="$music.currentCategory.parent" class="me-2" :key="$music.currentCategory.parent.id" :category="$music.currentCategory.parent" content=".." @select="select()"/>
+            <CategoryButtonHome v-else class="me-2" :key="null" content=".." @select="select()"/>
             <CategoryButton v-for="(category) in $music.currentCategory.children" class="me-2" :key="category.id" :category="category" @select="select()"/>
         </div>
     </div>

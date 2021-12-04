@@ -1,6 +1,6 @@
 <template>
     <a @click="select(category)">
-        <CategoryButtonStyle :class="buttonClass" :id="category.id">{{ category.manifest.name }}</CategoryButtonStyle>
+        <CategoryButtonStyle :class="buttonClass" :id="category.id">{{ content ? content : category.manifest.name }}</CategoryButtonStyle>
     </a>
 </template>
 
@@ -18,7 +18,8 @@ export default Vue.extend({
             type: Object as Vue.PropType<Category>,
             required: true
         },
-        buttonClass: String
+        buttonClass: String,
+        content: String
     },
     created() {
     },

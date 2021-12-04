@@ -1,6 +1,6 @@
 <template>
     <a @click="select()">
-        <CategoryButtonStyle :class="buttonClass" id="home">Home</CategoryButtonStyle>
+        <CategoryButtonStyle :class="buttonClass" id="home">{{ content ? content : 'home' }}</CategoryButtonStyle>
     </a>
 </template>
 
@@ -13,7 +13,8 @@ import CategoryButtonStyle from "~/components/Categories/CategoryButtonStyle.vue
 export default Vue.extend({
     components: {CategoryButtonStyle, Song, None},
     props: {
-        buttonClass: String
+        buttonClass: String,
+        content: String
     },
     created() {
     },
