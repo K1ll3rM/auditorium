@@ -20,11 +20,6 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
 
     public inIntro: boolean = false;
 
-    updateVolume() {
-        this.tracks.intro.gain.gain.value = this.getVolume();
-        this.tracks.loop.gain.gain.value = this.getVolume();
-    }
-
     protected async initTracks(): Promise<void> {
         let files = this.song.getFiles<DefaultSongFilesInterface>();
 

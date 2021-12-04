@@ -40,6 +40,12 @@ export abstract class AbstractSongPlayer {
         return Config.data.volume * this.gainMod;
     }
 
+    updateVolume() {
+        for (let track of Object.values<TrackInterface>(this.tracks)) {
+            track.gain.gain.value = this.getVolume();
+        }
+    }
+
     async fadeOut(delay: number = 15) {
         for (let i = this.gainMod * 100; i > 0; i--) {
             await timeout(delay);
@@ -121,8 +127,6 @@ export abstract class AbstractSongPlayer {
         this.paused = false;
         await this.fadeIn(10);
     }
-
-    abstract updateVolume(): void;
 
     protected abstract initTracks(): Promise<void>;
     protected abstract startTracks(): Promise<void>;
