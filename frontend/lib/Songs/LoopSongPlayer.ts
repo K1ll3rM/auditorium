@@ -14,6 +14,7 @@ export class LoopSongPlayer extends AbstractSongPlayer {
         let files = this.song.getFiles<FadeSongFilesInterface>();
 
         await this.initTrack(this.tracks.loop, files.loop);
+        this.tracks.loop.buffer.loop = true;
     }
 
     protected async startTracks(): Promise<void> {
