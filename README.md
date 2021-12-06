@@ -2,6 +2,7 @@
 
 ## Todo
 
+- Filters and multiple categories
 - Random song button
 - User interface for categories
 - User interface for song settings
