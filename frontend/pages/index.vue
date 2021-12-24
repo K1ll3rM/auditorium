@@ -1,13 +1,27 @@
 <template>
     <main v-if="initialized">
         <control-bar/>
-        <div class="container">
-            <h1>Auditorium</h1>
+        <div class="main-container">
+            <div class="container">
+                <h1>Auditorium</h1>
 
-            <songs></songs>
+                <songs></songs>
+            </div>
         </div>
     </main>
 </template>
+
+<style lang="scss" scoped>
+.main-container {
+    height: calc(100vh - 65px);
+
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+</style>
 
 <script lang="ts">
 import Vue from 'vue'

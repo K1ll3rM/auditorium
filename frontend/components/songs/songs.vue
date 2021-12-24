@@ -1,16 +1,25 @@
 <template>
-    <div>
-        <button class="btn btn-secondary mb-3" @click="refreshSongs">Refresh</button>
-        <card>
-            <Category :categories="sortedCategories"/>
-            <div class="songs mt-3" v-if="$music.currentCategory">
-                <h5>Songs:</h5>
-                <none/>
-                <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
+    <div class="songs prevent-overflow">
+        <div>
+            <button class="btn btn-secondary mb-3" @click="refreshSongs">Refresh</button>
+        </div>
+
+        <div class="card prevent-overflow">
+            <div class="card-body prevent-overflow">
+                <Category :categories="sortedCategories"/>
+                <div class="songs-container prevent-overflow mt-3" v-if="$music.currentCategory">
+                    <div class="h-100 overflow-auto p-2">
+                        <none/>
+                        <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
+                    </div>
+                </div>
             </div>
-        </card>
+        </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+</style>
 
 <script lang="ts">
 import Card from "~/components/Card.vue";
