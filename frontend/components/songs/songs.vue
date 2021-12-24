@@ -4,7 +4,10 @@
             <div class="card-body prevent-overflow">
                 <div class="position-relative">
                     <Category :categories="sortedCategories"/>
-                    <button class="btn btn-secondary refresh mb-3" @click="refreshSongs">Refresh</button>
+                    <div class="actions">
+                        <filter-button/>
+                        <button class="btn btn-secondary mb-3" @click="refreshSongs"><i class="bi bi-arrow-clockwise"></i></button>
+                    </div>
                 </div>
                 <div class="songs-container prevent-overflow mt-3" v-if="$music.currentCategory">
                     <div class="h-100 overflow-auto p-2">
@@ -18,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-.refresh {
+.actions {
     position: absolute;
     top: 0;
     right: 0;
@@ -33,9 +36,10 @@ import {Song as SongClass} from "~/lib/Songs/Song";
 import None from "~/components/songs/none.vue";
 import Category from "~/components/Categories/Category.vue";
 import {Categories} from "~/lib/Category";
+import FilterButton from "~/components/Filter/FilterButton.vue";
 
 export default Vue.extend({
-    components: {Category, None, Song, Card},
+    components: {FilterButton, Category, None, Song, Card},
     props: [],
     created() {
         this.refreshSongs();

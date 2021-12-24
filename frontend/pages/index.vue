@@ -6,6 +6,7 @@
                 <songs></songs>
             </div>
         </div>
+        <filter-sidebar/>
     </main>
 </template>
 
@@ -27,6 +28,7 @@ import Songs from "~/components/songs/songs.vue";
 import Volume from "~/components/controls/volume.vue";
 import {Config} from "~/lib/Config";
 import ControlBar from "~/components/controls/ControlBar.vue";
+import FilterSidebar from "~/components/Filter/FilterSidebar.vue";
 
 export default Vue.extend({
     head() {
@@ -34,7 +36,7 @@ export default Vue.extend({
             title: 'Auditorium'
         }
     },
-    components: {ControlBar, Volume, Songs},
+    components: {FilterSidebar, ControlBar, Volume, Songs},
     async created() {
         await Config.init();
         this.initialized = true;
