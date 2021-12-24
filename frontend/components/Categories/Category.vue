@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="buttons" v-if="!$music.currentCategory">
-            <CategoryButton v-for="(category, id) in categories" :key="id" class="me-2" :category="category"/>
+            <CategoryButton v-for="(category, id) in categories" :key="id" class="me-2" :category="category" @select="select()"/>
         </div>
 
         <div class="breadcrumb">
@@ -78,6 +78,8 @@ export default Vue.extend({
             else {
                 this.breadcrumb = [];
             }
+
+            this.$root.$emit('category.change');
         }
     }
 });

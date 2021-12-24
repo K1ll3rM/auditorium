@@ -6,7 +6,8 @@
                     <Category :categories="sortedCategories"/>
                     <div class="actions">
                         <filter-button/>
-                        <button class="btn btn-secondary mb-3" @click="refreshSongs"><i class="bi bi-arrow-clockwise"></i></button>
+                        <button class="btn btn-secondary mb-3" @click="refreshSongs"><i
+                                class="bi bi-arrow-clockwise"></i></button>
                     </div>
                 </div>
                 <div class="songs-container prevent-overflow mt-3" v-if="$music.currentCategory">
@@ -52,17 +53,23 @@ export default Vue.extend({
     },
     methods: {
         async refreshSongs() {
-            [this.categories, this.sortedCategories] = await SongClass.getSongsByCategory();
+            await SongClass.loadSongsByCategory();
+
+            this.categories = SongClass.categories;
+            this.sortedCategories = SongClass.sortedCategories;
+
             if (this.$music.currentCategory) {
                 this.$music.currentCategory = this.categories[this.$music.currentCategory.id];
             }
 
             if (this.$music.currentSong) {
-                if(SongClass.songs[this.$music.currentSong.song.id]) {
+                if (SongClass.songs[this.$music.currentSong.song.id]) {
                     this.$music.currentSong.song = SongClass.songs[this.$music.currentSong.song.id];
                     this.$music.currentSong.updateVolume();
                 }
             }
+
+            this.$root.$emit('refresh');
         }
     }
 });
