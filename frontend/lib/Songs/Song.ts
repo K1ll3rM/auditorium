@@ -40,14 +40,20 @@ export class Song implements SongInterface {
 
         for (let [id, song] of Object.entries(this.songs)) {
             if(!song.manifest.category) {
-                song.manifest.category = 'unsorted';
+                song.manifest.category = ['unsorted'];
             }
 
-            if(!categories[song.manifest.category]) {
-                throw new Error(`Song ${id} calls for category ${song.manifest.category} that doesn't exist.`);
+            if(!Array.isArray(song.manifest.category)) {
+                song.manifest.category = [song.manifest.category];
             }
 
-            categories[song.manifest.category].pushToSongs(song);
+            for (let category of song.manifest.category) {
+                if(!categories[category]) {
+                    throw new Error(`Song ${id} calls for category ${category} that doesn't exist.`);
+                }
+
+                categories[category].pushToSongs(song);
+            }
         }
 
         return [categories, sorted];

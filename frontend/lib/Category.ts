@@ -60,7 +60,9 @@ export class Category {
     }
 
     pushToSongs(song: Song) {
-        this.songs.push(song);
+        if(!this.songs.includes(song)) {
+            this.songs.push(song);
+        }
 
         if(this.parent) {
             this.parent.pushToSongs(song);
