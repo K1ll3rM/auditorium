@@ -3,8 +3,6 @@
         <control-bar/>
         <div class="main-container">
             <div class="container">
-                <h1>Auditorium</h1>
-
                 <songs></songs>
             </div>
         </div>

@@ -1,12 +1,11 @@
 <template>
     <div class="songs prevent-overflow">
-        <div>
-            <button class="btn btn-secondary mb-3" @click="refreshSongs">Refresh</button>
-        </div>
-
-        <div class="card prevent-overflow">
+        <div class="card mt-3 prevent-overflow">
             <div class="card-body prevent-overflow">
-                <Category :categories="sortedCategories"/>
+                <div class="position-relative">
+                    <Category :categories="sortedCategories"/>
+                    <button class="btn btn-secondary refresh mb-3" @click="refreshSongs">Refresh</button>
+                </div>
                 <div class="songs-container prevent-overflow mt-3" v-if="$music.currentCategory">
                     <div class="h-100 overflow-auto p-2">
                         <none/>
@@ -19,6 +18,11 @@
 </template>
 
 <style lang="scss" scoped>
+.refresh {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 </style>
 
 <script lang="ts">

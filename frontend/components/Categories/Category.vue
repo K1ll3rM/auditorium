@@ -30,6 +30,10 @@
 </template>
 
 <style lang="scss" scoped>
+.breadcrumb {
+    max-width: 90%;
+}
+
 .breadcrumb-item {
     line-height: 2rem;
 
