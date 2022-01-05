@@ -22,7 +22,6 @@ export default Vue.extend({
         content: String
     },
     created() {
-        console.log(this.category);
     },
     data() {
         return {

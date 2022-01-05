@@ -13,4 +13,7 @@ interface Music {
     currentSong: typeof SongComponent|any;
     currentCategory: typeof Category|any;
     songChanging: boolean;
+    selectedFilters: {
+        [key: string]: string;
+    };
 }

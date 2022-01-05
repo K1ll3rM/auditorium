@@ -4,6 +4,15 @@
             <div>
                 <button type="button" class="btn-close" aria-label="Close" @click="close"></button>
             </div>
+            <form ref="filterForm" v-if="$music.currentCategory" class="p-3">
+                <div class="mb-3" v-for="(filter, name) in $music.currentCategory.filters">
+                    <label :for="'filter_' + name" class="form-label">{{ name }}</label>
+                    <select class="form-select" :id="'filter_' + name" :name="name" @change="apply()">
+                        <option value="" selected>None</option>
+                        <option v-for="value in filter.values" :value="value">{{ value }}</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
 </template>
@@ -44,7 +53,7 @@
 </style>
 <script lang="ts">
 import Vue from "vue";
-import {FiltersInterface, Song} from "~/lib/Songs/Song";
+import {FiltersInterface} from "~/lib/Filter";
 
 export default Vue.extend({
     name: 'FilterSidebar',
@@ -60,20 +69,6 @@ export default Vue.extend({
         this.$root.$on('toggleFilterSidebar', () => {
             this.toggle();
         });
-
-        this.$root.$on('category.change', () => {
-            if (!this.$music.currentCategory) {
-                return;
-            }
-
-            for (let song of this.$music.currentCategory.songs) {
-                this.addToFilter(song);
-            }
-
-            for (let [filter, value] of Object.entries(this.filters)) {
-                console.log(this.filters);
-            }
-        });
     },
     methods: {
         toggle() {
@@ -82,18 +77,16 @@ export default Vue.extend({
         close() {
             this.hidden = true;
         },
-        addToFilter(song: Song) {
-            if (song.manifest.filters) {
-                for (let [filter, value] of Object.entries(song.manifest.filters)) {
-                    if (!this.filters.hasOwnProperty(filter)) {
-                        this.filters[filter] = [];
-                    }
+        apply() {
+            let data = new FormData(this.$refs.filterForm as HTMLFormElement);
 
-                    if (!this.filters[filter].includes(value)) {
-                        this.filters[filter].push(value);
-                    }
-                }
-            }
+            this.$music.selectedFilters = {};
+
+            data.forEach((value, filter) => {
+                this.$music.selectedFilters[filter] = value as string;
+            });
+
+            this.$root.$emit('applyFilters');
         }
     }
 });

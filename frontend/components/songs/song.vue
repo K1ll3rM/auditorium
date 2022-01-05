@@ -1,5 +1,5 @@
 <template>
-    <div @click="songPlayer.play()">
+    <div @click="songPlayer.play()" :class="show ? '' : 'd-none'">
         <song-style :class="($music.currentSong && $music.currentSong.song.id === song.id ? 'selected' : '') + (songPlayer.transitioning ? ' transitioning' : '')" :name="song.manifest.name"/>
     </div>
 </template>
@@ -24,11 +24,16 @@ export default Vue.extend({
     },
     data() {
         return {
-            songPlayer: {} as AbstractSongPlayer
+            songPlayer: {} as AbstractSongPlayer,
+            show: true
         }
     },
     created() {
         this.setSongPlayer();
+
+        this.$root.$on('applyFilters', () => {
+            this.filter();
+        });
     },
     updated() {
         this.setSongPlayer();
@@ -40,6 +45,11 @@ export default Vue.extend({
             }
 
             this.songPlayer = SongPlayerFactory.create(this.song, this.$root);
+        },
+        filter() {
+            for (const [filterName, filterValue] of Object.entries(this.$music.selectedFilters)) {
+                this.show = !!(this.song.manifest.filters && this.song.manifest.filters[filterName] && this.song.manifest.filters[filterName] === filterValue);
+            }
         }
     }
 });
