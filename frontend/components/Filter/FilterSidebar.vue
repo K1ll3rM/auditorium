@@ -1,5 +1,5 @@
 <template>
-    <div class="filter-sidebar-container">
+    <div class="filter-sidebar-container" v-click-outside="close">
         <div class="filter-sidebar" :class="hidden ? 'hidden' : ''">
             <div>
                 <button type="button" class="btn-close" aria-label="Close" @click="close"></button>
@@ -55,6 +55,7 @@
 <script lang="ts">
 import Vue from "vue";
 import {FiltersInterface} from "~/lib/Filter";
+import {timeout} from "@/shared/helpers";
 
 export default Vue.extend({
     name: 'FilterSidebar',
@@ -72,11 +73,14 @@ export default Vue.extend({
         });
     },
     methods: {
-        toggle() {
+        async toggle() {
+            await timeout(5);
             this.hidden = !this.hidden;
         },
         close() {
-            this.hidden = true;
+            if(!this.hidden) {
+                this.hidden = true;
+            }
         },
         apply() {
             let data = new FormData(this.$refs.filterForm as HTMLFormElement);
