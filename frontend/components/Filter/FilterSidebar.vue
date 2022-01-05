@@ -70,10 +70,6 @@ export default Vue.extend({
         this.$root.$on('toggleFilterSidebar', () => {
             this.toggle();
         });
-
-        this.$root.$on('select', () => {
-
-        });
     },
     methods: {
         toggle() {

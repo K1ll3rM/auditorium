@@ -25,10 +25,14 @@ export default Vue.extend({
     data() {
         return {
             songPlayer: {} as AbstractSongPlayer,
-            show: true
+            show: true,
+            beforeUpdateId: ''
         }
     },
     created() {
+        this.filter();
+        this.beforeUpdateId = this.song.id;
+
         this.setSongPlayer();
 
         this.$root.$on('applyFilters', () => {
@@ -36,20 +40,33 @@ export default Vue.extend({
         });
     },
     updated() {
+        if (this.beforeUpdateId !== this.song.id) {
+            this.filter();
+        }
+        this.beforeUpdateId = this.song.id;
         this.setSongPlayer();
     },
     methods: {
         setSongPlayer() {
-            if(this.songPlayer?.song?.id === this.song.id) {
+            if (this.songPlayer?.song?.id === this.song.id) {
                 return;
             }
 
             this.songPlayer = SongPlayerFactory.create(this.song, this.$root);
         },
-        filter() {
+        filter: function () {
+            let show = true;
+
             for (const [filterName, filterValue] of Object.entries(this.$music.selectedFilters)) {
-                this.show = !!(this.song.manifest.filters && this.song.manifest.filters[filterName] && this.song.manifest.filters[filterName] === filterValue);
+                if (this.song.manifest.filters && this.song.manifest.filters[filterName] && this.song.manifest.filters[filterName] === filterValue) {
+                    continue;
+                }
+
+                show = false;
+                break;
             }
+
+            this.show = show;
         }
     }
 });
