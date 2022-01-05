@@ -1,13 +1,15 @@
 import {CategoryManifestInterface} from "@/shared/CategoryManifestInterface";
 import {Song} from "~/lib/Songs/Song";
+import {Filter, FiltersInterface} from "~/lib/Filter";
 
 export class Category {
     readonly id: string;
 
-    parent: Category|null = null;
+    parent: Category | null = null;
 
     children: Category[] = [];
     songs: Song[] = [];
+    filters: FiltersInterface = {};
 
     readonly manifestDefault: CategoryManifestInterface = {
         name: "Missing name!",
@@ -34,12 +36,11 @@ export class Category {
         }
 
         for (const [id, category] of Object.entries(categories)) {
-            if(!id.match(/\./)) {
+            if (!id.match(/\./)) {
                 sorted[id] = category;
-            }
-            else {
+            } else {
                 let parentId = id.replace(/\.[^\/.]+$/, '');
-                if(!categories[parentId]) {
+                if (!categories[parentId]) {
                     throw new Error(`Category ${id} calls for parent ${parentId} that doesn't exist.`);
                 }
 
@@ -54,17 +55,26 @@ export class Category {
     loadManifest(manifest: CategoryManifestInterface) {
         this.manifest = Object.assign({}, this.manifestDefault, manifest);
 
-        if(this.manifest.fullName === null) {
+        if (this.manifest.fullName === null) {
             this.manifest.fullName = this.manifest.name;
         }
     }
 
     pushToSongs(song: Song) {
-        if(!this.songs.includes(song)) {
+        if (!this.songs.includes(song)) {
             this.songs.push(song);
+            if (song.manifest.filters) {
+                for (const [filterName, filterValue] of Object.entries(song.manifest.filters)) {
+                    if (!this.filters[filterName]) {
+                        this.filters[filterName] = new Filter(filterName);
+                    }
+
+                    this.filters[filterName].addValue(filterValue);
+                }
+            }
         }
 
-        if(this.parent) {
+        if (this.parent) {
             this.parent.pushToSongs(song);
         }
     }
@@ -73,7 +83,7 @@ export class Category {
         let cat: Category = this;
         let breadcrumb: Category[] = [];
 
-        while(cat.parent) {
+        while (cat.parent) {
             cat = cat.parent;
             breadcrumb.unshift(cat);
         }

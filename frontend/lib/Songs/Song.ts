@@ -15,7 +15,8 @@ export class Song implements SongInterface {
         name: "Missing name!",
         category: "unsorted",
         player: "default",
-        gainMod: 1
+        gainMod: 1,
+        filters: {}
     };
     manifest: SongManifestInterface = {};
 
@@ -80,8 +81,4 @@ export class Song implements SongInterface {
 
 export interface SongsInterface {
     [key: string]: Song
-}
-
-export interface FiltersInterface {
-    [key: string]: string[]
 }
