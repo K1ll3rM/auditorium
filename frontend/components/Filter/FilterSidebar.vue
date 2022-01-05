@@ -8,8 +8,9 @@
                 <div class="mb-3" v-for="(filter, name) in $music.currentCategory.filters">
                     <label :for="'filter_' + name" class="form-label">{{ name }}</label>
                     <select class="form-select" :id="'filter_' + name" :name="name" @change="apply()">
-                        <option value="" selected>None</option>
-                        <option v-for="value in filter.values" :value="value">{{ value }}</option>
+                        <option value="">None</option>
+                        <option v-if="$music.selectedFilters[name] && !filter.values.includes($music.selectedFilters[name])" :value="$music.selectedFilters[name]" selected>{{ $music.selectedFilters[name]}}</option>
+                        <option v-for="value in filter.values" :value="value" :selected="$music.selectedFilters[name] && $music.selectedFilters[name] === value">{{ value }}</option>
                     </select>
                 </div>
             </form>
@@ -68,6 +69,10 @@ export default Vue.extend({
     created() {
         this.$root.$on('toggleFilterSidebar', () => {
             this.toggle();
+        });
+
+        this.$root.$on('select', () => {
+
         });
     },
     methods: {
