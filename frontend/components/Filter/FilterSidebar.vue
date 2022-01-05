@@ -9,7 +9,7 @@
                     <label :for="'filter_' + name" class="form-label">{{ name }}</label>
                     <select class="form-select" :id="'filter_' + name" :name="name" @change="apply()">
                         <option value="">None</option>
-                        <option v-if="$music.selectedFilters[name] && !filter.values.includes($music.selectedFilters[name])" :value="$music.selectedFilters[name]" selected>{{ $music.selectedFilters[name]}}</option>
+                        <option v-if="$music.selectedFilters[name] && !filter.values.includes($music.selectedFilters[name])" :value="$music.selectedFilters[name]" selected>{{ $music.selectedFilters[name] }}</option>
                         <option v-for="value in filter.values" :value="value" :selected="$music.selectedFilters[name] && $music.selectedFilters[name] === value">{{ value }}</option>
                     </select>
                 </div>
@@ -88,7 +88,9 @@ export default Vue.extend({
             this.$music.selectedFilters = {};
 
             data.forEach((value, filter) => {
-                this.$music.selectedFilters[filter] = value as string;
+                if (value) {
+                    this.$music.selectedFilters[filter] = value as string;
+                }
             });
 
             this.$root.$emit('applyFilters');
