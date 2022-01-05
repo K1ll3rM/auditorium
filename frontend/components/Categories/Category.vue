@@ -5,13 +5,10 @@
         </div>
 
         <div class="breadcrumb">
-            <div class="breadcrumb-item" v-if="$music.currentCategory">
-                <CategoryButtonHome button-class="btn-sm" :key="null" @select="select()"/>
-            </div>
             <div class="breadcrumb-item" v-for="category in breadcrumb">
                 <CategoryButton button-class="btn-sm" :key="category.id" :category="category" @select="select()"/>
             </div>
-            <div class="breadcrumb-item" v-if="$music.currentCategory">
+            <div class="breadcrumb-item" v-if="breadcrumb.length && $music.currentCategory">
                 {{ $music.currentCategory.manifest.name }}
             </div>
         </div>
@@ -23,7 +20,6 @@
 
         <div v-if="$music.currentCategory && $music.currentCategory.children">
             <CategoryButton v-if="$music.currentCategory.parent" class="me-2" :key="$music.currentCategory.parent.id" :category="$music.currentCategory.parent" content=".." @select="select()"/>
-            <CategoryButtonHome v-else class="me-2" :key="null" content=".." @select="select()"/>
             <CategoryButton v-for="(category) in $music.currentCategory.children" class="me-2" :key="category.id" :category="category" @select="select()"/>
         </div>
     </div>

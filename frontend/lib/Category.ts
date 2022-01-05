@@ -3,6 +3,10 @@ import {Song} from "~/lib/Songs/Song";
 import {Filter, FiltersInterface} from "~/lib/Filter";
 
 export class Category {
+    static root: Category = new Category('root', {
+        name: "Home"
+    });
+
     readonly id: string;
 
     parent: Category | null = null;
@@ -35,9 +39,13 @@ export class Category {
             categories[id] = new Category(id, manifest as CategoryManifestInterface);
         }
 
+        this.root.reset();
+
         for (const [id, category] of Object.entries(categories)) {
             if (!id.match(/\./)) {
                 sorted[id] = category;
+                this.root.children.push(category);
+                category.parent = this.root;
             } else {
                 let parentId = id.replace(/\.[^\/.]+$/, '');
                 if (!categories[parentId]) {
@@ -89,6 +97,12 @@ export class Category {
         }
 
         return breadcrumb;
+    }
+
+    reset() {
+        this.children = [];
+        this.songs = [];
+        this.filters = {};
     }
 }
 

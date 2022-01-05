@@ -7,7 +7,7 @@
                     <div class="actions">
                         <filter-button/>
                         <button class="btn btn-secondary mb-3" @click="refreshSongs"><i
-                                class="bi bi-arrow-clockwise"></i></button>
+                            class="bi bi-arrow-clockwise"></i></button>
                     </div>
                 </div>
                 <div class="songs-container prevent-overflow mt-3" v-if="$music.currentCategory">
@@ -34,6 +34,7 @@ import Card from "~/components/Card.vue";
 import Vue from "vue";
 import Song from "~/components/songs/song.vue";
 import {Song as SongClass} from "~/lib/Songs/Song";
+import {Category as CategoryClass} from "~/lib/Category";
 import None from "~/components/songs/none.vue";
 import Category from "~/components/Categories/Category.vue";
 import {Categories} from "~/lib/Category";
@@ -69,6 +70,9 @@ export default Vue.extend({
                 }
             }
 
+            if (!this.$music.currentCategory) {
+                this.$music.currentCategory = CategoryClass.root;
+            }
             this.$root.$emit('refresh');
         }
     }
