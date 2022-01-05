@@ -2,7 +2,7 @@
     <div class="songs prevent-overflow">
         <div class="card mt-3 prevent-overflow">
             <div class="card-body prevent-overflow">
-                <div class="position-relative">
+                <div class="position-relative mb-3">
                     <Category :categories="sortedCategories"/>
                     <div class="actions">
                         <filter-button/>
@@ -10,7 +10,10 @@
                             class="bi bi-arrow-clockwise"></i></button>
                     </div>
                 </div>
-                <div class="songs-container prevent-overflow mt-3" v-if="$music.currentCategory">
+                <div class="mb-1 p-2" v-if="Object.keys($music.selectedFilters).length">
+                    <filter-tag v-for="(filterValue, filterName) in $music.selectedFilters" :key="filterName" :filter-name="filterName" :filter-value="filterValue"/>
+                </div>
+                <div class="songs-container prevent-overflow" v-if="$music.currentCategory">
                     <div class="h-100 overflow-auto p-2">
                         <none/>
                         <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
@@ -39,9 +42,10 @@ import None from "~/components/songs/none.vue";
 import Category from "~/components/Categories/Category.vue";
 import {Categories} from "~/lib/Category";
 import FilterButton from "~/components/Filter/FilterButton.vue";
+import FilterTag from "~/components/Filter/FilterTag.vue";
 
 export default Vue.extend({
-    components: {FilterButton, Category, None, Song, Card},
+    components: {FilterTag, FilterButton, Category, None, Song, Card},
     props: [],
     created() {
         this.refreshSongs();
