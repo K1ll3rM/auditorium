@@ -1,5 +1,5 @@
 <template>
-    <a @click="select(category)">
+    <a @click="select(category)" v-if="category.id !== 'unsorted' || category.songs.length">
         <CategoryButtonStyle :class="buttonClass" :id="category.id">{{ content ? content : category.manifest.name }}</CategoryButtonStyle>
     </a>
 </template>
