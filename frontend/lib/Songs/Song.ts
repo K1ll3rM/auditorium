@@ -1,10 +1,12 @@
 import {SongManifestInterface} from "@/shared/SongManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
-import {Category} from "~/lib/Category";
+import {Categories, Category} from "~/lib/Category";
 import {SongFilesInterface} from "@/shared/SongFilesInterface";
 
 export class Song implements SongInterface {
-    static songs: Songs = {};
+    static songs: SongsInterface = {};
+    static categories: Categories = {};
+    static sortedCategories: Categories = {};
 
     readonly id: string;
     readonly path: string;
@@ -23,9 +25,9 @@ export class Song implements SongInterface {
         this.loadManifest(manifest);
     }
 
-    static async getSongs(): Promise<Songs> {
+    static async getSongs(): Promise<SongsInterface> {
         let reply = window.api.getSongs();
-        let songs: Songs = {};
+        let songs: SongsInterface = {};
 
         for (const [id, manifest] of Object.entries(reply)) {
             songs[id] = new Song(id, manifest as SongManifestInterface);
@@ -34,29 +36,29 @@ export class Song implements SongInterface {
         return songs;
     }
 
-    static async getSongsByCategory() {
+    static async loadSongsByCategory() {
         this.songs = await this.getSongs();
-        let [categories, sorted] = await Category.getCategories();
+        [this.categories, this.sortedCategories] = await Category.getCategories();
 
         for (let [id, song] of Object.entries(this.songs)) {
-            if(!song.manifest.category) {
+            if (!song.manifest.category) {
                 song.manifest.category = ['unsorted'];
             }
 
-            if(!Array.isArray(song.manifest.category)) {
+            if (!Array.isArray(song.manifest.category)) {
                 song.manifest.category = [song.manifest.category];
             }
 
             for (let category of song.manifest.category) {
-                if(!categories[category]) {
+                if (!this.categories[category]) {
                     throw new Error(`Song ${id} calls for category ${category} that doesn't exist.`);
                 }
 
-                categories[category].pushToSongs(song);
+                this.categories[category].pushToSongs(song);
             }
         }
 
-        return [categories, sorted];
+        return this;
     }
 
     getSongPath() {
@@ -76,6 +78,10 @@ export class Song implements SongInterface {
     }
 }
 
-export interface Songs {
+export interface SongsInterface {
     [key: string]: Song
+}
+
+export interface FiltersInterface {
+    [key: string]: string[]
 }

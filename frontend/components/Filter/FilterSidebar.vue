@@ -44,6 +44,7 @@
 </style>
 <script lang="ts">
 import Vue from "vue";
+import {FiltersInterface, Song} from "~/lib/Songs/Song";
 
 export default Vue.extend({
     name: 'FilterSidebar',
@@ -51,12 +52,27 @@ export default Vue.extend({
     props: {},
     data() {
         return {
-            hidden: true
+            hidden: true,
+            filters: <FiltersInterface>{}
         }
     },
     created() {
         this.$root.$on('toggleFilterSidebar', () => {
             this.toggle();
+        });
+
+        this.$root.$on('category.change', () => {
+            if (!this.$music.currentCategory) {
+                return;
+            }
+
+            for (let song of this.$music.currentCategory.songs) {
+                this.addToFilter(song);
+            }
+
+            for (let [filter, value] of Object.entries(this.filters)) {
+                console.log(this.filters);
+            }
         });
     },
     methods: {
@@ -65,6 +81,19 @@ export default Vue.extend({
         },
         close() {
             this.hidden = true;
+        },
+        addToFilter(song: Song) {
+            if (song.manifest.filters) {
+                for (let [filter, value] of Object.entries(song.manifest.filters)) {
+                    if (!this.filters.hasOwnProperty(filter)) {
+                        this.filters[filter] = [];
+                    }
+
+                    if (!this.filters[filter].includes(value)) {
+                        this.filters[filter].push(value);
+                    }
+                }
+            }
         }
     }
 });
