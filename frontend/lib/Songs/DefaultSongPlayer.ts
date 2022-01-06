@@ -23,6 +23,14 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
     protected async initTracks(): Promise<void> {
         let files = this.song.getFiles<DefaultSongFilesInterface>();
 
+        if(!files.intro) {
+            throw new Error('Intro file does not exist');
+        }
+
+        if(!files.loop) {
+            throw new Error('Loop file does not exist');
+        }
+
         await this.initTrack(this.tracks.intro, files.intro);
         await this.initTrack(this.tracks.loop, files.loop);
 

@@ -47,8 +47,8 @@ async function getDefaultFiles(song: SongInterface) {
         return elm.match(/loop\..*/ig);
     })[0];
 
-    let intro = await fs.readFile(song.path + '/' + introPath);
-    let loop = await fs.readFile(song.path + '/' + loopPath);
+    let intro = introPath ? await fs.readFile(song.path + '/' + introPath) : null;
+    let loop = loopPath ? await fs.readFile(song.path + '/' + loopPath) : null;
 
     return  {
         intro: intro,

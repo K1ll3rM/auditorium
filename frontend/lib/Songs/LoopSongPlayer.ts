@@ -13,6 +13,10 @@ export class LoopSongPlayer extends AbstractSongPlayer {
     protected async initTracks(): Promise<void> {
         let files = this.song.getFiles<FadeSongFilesInterface>();
 
+        if(!files.loop) {
+            throw new Error('Loop file does not exist');
+        }
+
         await this.initTrack(this.tracks.loop, files.loop);
         this.tracks.loop.buffer.loop = true;
     }
