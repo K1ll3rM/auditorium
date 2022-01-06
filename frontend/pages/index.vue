@@ -1,7 +1,8 @@
 <template>
-    <main v-if="initialized">
+    <main v-if="initialized" >
         <control-bar/>
         <div class="main-container">
+            <toasts ref="toasts"/>
             <div class="container">
                 <songs></songs>
             </div>
@@ -13,6 +14,7 @@
 <style lang="scss" scoped>
 .main-container {
     height: calc(100vh - 65px);
+    position: relative;
 
     .container {
         height: 100%;
@@ -29,6 +31,8 @@ import Volume from "~/components/controls/volume.vue";
 import {Config} from "~/lib/Config";
 import ControlBar from "~/components/controls/ControlBar.vue";
 import FilterSidebar from "~/components/Filter/FilterSidebar.vue";
+import Toasts from "~/components/Toast/Toasts.vue";
+import {Toast, ToastStyle} from "~/lib/Toast";
 
 export default Vue.extend({
     head() {
@@ -36,7 +40,7 @@ export default Vue.extend({
             title: 'Auditorium'
         }
     },
-    components: {FilterSidebar, ControlBar, Volume, Songs},
+    components: {Toasts, FilterSidebar, ControlBar, Volume, Songs},
     async created() {
         await Config.init();
         this.initialized = true;
@@ -45,6 +49,11 @@ export default Vue.extend({
         return {
             initialized: false
         };
+    },
+    methods: {
+        addToast(toast: Toast) {
+            this.$refs.toasts.addToast(toast);
+        }
     }
 })
 </script>
