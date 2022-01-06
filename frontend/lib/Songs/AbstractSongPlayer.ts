@@ -22,7 +22,7 @@ export abstract class AbstractSongPlayer {
     }
 
     protected async initTrack(track: TrackInterface, file: Uint8Array) {
-        if(!(file instanceof Uint8Array)) {
+        if (!(file instanceof Uint8Array)) {
             throw new Error('Given file is not of type Uint8Array');
         }
 
@@ -60,7 +60,7 @@ export abstract class AbstractSongPlayer {
 
     async fadeIn(delay: number = 10) {
         for (let i = this.gainMod * 100; i < 100; i++) {
-            if(this.stopped) {
+            if (this.stopped) {
                 break;
             }
 
@@ -78,11 +78,11 @@ export abstract class AbstractSongPlayer {
     }
 
     public async play() {
-        if(this.root.$music.songChanging) {
+        if (this.root.$music.songChanging) {
             return;
         }
 
-        if(this.root.$music.currentSong?.song?.id === this.song.id) {
+        if (this.root.$music.currentSong?.song?.id === this.song.id) {
             return;
         }
 
@@ -90,18 +90,29 @@ export abstract class AbstractSongPlayer {
         this.transitioning = true;
         this.root.$music.songChanging = true;
 
-        if(this.root.$music.currentSong) {
-            await Promise.allSettled([
-                this.root.$music.currentSong.stop(),
-                this.init()
-            ]);
-        }
-        else {
-            await this.init();
-        }
+        try {
+            if (this.root.$music.currentSong) {
+                let result = await Promise.allSettled([
+                    this.root.$music.currentSong.stop(),
+                    this.init()
+                ]);
 
-        this.stopped = false;
-        await this.startTracks();
+                if (result[1].status === 'rejected') {
+                    throw result[1].reason;
+                }
+            } else {
+                await this.init();
+            }
+
+            this.stopped = false;
+            await this.startTracks();
+        } catch (e) {
+            this.transitioning = false;
+            this.root.$music.currentSong = null;
+            this.root.$music.songChanging = false;
+
+            throw e;
+        }
 
         this.transitioning = false;
         this.root.$music.currentSong = this;
@@ -133,11 +144,15 @@ export abstract class AbstractSongPlayer {
     }
 
     protected abstract initTracks(): Promise<void>;
+
     protected abstract startTracks(): Promise<void>;
+
     protected abstract stopTracks(): Promise<void>;
 
     protected abstract pauseTracks(): Promise<void>;
+
     protected abstract unPauseTracks(): Promise<void>;
+
     protected abstract purgeTracks(): void;
 }
 
