@@ -35,6 +35,13 @@ import Toasts from "~/components/Toast/Toasts.vue";
 import {Toast, ToastStyle} from "~/lib/Toast";
 
 export default Vue.extend({
+    errorCaptured(err: Error): boolean | void {
+        this.addToast(new Toast('An error has occurred! Check the console for more information.', ToastStyle.danger, 0));
+
+        console.error(err);
+
+        return false;
+    },
     head() {
         return {
             title: 'Auditorium'
