@@ -2,6 +2,8 @@ import {SongManifestInterface} from "@/shared/SongManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
 import {Categories, Category} from "~/lib/Category";
 import {SongFilesInterface} from "@/shared/SongFilesInterface";
+import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
+import {SongPlayerFactory} from "~/lib/Songs/SongPlayerFactory";
 
 export class Song implements SongInterface {
     static songs: SongsInterface = {};
@@ -20,10 +22,13 @@ export class Song implements SongInterface {
     };
     manifest: SongManifestInterface = {};
 
+    readonly player: AbstractSongPlayer;
+
     constructor(id: string, manifest: SongManifestInterface) {
         this.id = id;
         this.path = this.getSongPath();
         this.loadManifest(manifest);
+        this.player = SongPlayerFactory.create(this);
     }
 
     static async getSongs(): Promise<SongsInterface> {
@@ -31,7 +36,7 @@ export class Song implements SongInterface {
         let songs: SongsInterface = {};
 
         for (const [id, manifest] of Object.entries(reply)) {
-            songs[id] = new Song(id, manifest as SongManifestInterface);
+            songs[id] = new Song(id, manifest);
         }
 
         return songs;
@@ -81,4 +86,7 @@ export class Song implements SongInterface {
 
 export interface SongsInterface {
     [key: string]: Song
+}
+export interface SongManifestsInterface {
+    [key: string]: SongManifestInterface
 }

@@ -1,7 +1,7 @@
-import Vue from "vue";
 import {Config} from "~/lib/Config";
 import {easeInOutQuad, timeout} from "@/shared/helpers";
 import {Song} from "~/lib/Songs/Song";
+import {Main} from "~/lib/Main";
 
 /**
  * The default song player
@@ -12,16 +12,14 @@ export abstract class AbstractSongPlayer {
     public transitioning: boolean = false;
     public paused: boolean = false;
     public song: Song;
-    public root: Vue;
 
     protected tracks: TracksObjectInterface = {};
 
-    constructor(song: Song, root: Vue) {
+    constructor(song: Song) {
         this.song = song;
-        this.root = root;
     }
 
-    protected async initTrack(track: TrackInterface, file: Uint8Array) {
+    protected async initTrack(track: TrackInterface, file: Uint8Array|null) {
         if (!(file instanceof Uint8Array)) {
             throw new Error('Given file is not of type Uint8Array');
         }
@@ -78,22 +76,22 @@ export abstract class AbstractSongPlayer {
     }
 
     public async play() {
-        if (this.root.$music.songChanging) {
+        if (Main.$root.$music.songChanging) {
             return;
         }
 
-        if (this.root.$music.currentSong?.song?.id === this.song.id) {
+        if (Main.$root.$music.currentSong?.song?.id === this.song.id) {
             return;
         }
 
         this.paused = false;
         this.transitioning = true;
-        this.root.$music.songChanging = true;
+        Main.$root.$music.songChanging = true;
 
         try {
-            if (this.root.$music.currentSong) {
+            if (Main.$root.$music.currentSong) {
                 let result = await Promise.allSettled([
-                    this.root.$music.currentSong.stop(),
+                    Main.$root.$music.currentSong.stop(),
                     this.init()
                 ]);
 
@@ -108,15 +106,15 @@ export abstract class AbstractSongPlayer {
             await this.startTracks();
         } catch (e) {
             this.transitioning = false;
-            this.root.$music.currentSong = null;
-            this.root.$music.songChanging = false;
+            Main.$root.$music.currentSong = null;
+            Main.$root.$music.songChanging = false;
 
             throw e;
         }
 
         this.transitioning = false;
-        this.root.$music.currentSong = this;
-        this.root.$music.songChanging = false;
+        Main.$root.$music.currentSong = this;
+        Main.$root.$music.songChanging = false;
 
         await this.fadeIn();
     }

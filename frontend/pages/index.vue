@@ -33,6 +33,7 @@ import ControlBar from "~/components/controls/ControlBar.vue";
 import FilterSidebar from "~/components/Filter/FilterSidebar.vue";
 import Toasts from "~/components/Toast/Toasts.vue";
 import {Toast, ToastStyle} from "~/lib/Toast";
+import {Main} from "~/lib/Main";
 
 export default Vue.extend({
     errorCaptured(err: Error): boolean | void {
@@ -49,6 +50,7 @@ export default Vue.extend({
     },
     components: {Toasts, FilterSidebar, ControlBar, Volume, Songs},
     async created() {
+        Main.$root = this.$root;
         await Config.init();
         this.initialized = true;
     },
