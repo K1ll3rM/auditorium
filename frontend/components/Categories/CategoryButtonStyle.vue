@@ -4,11 +4,9 @@
 
 <script lang="ts">
 import Vue from "vue";
-import None from "~/components/songs/none.vue";
-import Song from "~/components/songs/song.vue";
 
 export default Vue.extend({
-    components: {Song, None},
+    components: {},
     props: {
         id: String
     }

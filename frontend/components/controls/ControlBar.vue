@@ -2,7 +2,8 @@
     <div class="bar bg-gray">
         <div class="container">
             <div class="left">
-                <play-pause/>
+                <play-pause class="me-2"/>
+                <stop/>
             </div>
             <div class="middle">
 
@@ -30,6 +31,8 @@
 
 .left, .right {
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .middle {
@@ -41,9 +44,10 @@
 import Vue from "vue";
 import Volume from "~/components/controls/volume.vue";
 import PlayPause from "~/components/controls/PlayPause.vue";
+import Stop from "~/components/controls/Stop.vue";
 
 export default Vue.extend({
-    components: {PlayPause, Volume},
+    components: {PlayPause, Volume, Stop},
     props: {
     },
     data() {

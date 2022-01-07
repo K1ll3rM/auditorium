@@ -54,10 +54,9 @@
 import Card from "~/components/Card.vue";
 import Vue from "vue";
 import {Song} from "~/lib/Songs/Song";
-import SongStyle from "~/components/songs/song-style.vue";
 
 export default Vue.extend({
-    components: {SongStyle, Card},
+    components: {Card},
     props: {
         song: {
             type: Object as Vue.PropType<Song>,

@@ -1,35 +1,49 @@
 <template>
-    <div @click="play">
-        <song-style :class="(!$music.currentSong ? 'selected' : '') + (transitioning ? ' transitioning' : '')">None</song-style>
+    <div class="stop">
+        <div class="button" @click="stop()" :class="!$music.currentSong ? 'disabled' : ''">
+            <i class="bi bi-x-square-fill"></i>
+        </div>
     </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+.stop {
+    display: inline-block;
+}
+
+.button {
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+.disabled {
+    opacity: .5;
+    pointer-events: none;
+}
 </style>
+
 <script lang="ts">
-import Card from "~/components/Card.vue";
 import Vue from "vue";
-import SongStyle from "~/components/songs/song-style.vue";
 
 export default Vue.extend({
-    components: {SongStyle, Card},
+    components: {},
+    props: {
+    },
     data() {
         return {
-            transitioning: false
         }
     },
     methods: {
-        async play() {
+        async stop() {
             if (this.$music.songChanging) {
                 return;
             }
 
             if (this.$music.currentSong) {
-                this.transitioning = true;
                 this.$music.songChanging = true;
                 await this.$music.currentSong.player.stop();
                 this.$music.songChanging = false;
-                this.transitioning = false;
                 this.$music.currentSong = null;
             }
         }

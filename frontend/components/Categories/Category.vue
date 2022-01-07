@@ -46,13 +46,11 @@
 <script lang="ts">
 import Vue from "vue";
 import {Categories, Category} from "~/lib/Category";
-import None from "~/components/songs/none.vue";
-import Song from "~/components/songs/song.vue";
 import CategoryButton from "~/components/Categories/CategoryButton.vue";
 import CategoryButtonHome from "~/components/Categories/CategoryButtonHome.vue";
 
 export default Vue.extend({
-    components: {CategoryButtonHome, CategoryButton, Song, None},
+    components: {CategoryButtonHome, CategoryButton},
     props: {
         categories: {
             type: Object as Vue.PropType<Categories>,

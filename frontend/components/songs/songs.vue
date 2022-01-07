@@ -17,7 +17,6 @@
                 </div>
                 <div class="songs-container prevent-overflow" v-if="$music.currentCategory">
                     <div class="h-100 overflow-auto p-2">
-                        <none/>
                         <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
                     </div>
                 </div>
@@ -40,14 +39,13 @@ import Vue from "vue";
 import Song from "~/components/songs/song.vue";
 import {Song as SongClass} from "~/lib/Songs/Song";
 import {Categories, Category as CategoryClass} from "~/lib/Category";
-import None from "~/components/songs/none.vue";
 import Category from "~/components/Categories/Category.vue";
 import FilterButton from "~/components/Filter/FilterButton.vue";
 import FilterTag from "~/components/Filter/FilterTag.vue";
 import ShuffleButton from "~/components/Buttons/ShuffleButton.vue";
 
 export default Vue.extend({
-    components: {ShuffleButton, FilterTag, FilterButton, Category, None, Song, Card},
+    components: {ShuffleButton, FilterTag, FilterButton, Category, Song, Card},
     props: [],
     created() {
         this.refreshSongs();

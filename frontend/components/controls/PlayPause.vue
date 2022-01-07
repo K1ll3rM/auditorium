@@ -8,6 +8,10 @@
 </template>
 
 <style lang="scss" scoped>
+.play-pause {
+    display: inline-block;
+}
+
 .button {
     cursor: pointer;
     font-size: 2rem;
