@@ -1,6 +1,6 @@
 <template>
     <div class="stop">
-        <div class="button" @click="stop()" :class="!$music.currentSong ? 'disabled' : ''">
+        <div class="button" @click="stop()" :class="!$music.currentSong || !['playing', 'paused'].includes($music.currentSong.player.state) ? 'disabled' : ''">
             <i class="bi bi-x-square-fill"></i>
         </div>
     </div>
