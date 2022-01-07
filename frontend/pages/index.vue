@@ -50,7 +50,7 @@ export default Vue.extend({
     },
     components: {Toasts, FilterSidebar, ControlBar, Volume, Songs},
     async created() {
-        Main.$root = this.$root;
+        this.initMain();
         await Config.init();
         this.initialized = true;
     },
@@ -60,6 +60,10 @@ export default Vue.extend({
         };
     },
     methods: {
+        initMain() {
+            Main.$root = this.$root;
+            Main.addToast = this.addToast;
+        },
         addToast(toast: Toast) {
             this.$refs.toasts.addToast(toast);
         }

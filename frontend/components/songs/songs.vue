@@ -5,9 +5,11 @@
                 <div class="position-relative mb-3">
                     <Category :categories="sortedCategories"/>
                     <div class="actions">
+                        <shuffle-button/>
                         <filter-button/>
-                        <button class="btn btn-secondary mb-3" @click="refreshSongs"><i
-                            class="bi bi-arrow-clockwise"></i></button>
+                        <button class="btn btn-secondary mb-3" @click="refreshSongs">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="mb-1 p-2" v-if="Object.keys($music.selectedFilters).length">
@@ -37,15 +39,15 @@ import Card from "~/components/Card.vue";
 import Vue from "vue";
 import Song from "~/components/songs/song.vue";
 import {Song as SongClass} from "~/lib/Songs/Song";
-import {Category as CategoryClass} from "~/lib/Category";
+import {Categories, Category as CategoryClass} from "~/lib/Category";
 import None from "~/components/songs/none.vue";
 import Category from "~/components/Categories/Category.vue";
-import {Categories} from "~/lib/Category";
 import FilterButton from "~/components/Filter/FilterButton.vue";
 import FilterTag from "~/components/Filter/FilterTag.vue";
+import ShuffleButton from "~/components/Buttons/ShuffleButton.vue";
 
 export default Vue.extend({
-    components: {FilterTag, FilterButton, Category, None, Song, Card},
+    components: {ShuffleButton, FilterTag, FilterButton, Category, None, Song, Card},
     props: [],
     created() {
         this.refreshSongs();
