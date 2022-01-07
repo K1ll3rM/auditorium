@@ -80,7 +80,7 @@ export abstract class AbstractSongPlayer {
             return;
         }
 
-        if (Main.$root.$music.currentSong?.song?.id === this.song.id) {
+        if (Main.$root.$music.currentSong?.id === this.song.id) {
             return;
         }
 
@@ -91,7 +91,7 @@ export abstract class AbstractSongPlayer {
         try {
             if (Main.$root.$music.currentSong) {
                 let result = await Promise.allSettled([
-                    Main.$root.$music.currentSong.stop(),
+                    Main.$root.$music.currentSong.player.stop(),
                     this.init()
                 ]);
 
@@ -113,7 +113,7 @@ export abstract class AbstractSongPlayer {
         }
 
         this.transitioning = false;
-        Main.$root.$music.currentSong = this;
+        Main.$root.$music.currentSong = this.song;
         Main.$root.$music.songChanging = false;
 
         await this.fadeIn();

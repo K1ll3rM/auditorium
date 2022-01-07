@@ -70,9 +70,9 @@ export default Vue.extend({
             }
 
             if (this.$music.currentSong) {
-                if (SongClass.songs[this.$music.currentSong.song.id]) {
-                    this.$music.currentSong.song = SongClass.songs[this.$music.currentSong.song.id];
-                    this.$music.currentSong.updateVolume();
+                if (SongClass.songs[this.$music.currentSong.id]) {
+                    this.$music.currentSong = SongClass.songs[this.$music.currentSong.id];
+                    this.$music.currentSong.player.updateVolume();
                 }
             }
 

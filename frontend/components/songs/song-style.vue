@@ -1,7 +1,7 @@
 <template>
     <div class="card bg-dark mb-3">
         <div class="card-body">
-            {{ name }}
+            <slot/>
         </div>
     </div>
 </template>
@@ -29,8 +29,6 @@
 import Vue from "vue";
 
 export default Vue.extend({
-    props: {
-        name: String
-    }
+    props: {}
 });
 </script>

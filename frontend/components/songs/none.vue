@@ -1,6 +1,6 @@
 <template>
     <div @click="play">
-        <song-style :class="(!$music.currentSong ? 'selected' : '') + (transitioning ? ' transitioning' : '')" name="None"/>
+        <song-style :class="(!$music.currentSong ? 'selected' : '') + (transitioning ? ' transitioning' : '')">None</song-style>
     </div>
 </template>
 
@@ -20,14 +20,14 @@ export default Vue.extend({
     },
     methods: {
         async play() {
-            if(this.$music.songChanging) {
+            if (this.$music.songChanging) {
                 return;
             }
 
-            if(this.$music.currentSong) {
+            if (this.$music.currentSong) {
                 this.transitioning = true;
                 this.$music.songChanging = true;
-                await this.$music.currentSong.stop();
+                await this.$music.currentSong.player.stop();
                 this.$music.songChanging = false;
                 this.transitioning = false;
                 this.$music.currentSong = null;
