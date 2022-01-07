@@ -67,12 +67,7 @@ export default Vue.extend({
                 this.$music.currentCategory = this.categories[this.$music.currentCategory.id];
             }
 
-            if (this.$music.currentSong) {
-                if (SongClass.songs[this.$music.currentSong.id]) {
-                    this.$music.currentSong = SongClass.songs[this.$music.currentSong.id];
-                    this.$music.currentSong.player.updateVolume();
-                }
-            }
+            this.$music.currentSong = null;
 
             if (!this.$music.currentCategory) {
                 this.$music.currentCategory = CategoryClass.root;
