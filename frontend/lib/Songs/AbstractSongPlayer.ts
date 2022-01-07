@@ -8,6 +8,7 @@ import {Main} from "~/lib/Main";
  */
 export abstract class AbstractSongPlayer {
     public stopped: boolean = false;
+    public stopping: boolean = false;
     public gainMod: number = 1;
     public transitioning: boolean = false;
     public paused: boolean = false;
@@ -58,7 +59,7 @@ export abstract class AbstractSongPlayer {
 
     async fadeIn(delay: number = 10) {
         for (let i = this.gainMod * 100; i < 100; i++) {
-            if (this.stopped) {
+            if (this.stopped || this.stopping) {
                 break;
             }
 
@@ -120,10 +121,13 @@ export abstract class AbstractSongPlayer {
     }
 
     public async stop() {
-        this.stopped = true;
+        this.stopping = true;
 
         await this.fadeOut();
         await this.stopTracks();
+
+        this.stopping = false;
+        this.stopped = true;
 
         this.purgeTracks();
     }
