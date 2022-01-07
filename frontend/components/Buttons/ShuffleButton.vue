@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-secondary mb-3" @click="randomSong"><i class="bi bi-shuffle"></i></button>
+    <button class="btn btn-secondary mb-3" :class="$music.currentSong && ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disabled' : ''" @click="randomSong"><i class="bi bi-shuffle"></i></button>
 </template>
 
 <style>

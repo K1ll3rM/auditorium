@@ -3,3 +3,8 @@
     flex-direction: column;
     min-height: 0;
 }
+
+.button-disabled {
+    opacity: .5;
+    pointer-events: none;
+}

@@ -2,7 +2,7 @@
     <div :class="show ? '' : 'd-none'">
         <div class="card bg-dark mb-3" :class="($music.currentSong && $music.currentSong.id === song.id ? 'selected' : '') + ' ' + song.player.state">
             <div class="card-body">
-                <div class="play me-1" @click="toggle()" :class="$music.currentSong && ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'disabled' : ''">
+                <div class="play me-1" @click="toggle()" :class="$music.currentSong && ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disabled' : ''">
                     <div v-if="$music.currentSong && !['paused', 'pausing', 'stopping', 'stopped'].includes(song.player.state)" class="bi bi-pause"></div>
                     <div v-else class="bi bi-play"></div>
                 </div>
@@ -52,11 +52,6 @@
 
 .info {
     display: block;
-}
-
-.disabled {
-    opacity: .5;
-    pointer-events: none;
 }
 </style>
 <script lang="ts">

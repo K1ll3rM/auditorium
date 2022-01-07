@@ -1,6 +1,6 @@
 <template>
     <div class="play-pause">
-        <div class="button" @click="togglePause()" :class="!$music.currentSong || ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'disabled' : ''">
+        <div class="button" @click="togglePause()" :class="!$music.currentSong || ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disabled' : ''">
             <div v-if="!$music.currentSong || ['paused', 'pausing', 'stopping'].includes($music.currentSong.player.state)" class="bi bi-play"></div>
             <div v-else class="bi bi-pause"></div>
         </div>
@@ -16,11 +16,6 @@
     cursor: pointer;
     font-size: 2rem;
     line-height: 2rem;
-}
-
-.disabled {
-    opacity: .5;
-    pointer-events: none;
 }
 </style>
 

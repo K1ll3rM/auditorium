@@ -1,6 +1,6 @@
 <template>
     <div class="stop">
-        <div class="button" @click="stop()" :class="!$music.currentSong || !['playing', 'paused'].includes($music.currentSong.player.state) ? 'disabled' : ''">
+        <div class="button" @click="stop()" :class="!$music.currentSong || !['playing', 'paused'].includes($music.currentSong.player.state) ? 'button-disabled' : ''">
             <i class="bi bi-x-square-fill"></i>
         </div>
     </div>
@@ -15,11 +15,6 @@
     cursor: pointer;
     font-size: 1rem;
     line-height: 2rem;
-}
-
-.disabled {
-    opacity: .5;
-    pointer-events: none;
 }
 </style>
 
