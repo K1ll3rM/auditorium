@@ -161,7 +161,8 @@ export abstract class AbstractSongPlayer {
         this.progressTimer = setInterval(() => {
             this.checkProgressTimer();
 
-            this.progress = this.getTrackProgress();
+            this.progress = this.getCurrentTime();
+            console.log(this.progress);
         }, 100);
     }
 
@@ -172,7 +173,7 @@ export abstract class AbstractSongPlayer {
     }
 
     public setProgress(progress: number) {
-        return this.setTrackProgress(progress);
+        return this.setCurrentTime(progress);
     }
 
     protected abstract initTracks(): Promise<void>;
@@ -187,9 +188,11 @@ export abstract class AbstractSongPlayer {
 
     protected abstract purgeTracks(): void;
 
-    protected abstract getTrackProgress(): number;
+    protected abstract getDuration(): number;
 
-    protected abstract setTrackProgress(progress: number): boolean;
+    protected abstract getCurrentTime(): number;
+
+    protected abstract setCurrentTime(progress: number): void;
 }
 
 export interface TracksObjectInterface {

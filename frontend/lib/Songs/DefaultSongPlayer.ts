@@ -19,11 +19,11 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
     protected async initTracks(): Promise<void> {
         let files = this.song.getFiles<DefaultSongFilesInterface>();
 
-        if(!files.intro) {
+        if (!files.intro) {
             throw new Error('Intro file does not exist');
         }
 
-        if(!files.loop) {
+        if (!files.loop) {
             throw new Error('Loop file does not exist');
         }
 
@@ -73,11 +73,21 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         }
     }
 
-    protected getTrackProgress(): number {
-        return 0;
+    protected getDuration(): number {
+        return this.tracks.intro.audio.duration + this.tracks.loop.audio.duration;
     }
 
-    protected setTrackProgress(progress: number): boolean {
-        return false;
+    protected getCurrentTime(): number {
+        if (!this.inIntro) {
+            return this.tracks.intro.audio.duration + this.tracks.loop.audio.currentTime;
+        }
+
+        return this.tracks.intro.audio.currentTime;
+    }
+
+    protected setCurrentTime(progress: number): void {
+        throw new Error('NOT IMPLEMENTED');
+
+        this.tracks.loop.audio.currentTime = progress;
     }
 }

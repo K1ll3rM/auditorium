@@ -41,11 +41,15 @@ export class LoopSongPlayer extends AbstractSongPlayer {
         this.purgeTrack(this.tracks.loop);
     }
 
-    protected getTrackProgress(): number {
-        return 0;
+    protected getDuration(): number {
+        return this.tracks.loop.audio.duration;
     }
 
-    protected setTrackProgress(progress: number): boolean {
-        return false;
+    protected getCurrentTime(): number {
+        return this.tracks.loop.audio.currentTime;
+    }
+
+    protected setCurrentTime(progress: number): void {
+        this.tracks.loop.audio.currentTime = progress;
     }
 }
