@@ -1,7 +1,7 @@
 import 'vue';
 import '@nuxt/types'
-import SongComponent from "~/components/songs/song.vue";
 import {Category} from "~/lib/Category";
+import {Song} from "~/lib/Songs/Song";
 
 declare module 'vue/types/vue' {
     interface Vue {
@@ -10,8 +10,8 @@ declare module 'vue/types/vue' {
 }
 
 interface Music {
-    currentSong: typeof SongComponent|any;
-    currentCategory: typeof Category|any;
+    currentSong: Song|null;
+    currentCategory: Category;
     songChanging: boolean;
     selectedFilters: {
         [key: string]: string;
