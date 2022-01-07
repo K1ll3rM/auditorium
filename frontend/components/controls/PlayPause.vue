@@ -1,8 +1,8 @@
 <template>
     <div class="play-pause">
-        <div class="button" @click="togglePause()" :class="!$music.currentSong ? 'disabled' : ''">
-            <div v-if="!$music.currentSong || $music.currentSong.player.paused" class="bi bi-play"></div>
-            <div v-if="$music.currentSong && !$music.currentSong.player.paused" class="bi bi-pause"></div>
+        <div class="button" @click="togglePause()" :class="!$music.currentSong || $music.currentSong.player.state === 'stopping' ? 'disabled' : ''">
+            <div v-if="!$music.currentSong || $music.currentSong.player.state === 'paused'" class="bi bi-play"></div>
+            <div v-if="$music.currentSong && $music.currentSong.player.state !== 'paused'" class="bi bi-pause"></div>
         </div>
     </div>
 </template>
@@ -29,22 +29,19 @@ import Vue from "vue";
 
 export default Vue.extend({
     components: {},
-    props: {
-    },
+    props: {},
     data() {
-        return {
-        }
+        return {}
     },
     methods: {
         togglePause() {
-            if(!this.$music.currentSong) {
+            if (!this.$music.currentSong) {
                 return;
             }
 
-            if(this.$music.currentSong.player.paused) {
+            if (this.$music.currentSong.player.state === 'paused') {
                 this.$music.currentSong.player.unPause();
-            }
-            else {
+            } else if (this.$music.currentSong.player.state === 'playing') {
                 this.$music.currentSong.player.pause();
             }
         }

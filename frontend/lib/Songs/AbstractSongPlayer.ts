@@ -7,11 +7,9 @@ import {Main} from "~/lib/Main";
  * The default song player
  */
 export abstract class AbstractSongPlayer {
-    public stopped: boolean = false;
-    public stopping: boolean = false;
+    public state: SongPlayerStatus = 'stopped';
+
     public gainMod: number = 1;
-    public transitioning: boolean = false;
-    public paused: boolean = false;
     public song: Song;
 
     protected tracks: TracksObjectInterface = {};
@@ -59,7 +57,7 @@ export abstract class AbstractSongPlayer {
 
     async fadeIn(delay: number = 10) {
         for (let i = this.gainMod * 100; i < 100; i++) {
-            if (this.stopped || this.stopping) {
+            if (['stopping', 'pausing'].includes(this.state)) {
                 break;
             }
 
@@ -85,8 +83,7 @@ export abstract class AbstractSongPlayer {
             return;
         }
 
-        this.paused = false;
-        this.transitioning = true;
+        this.state = 'starting';
         Main.$root.$music.songChanging = true;
 
         try {
@@ -103,46 +100,46 @@ export abstract class AbstractSongPlayer {
                 await this.init();
             }
 
-            this.stopped = false;
             await this.startTracks();
         } catch (e) {
-            this.transitioning = false;
+            this.state = 'stopped';
             Main.$root.$music.currentSong = null;
             Main.$root.$music.songChanging = false;
 
             throw e;
         }
 
-        this.transitioning = false;
         Main.$root.$music.currentSong = this.song;
         Main.$root.$music.songChanging = false;
 
         await this.fadeIn();
+        this.state = 'playing';
     }
 
     public async stop() {
-        this.stopping = true;
+        this.state = 'stopping';
 
         await this.fadeOut();
         await this.stopTracks();
 
-        this.stopping = false;
-        this.stopped = true;
+        this.state = 'stopped';
 
         this.purgeTracks();
     }
 
     public async pause() {
-        this.paused = true;
+        this.state = 'pausing';
         await this.fadeOut(10);
 
         await this.pauseTracks();
+        this.state = 'paused';
     }
 
     public async unPause() {
+        this.state = 'unpausing';
         await this.unPauseTracks();
-        this.paused = false;
         await this.fadeIn(10);
+        this.state = 'playing';
     }
 
     protected abstract initTracks(): Promise<void>;
@@ -167,3 +164,5 @@ export interface TrackInterface {
     buffer: AudioBufferSourceNode;
     gain: GainNode;
 }
+
+export type SongPlayerStatus = 'starting'|'playing'|'pausing'|'paused'|'unpausing'|'stopping'|'stopped';

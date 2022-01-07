@@ -1,9 +1,9 @@
 <template>
     <div :class="show ? '' : 'd-none'">
-        <div class="card bg-dark mb-3" :class="($music.currentSong && $music.currentSong.id === song.id ? 'selected' : '') + (song.player.transitioning ? ' transitioning' : '')">
+        <div class="card bg-dark mb-3" :class="($music.currentSong && $music.currentSong.id === song.id ? 'selected' : '') + ' ' + song.player.state">
             <div class="card-body">
                 <div class="play me-1" @click="toggle()">
-                    <div v-if="$music.currentSong && $music.currentSong.id === song.id && !$music.currentSong.player.paused" class="bi bi-pause"></div>
+                    <div v-if="$music.currentSong && $music.currentSong.id === song.id && $music.currentSong.player.state !== 'paused'" class="bi bi-pause"></div>
                     <div v-else class="bi bi-play"></div>
                 </div>
                 <div class="info">
@@ -23,12 +23,16 @@
         border-color: #FFB400;
     }
 
-    &.transitioning {
+    &.selected {
+        border-color: deepskyblue;
+    }
+
+    &.starting {
         border-color: white;
     }
 
-    &.selected {
-        border-color: deepskyblue;
+    &.stopping {
+        border-color: #8b2e24;
     }
 }
 
@@ -104,9 +108,9 @@ export default Vue.extend({
                 return;
             }
 
-            if (this.song.player.paused) {
+            if (this.song.player.state === 'paused') {
                 this.song.player.unPause();
-            } else {
+            } else if (this.song.player.state === 'playing') {
                 this.song.player.pause();
             }
         }

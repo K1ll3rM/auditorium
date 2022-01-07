@@ -42,7 +42,7 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         this.tracks.intro.buffer.start(0);
         this.tracks.intro.buffer.addEventListener('ended', () => {
             this.inIntro = false;
-            if (!this.stopped && !this.stopping) {
+            if (this.state === 'playing') {
                 this.tracks.loop.buffer.start(0);
             }
         });
