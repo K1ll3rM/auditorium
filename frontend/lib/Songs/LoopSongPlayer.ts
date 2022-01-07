@@ -1,14 +1,14 @@
 import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
 import {FadeSongFilesInterface} from "@/shared/FadeSongFilesInterface";
+import {Song} from "~/lib/Songs/Song";
 
 export class LoopSongPlayer extends AbstractSongPlayer {
-    protected tracks = {
-        loop: {
-            context: new AudioContext(),
-            buffer: {} as AudioBufferSourceNode,
-            gain: {} as GainNode
-        }
-    };
+
+    constructor(song: Song) {
+        super(song);
+
+        this.createTrack('loop');
+    }
 
     protected async initTracks(): Promise<void> {
         let files = this.song.getFiles<FadeSongFilesInterface>();
@@ -18,26 +18,34 @@ export class LoopSongPlayer extends AbstractSongPlayer {
         }
 
         await this.initTrack(this.tracks.loop, files.loop);
-        this.tracks.loop.buffer.loop = true;
+        this.tracks.loop.audio.loop = true;
     }
 
-    protected async startTracks(): Promise<void> {
-        this.tracks.loop.buffer.start(0);
+    protected startTracks(): Promise<void> {
+        return this.tracks.loop.audio.play();
     }
 
-    protected async stopTracks(): Promise<void> {
-        this.tracks.loop.buffer.stop();
+    protected stopTracks(): void {
+        this.tracks.loop.audio.pause();
     }
 
-    protected async pauseTracks(): Promise<void> {
-        await this.tracks.loop.context.suspend();
+    protected pauseTracks(): void {
+        this.tracks.loop.audio.pause();
     }
 
-    protected async unPauseTracks(): Promise<void> {
-        await this.tracks.loop.context.resume();
+    protected unPauseTracks(): Promise<void> {
+        return this.tracks.loop.audio.play();
     }
 
     protected purgeTracks(): void {
         this.purgeTrack(this.tracks.loop);
+    }
+
+    protected getTrackProgress(): number {
+        return 0;
+    }
+
+    protected setTrackProgress(progress: number): boolean {
+        return false;
     }
 }

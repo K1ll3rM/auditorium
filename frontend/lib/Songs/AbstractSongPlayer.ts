@@ -14,27 +14,37 @@ export abstract class AbstractSongPlayer {
 
     protected tracks: TracksObjectInterface = {};
 
-    constructor(song: Song) {
+    protected progressTimer: NodeJS.Timer | null = null;
+    progress: number = 0;
+
+    protected constructor(song: Song) {
         this.song = song;
     }
 
-    protected async initTrack(track: TrackInterface, file: Uint8Array|null) {
+    protected async initTrack(track: TrackInterface, file: Uint8Array | null) {
         if (!(file instanceof Uint8Array)) {
             throw new Error('Given file is not of type Uint8Array');
         }
 
-        track.buffer = track.context.createBufferSource();
-        track.buffer.buffer = await track.context.decodeAudioData(file.buffer);
+        track.audio.src = URL.createObjectURL(new Blob([file]));
 
+        track.context = new AudioContext();
+        let source = track.context.createMediaElementSource(track.audio);
         track.gain = track.context.createGain();
+        source.connect(track.gain);
         track.gain.connect(track.context.destination);
-        track.buffer.connect(track.gain);
     }
 
     protected purgeTrack(track: TrackInterface) {
-        track.context = new AudioContext();
-        track.buffer = {} as AudioBufferSourceNode;
-        track.gain = {} as GainNode;
+        track.audio = document.createElement('audio');
+    }
+
+    protected createTrack(name: string) {
+        this.tracks[name] = {
+            audio: document.createElement('audio'),
+            context: new AudioContext(),
+            gain: {} as GainNode
+        };
     }
 
     public getVolume() {
@@ -89,7 +99,7 @@ export abstract class AbstractSongPlayer {
         try {
             if (Main.$root.$music.currentSong) {
                 let result = await Promise.allSettled([
-                    Main.$root.$music.currentSong.player.stop(),
+                    Main.$root.$music.currentSong.player?.stop(),
                     this.init()
                 ]);
 
@@ -111,6 +121,7 @@ export abstract class AbstractSongPlayer {
 
         Main.$root.$music.currentSong = this.song;
         Main.$root.$music.songChanging = false;
+        this.startProgressTimer();
 
         await this.fadeIn();
         this.state = 'playing';
@@ -137,22 +148,48 @@ export abstract class AbstractSongPlayer {
 
     public async unPause() {
         this.state = 'unpausing';
+        this.startProgressTimer();
         await this.unPauseTracks();
         await this.fadeIn(10);
         this.state = 'playing';
+    }
+
+    protected startProgressTimer() {
+        if (this.progressTimer) {
+            clearInterval(this.progressTimer);
+        }
+        this.progressTimer = setInterval(() => {
+            this.checkProgressTimer();
+
+            this.progress = this.getTrackProgress();
+        }, 100);
+    }
+
+    protected checkProgressTimer() {
+        if (this.progressTimer && ['stopped', 'paused'].includes(this.state)) {
+            clearInterval(this.progressTimer);
+        }
+    }
+
+    public setProgress(progress: number) {
+        return this.setTrackProgress(progress);
     }
 
     protected abstract initTracks(): Promise<void>;
 
     protected abstract startTracks(): Promise<void>;
 
-    protected abstract stopTracks(): Promise<void>;
+    protected abstract stopTracks(): void;
 
-    protected abstract pauseTracks(): Promise<void>;
+    protected abstract pauseTracks(): void;
 
     protected abstract unPauseTracks(): Promise<void>;
 
     protected abstract purgeTracks(): void;
+
+    protected abstract getTrackProgress(): number;
+
+    protected abstract setTrackProgress(progress: number): boolean;
 }
 
 export interface TracksObjectInterface {
@@ -160,9 +197,10 @@ export interface TracksObjectInterface {
 }
 
 export interface TrackInterface {
+    audio: HTMLAudioElement;
     context: AudioContext;
-    buffer: AudioBufferSourceNode;
     gain: GainNode;
+
 }
 
-export type SongPlayerStatus = 'starting'|'playing'|'pausing'|'paused'|'unpausing'|'stopping'|'stopped';
+export type SongPlayerStatus = 'starting' | 'playing' | 'pausing' | 'paused' | 'unpausing' | 'stopping' | 'stopped';

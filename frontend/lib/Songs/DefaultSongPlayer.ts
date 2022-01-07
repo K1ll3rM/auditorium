@@ -1,24 +1,20 @@
 import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
 import {DefaultSongFilesInterface} from "@/shared/DefaultSongFilesInterface";
+import {Song} from "~/lib/Songs/Song";
 
 /**
  * The default song player
  */
 export class DefaultSongPlayer extends AbstractSongPlayer {
-    protected tracks = {
-        intro: {
-            context: new AudioContext(),
-            buffer: {} as AudioBufferSourceNode,
-            gain: {} as GainNode
-        },
-        loop: {
-            context: new AudioContext(),
-            buffer: {} as AudioBufferSourceNode,
-            gain: {} as GainNode
-        }
-    };
 
     public inIntro: boolean = false;
+
+    constructor(song: Song) {
+        super(song);
+
+        this.createTrack('intro');
+        this.createTrack('loop');
+    }
 
     protected async initTracks(): Promise<void> {
         let files = this.song.getFiles<DefaultSongFilesInterface>();
@@ -34,25 +30,25 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         await this.initTrack(this.tracks.intro, files.intro);
         await this.initTrack(this.tracks.loop, files.loop);
 
-        this.tracks.loop.buffer.loop = true;
+        this.tracks.loop.audio.loop = true;
     }
 
     protected async startTracks(): Promise<void> {
         this.inIntro = true;
-        this.tracks.intro.buffer.start(0);
-        this.tracks.intro.buffer.addEventListener('ended', () => {
+        this.tracks.intro.audio.play();
+        this.tracks.intro.audio.addEventListener('ended', () => {
             this.inIntro = false;
             if (this.state === 'playing') {
-                this.tracks.loop.buffer.start(0);
+                this.tracks.loop.audio.play();
             }
         });
     }
 
     protected async stopTracks(): Promise<void> {
         if (this.inIntro) {
-            this.tracks.intro.buffer.stop();
+            this.tracks.intro.audio.pause();
         } else {
-            this.tracks.loop.buffer.stop();
+            this.tracks.loop.audio.pause();
         }
     }
 
@@ -75,5 +71,13 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         } else {
             await this.tracks.loop.context.resume();
         }
+    }
+
+    protected getTrackProgress(): number {
+        return 0;
+    }
+
+    protected setTrackProgress(progress: number): boolean {
+        return false;
     }
 }

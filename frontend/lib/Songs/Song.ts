@@ -22,13 +22,19 @@ export class Song implements SongInterface {
     };
     manifest: SongManifestInterface = {};
 
-    readonly player: AbstractSongPlayer;
+    readonly player: AbstractSongPlayer | null = null;
 
-    constructor(id: string, manifest: SongManifestInterface) {
+    constructor(id: string, manifest: SongManifestInterface, initPlayer = true) {
         this.id = id;
         this.path = this.getSongPath();
         this.loadManifest(manifest);
-        this.player = SongPlayerFactory.create(this);
+        if (initPlayer) {
+            this.player = SongPlayerFactory.create(this);
+        }
+    }
+
+    public cloneWithoutPlayer() {
+        return new Song(this.id, this.manifest, false);
     }
 
     static async getSongs(): Promise<SongsInterface> {
@@ -80,13 +86,14 @@ export class Song implements SongInterface {
     }
 
     getFiles<T extends SongFilesInterface>() {
-        return window.api.getSongFiles<T>(this);
+        return window.api.getSongFiles<T>(this.cloneWithoutPlayer());
     }
 }
 
 export interface SongsInterface {
     [key: string]: Song
 }
+
 export interface SongManifestsInterface {
     [key: string]: SongManifestInterface
 }
