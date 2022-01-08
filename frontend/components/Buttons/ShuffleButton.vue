@@ -25,7 +25,7 @@ export default Vue.extend({
                 return;
             }
 
-            this.$music.currentCategory.songs[rand(1, length) - 1].player.play();
+            this.$music.currentCategory.songs[rand(1, length) - 1].player?.play();
         }
     }
 });
