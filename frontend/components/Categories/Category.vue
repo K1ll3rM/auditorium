@@ -47,10 +47,9 @@
 import Vue from "vue";
 import {Categories, Category} from "~/lib/Category";
 import CategoryButton from "~/components/Categories/CategoryButton.vue";
-import CategoryButtonHome from "~/components/Categories/CategoryButtonHome.vue";
 
 export default Vue.extend({
-    components: {CategoryButtonHome, CategoryButton},
+    components: {CategoryButton},
     props: {
         categories: {
             type: Object as Vue.PropType<Categories>,

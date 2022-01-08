@@ -37,7 +37,7 @@ export default Vue.extend({
 
             if (this.$music.currentSong) {
                 this.$music.songChanging = true;
-                await this.$music.currentSong.player.stop();
+                await this.$music.currentSong.player?.stop();
                 this.$music.songChanging = false;
                 this.$music.currentSong = null;
             }

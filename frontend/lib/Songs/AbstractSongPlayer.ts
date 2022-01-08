@@ -162,7 +162,6 @@ export abstract class AbstractSongPlayer {
             this.checkProgressTimer();
 
             this.progress = this.getCurrentTime();
-            console.log(this.progress);
         }, 100);
     }
 

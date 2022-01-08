@@ -30,7 +30,7 @@ export default Vue.extend({
     },
     methods: {
         togglePause() {
-            if (!this.$music.currentSong) {
+            if (!this.$music.currentSong || !this.$music.currentSong.player) {
                 return;
             }
 

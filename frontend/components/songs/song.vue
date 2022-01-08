@@ -1,9 +1,12 @@
 <template>
     <div :class="show ? '' : 'd-none'">
-        <div class="card bg-dark mb-3" :class="($music.currentSong && $music.currentSong.id === song.id ? 'selected' : '') + ' ' + song.player.state">
+        <div class="card bg-dark mb-3"
+             :class="($music.currentSong && $music.currentSong.id === song.id ? 'selected' : '') + ' ' + song.player.state">
             <div class="card-body">
-                <div class="play me-1" @click="toggle()" :class="$music.currentSong && ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disabled' : ''">
-                    <div v-if="$music.currentSong && !['paused', 'pausing', 'stopping', 'stopped'].includes(song.player.state)" class="bi bi-pause"></div>
+                <div class="play me-1" @click="toggle()"
+                     :class="$music.currentSong && ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disabled' : ''">
+                    <div v-if="$music.currentSong && !['paused', 'pausing', 'stopping', 'stopped'].includes(song.player.state)"
+                         class="bi bi-pause"></div>
                     <div v-else class="bi bi-play"></div>
                 </div>
                 <div class="info">
@@ -103,6 +106,10 @@ export default Vue.extend({
             this.show = show;
         },
         toggle() {
+            if (!this.song.player) {
+                return;
+            }
+
             if (!this.$music.currentSong || this.$music.currentSong.id !== this.song.id) {
                 this.song.player.play();
                 return;
