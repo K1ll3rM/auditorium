@@ -58,6 +58,7 @@ export default Vue.extend({
     },
     methods: {
         async refreshSongs() {
+            await this.$music.currentSong?.player?.stop();
             await SongClass.loadSongsByCategory();
 
             this.categories = SongClass.categories;

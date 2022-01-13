@@ -15,7 +15,6 @@ export abstract class AbstractSongPlayer {
     protected tracks: TracksObjectInterface = {};
 
     protected progressTimer: NodeJS.Timer | null = null;
-    progress: number = 0;
 
     protected constructor(song: Song) {
         this.song = song;
@@ -94,6 +93,7 @@ export abstract class AbstractSongPlayer {
         }
 
         this.state = 'starting';
+        Main.$root.$emit('play');
         Main.$root.$music.songChanging = true;
 
         try {
@@ -134,6 +134,7 @@ export abstract class AbstractSongPlayer {
         await this.stopTracks();
 
         this.state = 'stopped';
+        Main.$root.$emit('stop');
 
         this.purgeTracks();
     }
@@ -161,7 +162,7 @@ export abstract class AbstractSongPlayer {
         this.progressTimer = setInterval(() => {
             this.checkProgressTimer();
 
-            this.progress = this.getCurrentTime();
+            Main.$root.$music.currentSongProgress = this.getCurrentTime();
         }, 100);
     }
 
@@ -172,6 +173,7 @@ export abstract class AbstractSongPlayer {
     }
 
     public setProgress(progress: number) {
+        Main.$root.$music.currentSongProgress = progress;
         return this.setCurrentTime(progress);
     }
 
@@ -187,7 +189,7 @@ export abstract class AbstractSongPlayer {
 
     protected abstract purgeTracks(): void;
 
-    protected abstract getDuration(): number;
+    public abstract getDuration(): number;
 
     protected abstract getCurrentTime(): number;
 

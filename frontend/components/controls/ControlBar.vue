@@ -6,7 +6,7 @@
                 <stop/>
             </div>
             <div class="middle">
-
+                <progress-bar/>
             </div>
             <div class="right">
                 <volume/>
@@ -45,9 +45,10 @@ import Vue from "vue";
 import Volume from "~/components/controls/volume.vue";
 import PlayPause from "~/components/controls/PlayPause.vue";
 import Stop from "~/components/controls/Stop.vue";
+import ProgressBar from "~/components/controls/ProgressBar.vue";
 
 export default Vue.extend({
-    components: {PlayPause, Volume, Stop},
+    components: {ProgressBar, PlayPause, Volume, Stop},
     props: {
     },
     data() {

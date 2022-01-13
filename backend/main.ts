@@ -1,9 +1,12 @@
 // Modules to control application life and create native browser window
 import {app, BrowserWindow} from "electron";
 import {Storage} from "./lib/Storage";
+
 const serve = require("electron-serve");
 const path = require("path");
 const loadURL = serve({ directory: "frontend/build" });
+
+app.commandLine.appendSwitch('disable-features', 'HardwareMediaKeyHandling,MediaSessionService');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

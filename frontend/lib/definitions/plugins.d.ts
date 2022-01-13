@@ -11,6 +11,7 @@ declare module 'vue/types/vue' {
 
 interface Music {
     currentSong: Song|null;
+    currentSongProgress: number;
     currentCategory: Category;
     songChanging: boolean;
     selectedFilters: {

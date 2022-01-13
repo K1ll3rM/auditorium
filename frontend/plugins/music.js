@@ -3,6 +3,7 @@ import Vue from "vue";
 export default ({ app }, inject) => {
     inject('music', Vue.observable({
         currentSong: null,
+        currentSongProgress: 0,
         currentCategory: null,
         songChanging: false,
         selectedFilters: {}

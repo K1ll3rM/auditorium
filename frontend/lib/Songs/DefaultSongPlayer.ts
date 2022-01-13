@@ -73,7 +73,7 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         }
     }
 
-    protected getDuration(): number {
+    public getDuration(): number {
         return this.tracks.intro.audio.duration + this.tracks.loop.audio.duration;
     }
 

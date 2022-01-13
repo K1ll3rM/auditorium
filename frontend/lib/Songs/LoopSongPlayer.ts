@@ -41,7 +41,7 @@ export class LoopSongPlayer extends AbstractSongPlayer {
         this.purgeTrack(this.tracks.loop);
     }
 
-    protected getDuration(): number {
+    public getDuration(): number {
         return this.tracks.loop.audio.duration;
     }
 
