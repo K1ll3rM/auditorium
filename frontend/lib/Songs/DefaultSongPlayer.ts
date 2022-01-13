@@ -27,8 +27,10 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
             throw new Error('Loop file does not exist');
         }
 
-        await this.initTrack(this.tracks.intro, files.intro);
-        await this.initTrack(this.tracks.loop, files.loop);
+        await Promise.allSettled([
+            await this.initTrack(this.tracks.intro, files.intro),
+            await this.initTrack(this.tracks.loop, files.loop)
+        ]);
 
         this.tracks.loop.audio.loop = true;
     }
@@ -86,8 +88,23 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
     }
 
     protected setCurrentTime(progress: number): void {
-        throw new Error('NOT IMPLEMENTED');
-
-        this.tracks.loop.audio.currentTime = progress;
+        if (progress > this.tracks.intro.audio.duration) {
+            this.tracks.loop.audio.currentTime = progress - this.tracks.intro.audio.duration;
+            if (this.inIntro) {
+                this.tracks.intro.audio.pause();
+                this.tracks.loop.audio.play();
+                this.tracks.intro.audio.currentTime = 0;
+                this.inIntro = false;
+            }
+        }
+        else {
+            this.tracks.intro.audio.currentTime = progress;
+            if (!this.inIntro) {
+                this.tracks.intro.audio.play();
+                this.tracks.loop.audio.pause();
+                this.tracks.loop.audio.currentTime = 0;
+                this.inIntro = true;
+            }
+        }
     }
 }

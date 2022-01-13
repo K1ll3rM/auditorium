@@ -13,17 +13,14 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {timeout} from "@/shared/helpers";
 
 export default Vue.extend({
     components: {},
     props: {
     },
     created() {
-        this.$root.$on('play', async () => {
-            await timeout(100);
-            let duration = this.$music.currentSong?.player?.getDuration();
-            this.max = duration ? duration : 0;
+        this.$root.$on('play', (e: {duration: number}) => {
+            this.max = e.duration ? e.duration : 0;
         });
     },
     data() {
@@ -33,7 +30,6 @@ export default Vue.extend({
     },
     methods: {
         setProgress() {
-            console.log(this.$music.currentSongProgress);
             this.$music.currentSong?.player?.setProgress(this.$music.currentSongProgress);
         }
     }

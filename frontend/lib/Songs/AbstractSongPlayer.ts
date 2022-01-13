@@ -20,18 +20,26 @@ export abstract class AbstractSongPlayer {
         this.song = song;
     }
 
-    protected async initTrack(track: TrackInterface, file: Uint8Array | null) {
-        if (!(file instanceof Uint8Array)) {
-            throw new Error('Given file is not of type Uint8Array');
-        }
+    protected initTrack(track: TrackInterface, file: Uint8Array | null) {
+        return new Promise<void>((resolve) => {
+            if (!(file instanceof Uint8Array)) {
+                throw new Error('Given file is not of type Uint8Array');
+            }
 
-        track.audio.src = URL.createObjectURL(new Blob([file]));
+            track.audio.src = URL.createObjectURL(new Blob([file]));
 
-        track.context = new AudioContext();
-        let source = track.context.createMediaElementSource(track.audio);
-        track.gain = track.context.createGain();
-        source.connect(track.gain);
-        track.gain.connect(track.context.destination);
+            track.context = new AudioContext();
+            let source = track.context.createMediaElementSource(track.audio);
+
+            source.mediaElement.addEventListener('canplaythrough', () => {
+                track.gain = track.context.createGain();
+                source.connect(track.gain);
+                track.gain.connect(track.context.destination);
+                resolve();
+            }, {
+                once: true
+            });
+        });
     }
 
     protected purgeTrack(track: TrackInterface) {
@@ -93,7 +101,6 @@ export abstract class AbstractSongPlayer {
         }
 
         this.state = 'starting';
-        Main.$root.$emit('play');
         Main.$root.$music.songChanging = true;
 
         try {
@@ -118,6 +125,10 @@ export abstract class AbstractSongPlayer {
 
             throw e;
         }
+
+        Main.$root.$emit('play', {
+            duration: this.getDuration()
+        });
 
         Main.$root.$music.currentSong = this.song;
         Main.$root.$music.songChanging = false;
