@@ -5,13 +5,13 @@ export function getFileName(path: string) {
 }
 
 export function round(number: number, places: number) {
-    return +(Math.round(Number(number + "e+" + places))  + "e-" + places);
+    return +(Math.round(Number(number + "e+" + places)) + "e-" + places);
 }
 
-export function debounce (fn: (...args: any[]) => void, delay: number) {
-    let timeoutID: NodeJS.Timeout|null = null
+export function debounce(fn: (...args: any[]) => void, delay: number) {
+    let timeoutID: NodeJS.Timeout | null = null
     return function () {
-        if(timeoutID) {
+        if (timeoutID) {
             return;
         }
         let args = arguments;
@@ -40,4 +40,15 @@ export function timeout(delay: number) {
 
 export function rand(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function formatSeconds(num: number) {
+    if (Number.isNaN(num)) {
+        return '00:00';
+    }
+
+    let minutes = Math.floor(num / 60);
+    let seconds = Math.round(num - minutes * 60);
+
+    return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
 }

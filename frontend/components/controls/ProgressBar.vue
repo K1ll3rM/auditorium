@@ -2,10 +2,12 @@
     <div class="bar-container">
         <div class="left"></div>
         <div class="middle">
+            <div class="before-slider">{{ formatSeconds($music.currentSongProgress) }}</div>
             <div class="slider" :class="!$music.currentSong || ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disabled' : ''">
-                <div class="bar" :style="{ width: ($music.currentSongProgress / max * 100) + '%' }"></div>
+                <div class="bar" :style="{ width: (max ? ($music.currentSongProgress / max * 100) : 0) + '%' }"></div>
                 <input class="input" v-model="$music.currentSongProgress" type="range" min="0" :max="max" step="0.1" @input="setProgress" @mousedown="mouseDown" @mouseup="mouseUp">
             </div>
+            <div class="after-slider">{{ formatSeconds(max) }}</div>
         </div>
         <div class="right"></div>
     </div>
@@ -13,6 +15,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import {formatSeconds} from "@/shared/helpers";
 
 export default Vue.extend({
     components: {},
@@ -21,6 +24,10 @@ export default Vue.extend({
     created() {
         this.$root.$on('play', (e: {duration: number}) => {
             this.max = e.duration ? e.duration : 0;
+        });
+        this.$root.$on('stop', () => {
+            this.$music.currentSongProgress = 0;
+            this.max = 0;
         });
     },
     data() {
@@ -37,6 +44,9 @@ export default Vue.extend({
         },
         setProgress() {
             this.$music.currentSong?.player?.setProgress(this.$music.currentSongProgress);
+        },
+        formatSeconds(num: number) {
+            return formatSeconds(num);
         }
     }
 });
@@ -60,7 +70,14 @@ export default Vue.extend({
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 1rem;
+}
+
+.before-slider {
+  margin-right: 1rem;
+}
+
+.after-slider {
+  margin-left: 1rem;
 }
 
 .slider {
