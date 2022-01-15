@@ -194,9 +194,9 @@ export abstract class AbstractSongPlayer {
 
     protected abstract stopTracks(): void;
 
-    protected abstract pauseTracks(): void;
+    public abstract pauseTracks(): void;
 
-    protected abstract unPauseTracks(): Promise<void>;
+    public abstract unPauseTracks(): Promise<void>;
 
     protected abstract purgeTracks(): void;
 

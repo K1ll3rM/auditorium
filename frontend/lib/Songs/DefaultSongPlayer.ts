@@ -59,19 +59,19 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
         this.purgeTrack(this.tracks.loop);
     }
 
-    protected async pauseTracks(): Promise<void> {
+    public async pauseTracks(): Promise<void> {
         if (this.inIntro) {
-            await this.tracks.intro.context.suspend();
+            this.tracks.intro.audio.pause();
         } else {
-            await this.tracks.loop.context.suspend();
+            this.tracks.loop.audio.pause();
         }
     }
 
-    protected async unPauseTracks(): Promise<void> {
+    public async unPauseTracks(): Promise<void> {
         if (this.inIntro) {
-            await this.tracks.intro.context.resume();
+            await this.tracks.intro.audio.play();
         } else {
-            await this.tracks.loop.context.resume();
+            await this.tracks.loop.audio.play();
         }
     }
 
@@ -88,20 +88,33 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
     }
 
     protected setCurrentTime(progress: number): void {
+        let paused;
+
+        if (this.inIntro) {
+            paused = this.tracks.intro.audio.paused;
+        } else {
+            paused = this.tracks.loop.audio.paused;
+        }
+
         if (progress > this.tracks.intro.audio.duration) {
             this.tracks.loop.audio.currentTime = progress - this.tracks.intro.audio.duration;
             if (this.inIntro) {
-                this.tracks.intro.audio.pause();
-                this.tracks.loop.audio.play();
+                if (!paused) {
+                    this.tracks.intro.audio.pause();
+                    this.tracks.loop.audio.play();
+                }
+
                 this.tracks.intro.audio.currentTime = 0;
                 this.inIntro = false;
             }
-        }
-        else {
+        } else {
             this.tracks.intro.audio.currentTime = progress;
             if (!this.inIntro) {
-                this.tracks.intro.audio.play();
-                this.tracks.loop.audio.pause();
+                if (!paused) {
+                    this.tracks.intro.audio.play();
+                    this.tracks.loop.audio.pause();
+                }
+
                 this.tracks.loop.audio.currentTime = 0;
                 this.inIntro = true;
             }

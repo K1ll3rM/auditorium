@@ -29,11 +29,11 @@ export class LoopSongPlayer extends AbstractSongPlayer {
         this.tracks.loop.audio.pause();
     }
 
-    protected pauseTracks(): void {
+    public pauseTracks(): void {
         this.tracks.loop.audio.pause();
     }
 
-    protected unPauseTracks(): Promise<void> {
+    public unPauseTracks(): Promise<void> {
         return this.tracks.loop.audio.play();
     }
 

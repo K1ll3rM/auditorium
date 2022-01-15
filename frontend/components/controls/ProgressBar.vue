@@ -2,9 +2,9 @@
     <div class="bar-container">
         <div class="left"></div>
         <div class="middle">
-            <div class="slider" :class="!$music.currentSong || ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disableds' : ''">
+            <div class="slider" :class="!$music.currentSong || ['stopping', 'pausing', 'starting', 'unpausing'].includes($music.currentSong.player.state) ? 'button-disabled' : ''">
                 <div class="bar" :style="{ width: ($music.currentSongProgress / max * 100) + '%' }"></div>
-                <input class="input" v-model="$music.currentSongProgress" type="range" min="0" :max="max" step="0.1" @input="setProgress">
+                <input class="input" v-model="$music.currentSongProgress" type="range" min="0" :max="max" step="0.1" @input="setProgress" @mousedown="mouseDown" @mouseup="mouseUp">
             </div>
         </div>
         <div class="right"></div>
@@ -29,6 +29,12 @@ export default Vue.extend({
         }
     },
     methods: {
+        mouseDown() {
+            this.$music.currentSong?.player?.pauseTracks();
+        },
+        mouseUp() {
+            this.$music.currentSong?.player?.unPauseTracks();
+        },
         setProgress() {
             this.$music.currentSong?.player?.setProgress(this.$music.currentSongProgress);
         }
