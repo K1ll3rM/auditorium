@@ -2,7 +2,6 @@
 
 ## Todo
 
-- Song progress bar
 - Cross fade
 - User interface for categories
 - User interface for song settings
