@@ -17,6 +17,7 @@ export class Song implements SongInterface {
         name: "Missing name!",
         category: "unsorted",
         player: "default",
+        playerSettings: {},
         gainMod: 1,
         filters: {}
     };

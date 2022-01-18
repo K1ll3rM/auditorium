@@ -1,5 +1,5 @@
 import {SongFilesInterface} from "./SongFilesInterface";
 
-export interface FadeSongFilesInterface extends SongFilesInterface {
+export interface LoopSongFilesInterface extends SongFilesInterface {
     loop: Uint8Array;
 }

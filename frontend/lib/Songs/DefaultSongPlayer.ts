@@ -37,13 +37,13 @@ export class DefaultSongPlayer extends AbstractSongPlayer {
 
     protected async startTracks(): Promise<void> {
         this.inIntro = true;
-        this.tracks.intro.audio.play();
         this.tracks.intro.audio.addEventListener('ended', () => {
             this.inIntro = false;
             if (this.state === 'playing') {
                 this.tracks.loop.audio.play();
             }
         });
+        await this.tracks.intro.audio.play();
     }
 
     protected async stopTracks(): Promise<void> {

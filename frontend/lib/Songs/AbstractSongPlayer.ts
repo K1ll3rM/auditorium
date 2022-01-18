@@ -9,7 +9,6 @@ import {Main} from "~/lib/Main";
 export abstract class AbstractSongPlayer {
     public state: SongPlayerStatus = 'stopped';
 
-    public gainMod: number = 1;
     public song: Song;
 
     protected tracks: TracksObjectInterface = {};
@@ -54,41 +53,47 @@ export abstract class AbstractSongPlayer {
         };
     }
 
-    public getVolume() {
-        return Config.data.volume * this.gainMod * (this.song.manifest.gainMod ?? 1);
+    public getVolume(mod: number) {
+        return Config.data.volume * mod * (this.song.manifest.gainMod ?? 1);
     }
 
-    updateVolume() {
+    updateVolume(mod: number) {
         for (let track of Object.values<TrackInterface>(this.tracks)) {
-            track.gain.gain.value = this.getVolume();
+            track.gain.gain.value = this.getVolume(mod);
         }
     }
 
-    async fadeOut(delay: number = 15) {
-        for (let i = this.gainMod * 100; i > 0; i--) {
+    /**
+     * @param time Time to fade in seconds
+     * @param updateFunc The function to call when updating volume, by default this.updateVolume
+     */
+    async fadeOut(time: number = 1.5, updateFunc = this.updateVolume) {
+        let delay = time * 10;
+
+        for (let i = 100; i > 0; i--) {
             await timeout(delay);
-            this.gainMod = easeInOutQuad(i / 100);
-            this.updateVolume();
+            let mod = easeInOutQuad(i / 100);
+            updateFunc.apply(this, [mod]);
         }
     }
 
-    async fadeIn(delay: number = 10) {
-        for (let i = this.gainMod * 100; i < 100; i++) {
-            if (['stopping', 'pausing'].includes(this.state)) {
-                break;
-            }
-
+    /**
+     * @param time Time to fade in seconds
+     * @param updateFunc The function to call when updating volume, by default this.updateVolume
+     */
+    async fadeIn(time: number = 1, updateFunc = this.updateVolume) {
+        let delay = time * 10;
+        for (let i = 0; i < 100; i++) {
             await timeout(delay);
-            this.gainMod = easeInOutQuad(i / 100);
-            this.updateVolume();
+            let mod = easeInOutQuad(i / 100);
+            updateFunc.apply(this, [mod]);
         }
     }
 
     async init() {
         await this.initTracks();
 
-        this.gainMod = 0;
-        this.updateVolume();
+        this.updateVolume(0);
     }
 
     public async play() {
@@ -152,7 +157,7 @@ export abstract class AbstractSongPlayer {
 
     public async pause() {
         this.state = 'pausing';
-        await this.fadeOut(10);
+        await this.fadeOut(1);
 
         await this.pauseTracks();
         this.state = 'paused';
@@ -162,7 +167,7 @@ export abstract class AbstractSongPlayer {
         this.state = 'unpausing';
         this.startProgressTimer();
         await this.unPauseTracks();
-        await this.fadeIn(10);
+        await this.fadeIn(1);
         this.state = 'playing';
     }
 

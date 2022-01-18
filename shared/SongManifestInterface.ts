@@ -5,5 +5,8 @@ export interface SongManifestInterface {
         [key: string]: string
     };
     player?: "default"|"loop";
+    playerSettings?: {
+        [key: string]: any
+    };
     gainMod?: number;
 }
