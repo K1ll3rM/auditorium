@@ -15,6 +15,8 @@ export abstract class AbstractSongPlayer {
 
     protected progressTimer: NodeJS.Timer | null = null;
 
+    protected updatingVolume: boolean = false;
+
     protected constructor(song: Song) {
         this.song = song;
     }
@@ -53,14 +55,22 @@ export abstract class AbstractSongPlayer {
         };
     }
 
-    public getVolume(mod: number) {
+    protected getVolume(mod: number) {
         return Config.data.volume * mod * (this.song.manifest.gainMod ?? 1);
     }
 
-    updateVolume(mod: number) {
+    protected updateVolume(mod: number) {
         for (let track of Object.values<TrackInterface>(this.tracks)) {
             track.gain.gain.value = this.getVolume(mod);
         }
+    }
+
+    public triggerVolumeUpdate() {
+        if (this.updatingVolume) {
+            return;
+        }
+
+        this.updateVolume(1);
     }
 
     /**
@@ -68,6 +78,7 @@ export abstract class AbstractSongPlayer {
      * @param updateFunc The function to call when updating volume, by default this.updateVolume
      */
     async fadeOut(time: number = 1.5, updateFunc = this.updateVolume) {
+        this.updatingVolume = true;
         let delay = time * 10;
 
         for (let i = 100; i > 0; i--) {
@@ -75,6 +86,8 @@ export abstract class AbstractSongPlayer {
             let mod = easeInOutQuad(i / 100);
             updateFunc.apply(this, [mod]);
         }
+
+        this.updatingVolume = false;
     }
 
     /**
@@ -82,12 +95,15 @@ export abstract class AbstractSongPlayer {
      * @param updateFunc The function to call when updating volume, by default this.updateVolume
      */
     async fadeIn(time: number = 1, updateFunc = this.updateVolume) {
+        this.updatingVolume = true;
         let delay = time * 10;
         for (let i = 0; i < 100; i++) {
             await timeout(delay);
             let mod = easeInOutQuad(i / 100);
             updateFunc.apply(this, [mod]);
         }
+
+        this.updatingVolume = false;
     }
 
     async init() {

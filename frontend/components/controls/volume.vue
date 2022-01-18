@@ -152,7 +152,7 @@ export default Vue.extend({
     methods: {
         setVolume() {
             Config.data.volume = this.volume;
-            this.$music.currentSong?.player?.updateVolume();
+            this.$music.currentSong?.player?.triggerVolumeUpdate();
             this.saveConfig();
 
             this.setBubble();
