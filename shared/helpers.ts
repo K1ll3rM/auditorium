@@ -47,8 +47,19 @@ export function formatSeconds(num: number) {
         return '00:00';
     }
 
-    let minutes = Math.floor(num / 60);
-    let seconds = Math.round(num - minutes * 60);
+    let hours = Math.floor(num / 3600);
+    let minutes = Math.floor((num - hours * 3600) / 60);
+    let seconds = Math.round(num - (minutes * 60 + hours * 3600));
+    if (seconds === 60) {
+        minutes++;
+        seconds = 0;
+    }
 
-    return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    let output = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+
+    if (hours) {
+        output = hours + ':' + output;
+    }
+
+    return output;
 }
