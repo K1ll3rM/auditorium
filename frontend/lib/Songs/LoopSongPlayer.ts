@@ -36,12 +36,11 @@ export class LoopSongPlayer extends AbstractSongPlayer {
             let audio = this.tracks.loop.audio;
 
             this.tracks.loop.audio.addEventListener('timeupdate', async () => {
-                if (this.state !== 'starting' && audio.duration - audio.currentTime < this.song.manifest.playerSettings?.crossFade) {
+                if (this.state === 'playing' && audio.duration - audio.currentTime < this.song.manifest.playerSettings?.crossFade) {
                     this.state = 'starting';
                     let fadeTrack = this.tracks.loopFade;
                     this.tracks.loopFade = this.tracks.loop;
                     this.tracks.loop = fadeTrack;
-
                     this.crossFadeOut();
                     await this.crossFadeIn();
                     this.state = 'playing';
@@ -51,6 +50,10 @@ export class LoopSongPlayer extends AbstractSongPlayer {
     }
 
     protected async crossFadeOut() {
+        if(this.tracks.loopFade.audio.paused) {
+            this.tracks.loopFade.audio.play();
+        }
+
         if (this.song.manifest.playerSettings?.crossFadeOutSpeed) {
             await this.fadeOut(this.song.manifest.playerSettings.crossFadeOutSpeed, (mod) => {
                 this.tracks.loopFade.gain.gain.value = this.getVolume(mod);
