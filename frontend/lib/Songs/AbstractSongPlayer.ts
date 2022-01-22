@@ -27,6 +27,7 @@ export abstract class AbstractSongPlayer {
                 throw new Error('Given file is not of type Uint8Array');
             }
 
+            // track.audio = document.createElement('audio');
             track.audio.src = URL.createObjectURL(new Blob([file]));
 
             track.context = new AudioContext();
@@ -45,6 +46,8 @@ export abstract class AbstractSongPlayer {
 
     protected purgeTrack(track: TrackInterface) {
         track.audio = document.createElement('audio');
+        track.context = new AudioContext();
+        track.gain = {} as GainNode;
     }
 
     protected createTrack(name: string) {

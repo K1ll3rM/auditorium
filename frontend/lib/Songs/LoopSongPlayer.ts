@@ -113,6 +113,10 @@ export class LoopSongPlayer extends AbstractSongPlayer {
 
     protected purgeTracks(): void {
         this.purgeTrack(this.tracks.loop);
+
+        if (this.song.manifest.playerSettings?.crossFade) {
+            this.purgeTrack(this.tracks.loopFade);
+        }
     }
 
     public getDuration(): number {
