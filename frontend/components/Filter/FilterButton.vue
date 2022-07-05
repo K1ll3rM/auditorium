@@ -1,24 +1,22 @@
 <template>
-    <button class="btn btn-secondary mb-3" @click="toggleFilterSidebar"><i class="bi bi-sliders"></i></button>
+  <button class="btn btn-secondary mb-3" @click="toggleFilterSidebar"><i class="bi bi-sliders"></i></button>
 </template>
 
 <style>
 </style>
 <script lang="ts">
-import Vue from "vue";
+import {defineNuxtComponent} from "#app";
 
-export default Vue.extend({
-    components: {},
-    props: {
-    },
-    data() {
-        return {
-        }
-    },
-    methods: {
-        toggleFilterSidebar() {
-            this.$root.$emit('toggleFilterSidebar');
-        }
+export default defineNuxtComponent({
+  components: {},
+  props: {},
+  data() {
+    return {}
+  },
+  methods: {
+    toggleFilterSidebar() {
+      this.$root.$emit('toggleFilterSidebar');
     }
+  }
 });
 </script>

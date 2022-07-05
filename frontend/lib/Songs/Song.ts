@@ -6,95 +6,95 @@ import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
 import {SongPlayerFactory} from "~/lib/Songs/SongPlayerFactory";
 
 export class Song implements SongInterface {
-    static songs: SongsInterface = {};
-    static categories: Categories = {};
-    static sortedCategories: Categories = {};
+  static songs: SongsInterface = {};
+  static categories: Categories = {};
+  static sortedCategories: Categories = {};
 
-    readonly id: string;
-    readonly path: string;
+  readonly id: string;
+  readonly path: string;
 
-    readonly manifestDefault: SongManifestInterface = {
-        name: "Missing name!",
-        category: "unsorted",
-        player: "default",
-        playerSettings: {},
-        gainMod: 1,
-        filters: {}
-    };
-    manifest: SongManifestInterface = {};
+  readonly manifestDefault: SongManifestInterface = {
+    name: "Missing name!",
+    category: "unsorted",
+    player: "default",
+    playerSettings: {},
+    gainMod: 1,
+    filters: {}
+  };
+  manifest: SongManifestInterface = {};
 
-    readonly player: AbstractSongPlayer | null = null;
+  readonly player: AbstractSongPlayer | null = null;
 
-    constructor(id: string, manifest: SongManifestInterface, initPlayer = true) {
-        this.id = id;
-        this.path = this.getSongPath();
-        this.loadManifest(manifest);
-        if (initPlayer) {
-            this.player = SongPlayerFactory.create(this);
-        }
+  constructor(id: string, manifest: SongManifestInterface, initPlayer = true) {
+    this.id = id;
+    this.path = this.getSongPath();
+    this.loadManifest(manifest);
+    if (initPlayer) {
+      this.player = SongPlayerFactory.create(this);
+    }
+  }
+
+  public cloneWithoutPlayer() {
+    return new Song(this.id, this.manifest, false);
+  }
+
+  static async getSongs(): Promise<SongsInterface> {
+    let reply = window.api.getSongs();
+    let songs: SongsInterface = {};
+
+    for (const [id, manifest] of Object.entries(reply)) {
+      songs[id] = new Song(id, manifest);
     }
 
-    public cloneWithoutPlayer() {
-        return new Song(this.id, this.manifest, false);
-    }
+    return songs;
+  }
 
-    static async getSongs(): Promise<SongsInterface> {
-        let reply = window.api.getSongs();
-        let songs: SongsInterface = {};
+  static async loadSongsByCategory() {
+    this.songs = await this.getSongs();
+    [this.categories, this.sortedCategories] = await Category.getCategories();
 
-        for (const [id, manifest] of Object.entries(reply)) {
-            songs[id] = new Song(id, manifest);
-        }
+    for (let [id, song] of Object.entries(this.songs)) {
+      if (!song.manifest.category) {
+        song.manifest.category = ['unsorted'];
+      }
 
-        return songs;
-    }
+      if (!Array.isArray(song.manifest.category)) {
+        song.manifest.category = [song.manifest.category];
+      }
 
-    static async loadSongsByCategory() {
-        this.songs = await this.getSongs();
-        [this.categories, this.sortedCategories] = await Category.getCategories();
-
-        for (let [id, song] of Object.entries(this.songs)) {
-            if (!song.manifest.category) {
-                song.manifest.category = ['unsorted'];
-            }
-
-            if (!Array.isArray(song.manifest.category)) {
-                song.manifest.category = [song.manifest.category];
-            }
-
-            for (let category of song.manifest.category) {
-                if (!this.categories[category]) {
-                    throw new Error(`Song ${id} calls for category ${category} that doesn't exist.`);
-                }
-
-                this.categories[category].pushToSongs(song);
-            }
+      for (let category of song.manifest.category) {
+        if (!this.categories[category]) {
+          throw new Error(`Song ${id} calls for category ${category} that doesn't exist.`);
         }
 
-        return this;
+        this.categories[category].pushToSongs(song);
+      }
     }
 
-    getSongPath() {
-        return this.getSongsPath() + '/' + this.id;
-    }
+    return this;
+  }
 
-    getSongsPath() {
-        return window.storagePath + '/songs';
-    }
+  getSongPath() {
+    return this.getSongsPath() + '/' + this.id;
+  }
 
-    loadManifest(manifest: SongManifestInterface) {
-        this.manifest = Object.assign({}, this.manifestDefault, manifest);
-    }
+  getSongsPath() {
+    return window.storagePath + '/songs';
+  }
 
-    getFiles<T extends SongFilesInterface>() {
-        return window.api.getSongFiles<T>(this.cloneWithoutPlayer());
-    }
+  loadManifest(manifest: SongManifestInterface) {
+    this.manifest = Object.assign({}, this.manifestDefault, manifest);
+  }
+
+  getFiles<T extends SongFilesInterface>() {
+    return window.api.getSongFiles<T>(this.cloneWithoutPlayer());
+  }
 }
 
 export interface SongsInterface {
-    [key: string]: Song
+  [key: string]: Song
 }
 
 export interface SongManifestsInterface {
-    [key: string]: SongManifestInterface
+  [key: string]: SongManifestInterface
 }

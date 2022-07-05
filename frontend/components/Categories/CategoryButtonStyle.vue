@@ -1,14 +1,17 @@
 <template>
-    <button class="btn col" :class="$music.currentCategory && $music.currentCategory.id.startsWith(id) ? 'btn-secondary' : 'btn-secondary'"><slot/></button>
+  <button class="btn col"
+          :class="$music.currentCategory && $music.currentCategory.id.startsWith(id) ? 'btn-secondary' : 'btn-secondary'">
+    <slot/>
+  </button>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import {defineNuxtComponent} from "#app";
 
-export default Vue.extend({
-    components: {},
-    props: {
-        id: String
-    }
+export default defineNuxtComponent({
+  components: {},
+  props: {
+    id: String
+  }
 });
 </script>

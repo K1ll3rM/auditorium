@@ -2,7 +2,8 @@ import Vue from "vue";
 import {Toast} from "~/lib/Toast";
 
 export class Main {
-    static $root: Vue;
+  static $root: Vue;
 
-    static addToast(toast: Toast) {};
+  static addToast(toast: Toast) {
+  };
 }

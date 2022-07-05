@@ -13,17 +13,17 @@ $color-schemes: (
 // items marked //** from https://bootswatch.com/darkly/
 // items marked //~~ from https://uxdesign.cc/dark-mode-ui-design-the-definitive-guide-part-1-color-53dcfaea5129
 //
-$white-alt:    #fafafa;
-$gray-100-alt: #e1e1e1;  //~~
-$gray-200-alt: #cfcfcf;  //~~
-$gray-300-alt: #b1b1b1;  //~~
-$gray-400-alt: #9e9e9e;  //~~
-$gray-500-alt: #7e7e7e;  //~~
-$gray-600-alt: #626262;  //~~
-$gray-700-alt: #515151;  //~~
-$gray-800-alt: #3b3b3b;  //~~
-$gray-900-alt: #222;  //~~
-$black-alt:    #111;  //~~
+$white-alt: #fafafa;
+$gray-100-alt: #e1e1e1; //~~
+$gray-200-alt: #cfcfcf; //~~
+$gray-300-alt: #b1b1b1; //~~
+$gray-400-alt: #9e9e9e; //~~
+$gray-500-alt: #7e7e7e; //~~
+$gray-600-alt: #626262; //~~
+$gray-700-alt: #515151; //~~
+$gray-800-alt: #3b3b3b; //~~
+$gray-900-alt: #222; //~~
+$black-alt: #111; //~~
 //
 // fusv-disable
 $grays-alt: (
@@ -39,52 +39,52 @@ $grays-alt: (
 );
 // fusv-enable
 //
-$blue-alt:    #375a7f;
-$indigo-alt:  #673ab7;  //~~
-$purple-alt:  #654ea3;  // Panatone CotY 2018
-$pink-alt:    #e83e8c;
-$red-alt:     #e74c3c;  //**
-$orange-alt:  #fd7e14;
-$yellow-alt:  #f39c12;  //**
-$green-alt:   #00bc8c;  //**
-$teal-alt:    #45b5aa;  // Panatone CotY 2010
-$cyan-alt:    #17a2b8;
+$blue-alt: #375a7f;
+$indigo-alt: #673ab7; //~~
+$purple-alt: #654ea3; // Panatone CotY 2018
+$pink-alt: #e83e8c;
+$red-alt: #e74c3c; //**
+$orange-alt: #fd7e14;
+$yellow-alt: #f39c12; //**
+$green-alt: #00bc8c; //**
+$teal-alt: #45b5aa; // Panatone CotY 2010
+$cyan-alt: #17a2b8;
 //
 $colors-alt: (
-  "blue":       $blue-alt,
-  "indigo":     $indigo-alt,
-  "purple":     $purple-alt,
-  "pink":       $pink-alt,
-  "red":        $red-alt,
-  "orange":     $orange-alt,
-  "yellow":     $yellow-alt,
-  "green":      $green-alt,
-  "teal":       $teal-alt,
-  "cyan":       $cyan-alt,
-  "white":      $white-alt,
-  "black":      $black-alt,
-  "gray":       #7e7e7e,  // $gray-600,
-  "gray-dark":  #121212  //$gray-800
+  "blue": $blue-alt,
+  "indigo": $indigo-alt,
+  "purple": $purple-alt,
+  "pink": $pink-alt,
+  "red": $red-alt,
+  "orange": $orange-alt,
+  "yellow": $yellow-alt,
+  "green": $green-alt,
+  "teal": $teal-alt,
+  "cyan": $cyan-alt,
+  "white": $white-alt,
+  "black": $black-alt,
+  "gray": #7e7e7e, // $gray-600,
+  "gray-dark": #121212 //$gray-800
 );
 //
-$primary-alt:       $blue-alt;
-$secondary-alt:     $gray-600-alt;
-$success-alt:       $green-alt;
-$info-alt:          $cyan-alt;
-$warning-alt:       $yellow-alt;
-$danger-alt:        $red-alt;
-$light-alt:         $gray-400-alt;
-$dark-alt:          $gray-800-alt;
+$primary-alt: $blue-alt;
+$secondary-alt: $gray-600-alt;
+$success-alt: $green-alt;
+$info-alt: $cyan-alt;
+$warning-alt: $yellow-alt;
+$danger-alt: $red-alt;
+$light-alt: $gray-400-alt;
+$dark-alt: $gray-800-alt;
 //
 $theme-colors-alt: (
-  "primary":    $primary-alt,
-  "secondary":  $secondary-alt,
-  "success":    $success-alt,
-  "info":       $info-alt,
-  "warning":    $warning-alt,
-  "danger":     $danger-alt,
-  "light":      $light-alt,
-  "dark":       $dark-alt
+  "primary": $primary-alt,
+  "secondary": $secondary-alt,
+  "success": $success-alt,
+  "info": $info-alt,
+  "warning": $warning-alt,
+  "danger": $danger-alt,
+  "light": $light-alt,
+  "dark": $dark-alt
 );
 //
 //$theme-colors-rgb-alt: map-loop($theme-colors-alt, to-rgb, "$value");
