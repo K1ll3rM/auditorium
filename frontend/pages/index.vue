@@ -1,6 +1,5 @@
 <template>
   <main v-if="initialized">
-    <h1>testing</h1>
     <control-bar/>
     <!--        <div class="main-container">-->
     <!--            <toasts ref="toasts"/>-->
@@ -57,7 +56,6 @@ export default {
   },
   methods: {
     initMain() {
-      Main.$root = this.$root;
       Main.addToast = this.addToast;
     },
     addToast(toast: Toast) {

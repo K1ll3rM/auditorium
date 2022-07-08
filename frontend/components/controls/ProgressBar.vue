@@ -1,6 +1,6 @@
 <template>
   <div class="bar-container">
-    <div class="left">{{ Music.test }}</div>
+    <div class="left"></div>
     <div class="middle">
       <div class="before-slider">{{ formatSeconds($music.currentSongProgress) }}</div>
       <div class="slider"

@@ -8,9 +8,9 @@
       <div class="middle">
         <progress-bar/>
       </div>
-<!--      <div class="right">-->
-<!--        <volume/>-->
-<!--      </div>-->
+      <div class="right">
+        <volume/>
+      </div>
     </div>
   </div>
 </template>
