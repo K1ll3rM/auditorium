@@ -29,6 +29,7 @@
 import {Toast} from "~~/lib/Toast";
 import {Main} from "~~/lib/Main";
 import ControlBar from "~~/components/controls/ControlBar.vue";
+import {Config} from "~~/lib/Config";
 
 export default {
   components: {ControlBar},
@@ -46,7 +47,7 @@ export default {
   },
   async created() {
     this.initMain();
-    // await Config.init();
+    await Config.init();
     this.initialized = true;
   },
   data() {

@@ -1,7 +1,7 @@
 import 'vue';
 import '@nuxt/types'
-import {Category} from "~/lib/Category";
-import {Song} from "~/lib/Songs/Song";
+import {Category} from "~~/lib/Category";
+import {Song} from "~~/lib/Songs/Song";
 
 declare module 'vue/types/vue' {
   interface Vue {

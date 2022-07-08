@@ -8,9 +8,9 @@
       <div class="middle">
         <progress-bar/>
       </div>
-      <div class="right">
-        <volume/>
-      </div>
+<!--      <div class="right">-->
+<!--        <volume/>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
@@ -41,18 +41,18 @@
 </style>
 
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
 import Volume from "~~/components/controls/volume.vue";
 import PlayPause from "~~/components/controls/PlayPause.vue";
 import Stop from "~~/components/controls/Stop.vue";
 import ProgressBar from "~~/components/controls/ProgressBar.vue";
 
-export default defineNuxtComponent({
+export default {
+  name: "ControlBar",
   components: {ProgressBar, PlayPause, Volume, Stop},
   props: {},
   data() {
     return {}
   },
   methods: {}
-});
+};
 </script>

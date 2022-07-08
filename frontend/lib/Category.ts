@@ -1,6 +1,6 @@
 import {CategoryManifestInterface} from "@/shared/CategoryManifestInterface";
-import {Song} from "~/lib/Songs/Song";
-import {Filter, FiltersInterface} from "~/lib/Filter";
+import {Song} from "~~/lib/Songs/Song";
+import {Filter, FiltersInterface} from "~~/lib/Filter";
 
 export class Category {
   static root: Category = new Category('root', {

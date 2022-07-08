@@ -36,9 +36,8 @@
 }
 </style>
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
 
-export default defineNuxtComponent({
+export default {
   components: {},
   props: {
     filterName: String,

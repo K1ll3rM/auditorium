@@ -85,13 +85,3 @@ app.on("activate", function () {
 });
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-if(isDev()) {
-    const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer');
-
-    app.whenReady().then(() => {
-        installExtension(VUEJS_DEVTOOLS)
-            .then((name: string) => console.log(`Added Extension:  ${name}`))
-            .catch((err: Error) => console.log('An error occurred: ', err));
-    });
-}

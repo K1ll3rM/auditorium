@@ -1,6 +1,6 @@
-import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
+import {AbstractSongPlayer} from "~~/lib/Songs/AbstractSongPlayer";
 import {LoopSongFilesInterface} from "@/shared/LoopSongFilesInterface";
-import {Song} from "~/lib/Songs/Song";
+import {Song} from "~~/lib/Songs/Song";
 
 export class LoopSongPlayer extends AbstractSongPlayer {
 

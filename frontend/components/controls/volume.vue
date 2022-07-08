@@ -135,9 +135,9 @@
 
 <script lang="ts">
 import {Config} from "~~/lib/Config";
-import {debounce, round} from "@/shared/helpers";
+import {debounce, round} from "~~/helpers";
 
-export default defineNuxtComponent({
+export default {
   components: {},
   props: {},
   data() {
@@ -175,5 +175,5 @@ export default defineNuxtComponent({
       rangeBar.style.height = `calc(${newVal}% + (${-newVal * 0.165}px))`;
     }
   }
-});
+};
 </script>

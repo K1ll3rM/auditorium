@@ -1,7 +1,7 @@
 import {ipcMain} from "electron";
 import {CHANNEL_GETCATEGORIES, CHANNEL_GETSONGFILES, CHANNEL_GETSONGS} from "../lib/Constants";
 import {promises as fs} from "fs";
-import {getFileName} from "../../shared/helpers";
+import {getFileName} from "../helpers";
 import {Storage} from "../lib/Storage";
 import {SongManifestInterface} from "../../shared/SongManifestInterface";
 import {SongInterface} from "../../shared/SongInterface";

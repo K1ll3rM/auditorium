@@ -8,11 +8,10 @@
 </template>
 
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
 import {Category} from "~~/lib/Category";
 import CategoryButtonStyle from "~~/components/Categories/CategoryButtonStyle.vue";
 
-export default defineNuxtComponent({
+export default {
   components: {CategoryButtonStyle},
   props: {
     category: {

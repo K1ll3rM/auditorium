@@ -16,14 +16,12 @@
 </template>
 
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
-import {formatSeconds} from "@/shared/helpers";
+import {formatSeconds} from "~~/helpers";
 
-export default defineNuxtComponent({
+export default {
   components: {},
   props: {},
   created() {
-    console.log(this.$root);
     this.$root.$on('play', (e: { duration: number }) => {
       this.max = e.duration ? e.duration : 0;
     });
@@ -51,7 +49,7 @@ export default defineNuxtComponent({
       return formatSeconds(num);
     }
   }
-});
+};
 </script>
 
 <style lang="scss" scoped>

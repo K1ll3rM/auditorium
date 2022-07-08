@@ -1,6 +1,6 @@
-import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
+import {AbstractSongPlayer} from "~~/lib/Songs/AbstractSongPlayer";
 import {DefaultSongFilesInterface} from "@/shared/DefaultSongFilesInterface";
-import {Song} from "~/lib/Songs/Song";
+import {Song} from "~~/lib/Songs/Song";
 
 /**
  * The default song player

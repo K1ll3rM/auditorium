@@ -1,7 +1,7 @@
-import {Config} from "~/lib/Config";
-import {easeInOutQuad, timeout} from "@/shared/helpers";
-import {Song} from "~/lib/Songs/Song";
-import {Main} from "~/lib/Main";
+import {Config} from "~~/lib/Config";
+import {easeInOutQuad, timeout} from "~~/helpers";
+import {Song} from "~~/lib/Songs/Song";
+import {Main} from "~~/lib/Main";
 
 /**
  * The default song player

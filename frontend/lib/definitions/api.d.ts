@@ -1,6 +1,6 @@
-import {Song, SongManifestsInterface} from "~/lib/Songs/Song";
+import {Song, SongManifestsInterface} from "~~/lib/Songs/Song";
 import {ConfigInterface} from "@/shared/ConfigInterface";
-import {CategoryManifests} from "~/lib/Category";
+import {CategoryManifests} from "~~/lib/Category";
 import {SongFilesInterface} from "@/shared/SongFilesInterface";
 
 declare interface Api {

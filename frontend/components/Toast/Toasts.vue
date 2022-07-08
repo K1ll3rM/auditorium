@@ -14,11 +14,10 @@
 </style>
 
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
 import {Toast as ToastClass} from "~~/lib/Toast";
 import Toast from "~~/components/Toast/Toast.vue";
 
-export default defineNuxtComponent({
+export default {
   components: {Toast},
   props: {},
   created() {

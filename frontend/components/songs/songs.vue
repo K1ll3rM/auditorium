@@ -36,7 +36,6 @@
 
 <script lang="ts">
 import Card from "~~/components/Card.vue";
-import {defineNuxtComponent} from "#app";
 import Song from "~~/components/songs/song.vue";
 import {Song as SongClass} from "~~/lib/Songs/Song";
 import {Categories, Category as CategoryClass} from "~~/lib/Category";
@@ -45,7 +44,7 @@ import FilterButton from "~~/components/Filter/FilterButton.vue";
 import FilterTag from "~~/components/Filter/FilterTag.vue";
 import ShuffleButton from "~~/components/Buttons/ShuffleButton.vue";
 
-export default defineNuxtComponent({
+export default {
   components: {ShuffleButton, FilterTag, FilterButton, Category, Song, Card},
   props: [],
   created() {

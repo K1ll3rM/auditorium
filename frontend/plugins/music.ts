@@ -1,3 +1,6 @@
+import {defineNuxtPlugin} from "#app";
+import {reactive} from "vue";
+
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('click-outside', {
     mounted(el, binding, vnode) {

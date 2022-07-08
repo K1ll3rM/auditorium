@@ -32,11 +32,10 @@
 </style>
 
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
 import {Toast, ToastStyle} from "~~/lib/Toast";
-import {timeout} from "@/shared/helpers";
+import {timeout} from "~~/helpers";
 
-export default defineNuxtComponent({
+export default {
   props: {
     toast: {
       type: Object as Vue.PropType<Toast>,

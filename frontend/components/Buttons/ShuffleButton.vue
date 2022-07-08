@@ -7,12 +7,11 @@
 <style>
 </style>
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
 import {Main} from "~~/lib/Main";
 import {Toast} from "~~/lib/Toast";
-import {rand} from "@/shared/helpers";
+import {rand} from "~~/helpers";
 
-export default defineNuxtComponent({
+export default {
   components: {},
   props: {},
   data() {

@@ -59,10 +59,9 @@
 </style>
 <script lang="ts">
 import Card from "~~/components/Card.vue";
-import {defineNuxtComponent} from "#app";
 import {Song} from "~~/lib/Songs/Song";
 
-export default defineNuxtComponent({
+export default {
   components: {Card},
   props: {
     song: {

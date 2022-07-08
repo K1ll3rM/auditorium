@@ -1,9 +1,9 @@
 import {SongManifestInterface} from "@/shared/SongManifestInterface";
 import {SongInterface} from "@/shared/SongInterface";
-import {Categories, Category} from "~/lib/Category";
+import {Categories, Category} from "~~/lib/Category";
 import {SongFilesInterface} from "@/shared/SongFilesInterface";
-import {AbstractSongPlayer} from "~/lib/Songs/AbstractSongPlayer";
-import {SongPlayerFactory} from "~/lib/Songs/SongPlayerFactory";
+import {AbstractSongPlayer} from "~~/lib/Songs/AbstractSongPlayer";
+import {SongPlayerFactory} from "~~/lib/Songs/SongPlayerFactory";
 
 export class Song implements SongInterface {
   static songs: SongsInterface = {};

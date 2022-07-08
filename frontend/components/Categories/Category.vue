@@ -49,11 +49,10 @@
 </style>
 
 <script lang="ts">
-import {defineNuxtComponent} from "#app";
 import {Categories, Category} from "~~/lib/Category";
 import CategoryButton from "~~/components/Categories/CategoryButton.vue";
 
-export default defineNuxtComponent({
+export default {
   components: {CategoryButton},
   props: {
     categories: {
