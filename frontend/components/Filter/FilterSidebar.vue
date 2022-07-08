@@ -71,7 +71,7 @@ export default {
     }
   },
   created() {
-    this.$root.$on('toggleFilterSidebar', () => {
+    this.$eventBus.on('toggleFilterSidebar', () => {
       this.toggle();
     });
   },
@@ -96,7 +96,7 @@ export default {
         }
       });
 
-      this.$root.$emit('applyFilters');
+      this.$eventBus.emit('applyFilters');
     }
   }
 };

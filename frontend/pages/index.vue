@@ -7,7 +7,7 @@
       </div>
     </div>
     <control-bar/>
-    <!--        <filter-sidebar/>-->
+    <filter-sidebar/>
   </main>
 </template>
 
@@ -31,9 +31,10 @@ import ControlBar from "~~/components/controls/ControlBar.vue";
 import {Config} from "~~/lib/Config";
 import Toasts from "~~/components/Toast/Toasts.vue";
 import Songs from "~~/components/songs/songs.vue";
+import FilterSidebar from "~~/components/Filter/FilterSidebar.vue";
 
 export default {
-  components: {Songs, Toasts, ControlBar},
+  components: {FilterSidebar, Songs, Toasts, ControlBar},
   errorCaptured(err: Error): boolean | void {
     Main.toast.addToast(new Toast('An error has occurred! Check the console for more information.', ToastStyle.danger, 0));
 

@@ -75,7 +75,7 @@ export default {
         this.breadcrumb = [];
       }
 
-      this.$root.$emit('category.change');
+      Main.eventBus.emit('category.change');
     }
   }
 };

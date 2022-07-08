@@ -49,8 +49,8 @@ export default {
   methods: {
     remove() {
       if (this.$music.selectedFilters[this.filterName]) {
-        Vue.delete(this.$music.selectedFilters, this.filterName);
-        this.$root.$emit('applyFilters');
+        delete this.$music.selectedFilters[this.filterName];
+        this.$eventBus.emit('applyFilters');
       }
     }
   }

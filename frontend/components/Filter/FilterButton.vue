@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     toggleFilterSidebar() {
-      this.$root.$emit('toggleFilterSidebar');
+      this.$eventBus.emit('toggleFilterSidebar');
     }
   }
 };

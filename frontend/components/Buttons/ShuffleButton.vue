@@ -22,7 +22,7 @@ export default {
       let length = this.$music.currentCategory.songs.length;
 
       if (length <= 0) {
-        Main.addToast(new Toast("Can't shuffle: no songs in current category"));
+        Main.toast.addToast(new Toast("Can't shuffle: no songs in current category"));
         return;
       }
 
