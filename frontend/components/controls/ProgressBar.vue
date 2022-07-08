@@ -1,6 +1,6 @@
 <template>
   <div class="bar-container">
-    <div class="left"></div>
+    <div class="left">{{ Music.test }}</div>
     <div class="middle">
       <div class="before-slider">{{ formatSeconds($music.currentSongProgress) }}</div>
       <div class="slider"
@@ -17,22 +17,24 @@
 
 <script lang="ts">
 import {formatSeconds} from "~~/helpers";
+import Music from "~~/lib/Music";
 
 export default {
   components: {},
   props: {},
   created() {
-    this.$root.$on('play', (e: { duration: number }) => {
+    this.$eventBus.on('play', (e: { duration: number }) => {
       this.max = e.duration ? e.duration : 0;
     });
-    this.$root.$on('stop', () => {
+    this.$eventBus.on('stop', () => {
       this.$music.currentSongProgress = 0;
       this.max = 0;
     });
   },
   data() {
     return {
-      max: 0
+      max: 0,
+      Music
     }
   },
   methods: {

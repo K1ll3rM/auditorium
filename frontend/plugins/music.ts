@@ -1,5 +1,5 @@
 import {defineNuxtPlugin} from "#app";
-import {reactive} from "vue";
+import Music from "~~/lib/Music";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('click-outside', {
@@ -19,13 +19,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   return {
     provide: {
-      music: reactive({
-        currentSong: null,
-        currentSongProgress: 0,
-        currentCategory: null,
-        songChanging: false,
-        selectedFilters: {}
-      })
+      music: Music
     }
   };
 })
