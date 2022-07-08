@@ -1,6 +1,6 @@
 <template>
   <div class="toast-container">
-    <toast v-for="(toast, index) in toasts" :key="index" :toast="toast" @remove-toast="removeToast"/>
+    <toast v-for="(toast, index) in $toast.toasts" :key="index" :toast="toast" @remove-toast="removeToast"/>
   </div>
 </template>
 
@@ -28,11 +28,8 @@ export default {
     }
   },
   methods: {
-    addToast(toast: ToastClass) {
-      Vue.set(this.toasts, toast.id, toast);
-    },
     removeToast(e: { toast: ToastClass }) {
-      Vue.delete(this.toasts, e.toast.id);
+      this.$toast.removeToast(e.toast.id);
     }
   }
 };

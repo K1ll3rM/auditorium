@@ -34,11 +34,12 @@
 <script lang="ts">
 import {Toast, ToastStyle} from "~~/lib/Toast";
 import {timeout} from "~~/helpers";
+import {PropType} from 'vue';
 
 export default {
   props: {
     toast: {
-      type: Object as Vue.PropType<Toast>,
+      type: Object as PropType<Toast>,
       required: true
     },
   },

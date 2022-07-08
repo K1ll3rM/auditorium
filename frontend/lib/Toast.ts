@@ -1,3 +1,5 @@
+import {reactive} from "vue";
+
 export class Toast {
   id: string;
 
@@ -21,4 +23,24 @@ export enum ToastStyle {
   success,
   warning,
   danger,
+}
+
+export const ToastController = reactive({
+  toasts: {},
+  addToast(toast: Toast) {
+    this.toasts[toast.id] = toast;
+  },
+  removeToast(id: string) {
+    delete this.toasts[id];
+  }
+});
+
+export interface ToastControllerInterface {
+  toasts: {
+    [id: string]: Toast
+  };
+
+  addToast(toast: Toast);
+
+  removeToast(id: string);
 }

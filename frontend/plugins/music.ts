@@ -1,5 +1,5 @@
 import {defineNuxtPlugin} from "#app";
-import Music from "~~/lib/Music";
+import Music from "~~/lib/MusicInterface";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('click-outside', {

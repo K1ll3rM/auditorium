@@ -1,22 +1,13 @@
 import 'vue';
 import '@nuxt/types'
-import {Category} from "~~/lib/Category";
-import {Song} from "~~/lib/Songs/Song";
 import {Emitter} from "mitt";
+import {MusicInterface} from "~~/lib/MusicInterface";
+import {ToastControllerInterface} from "~~/lib/Toast";
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $music: Music;
+    $music: MusicInterface;
     $mitt: Emitter;
+    $toast: ToastControllerInterface;
   }
-}
-
-interface Music {
-  currentSong: Song | null;
-  currentSongProgress: number;
-  currentCategory: Category;
-  songChanging: boolean;
-  selectedFilters: {
-    [key: string]: string;
-  };
 }

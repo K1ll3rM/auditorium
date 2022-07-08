@@ -1,12 +1,12 @@
 <template>
   <main v-if="initialized">
+    <div class="main-container">
+      <toasts ref="toasts"/>
+      <div class="container">
+        <!--                    <songs></songs>-->
+      </div>
+    </div>
     <control-bar/>
-    <!--        <div class="main-container">-->
-    <!--            <toasts ref="toasts"/>-->
-    <!--            <div class="container">-->
-    <!--                <songs></songs>-->
-    <!--            </div>-->
-    <!--        </div>-->
     <!--        <filter-sidebar/>-->
   </main>
 </template>
@@ -25,27 +25,27 @@
 </style>
 
 <script lang="ts">
-import {Toast} from "~~/lib/Toast";
+import {Toast, ToastStyle} from "~~/lib/Toast";
 import {Main} from "~~/lib/Main";
 import ControlBar from "~~/components/controls/ControlBar.vue";
 import {Config} from "~~/lib/Config";
+import Toasts from "~~/components/Toast/Toasts.vue";
 
 export default {
-  components: {ControlBar},
-  // errorCaptured(err: Error): boolean | void {
-  //   this.addToast(new Toast('An error has occurred! Check the console for more information.', ToastStyle.danger, 0));
-  //
-  //   console.error(err);
-  //
-  //   return false;
-  // },
+  components: {Toasts, ControlBar},
+  errorCaptured(err: Error): boolean | void {
+    Main.toast.addToast(new Toast('An error has occurred! Check the console for more information.', ToastStyle.danger, 0));
+
+    console.error(err);
+
+    return false;
+  },
   head() {
     return {
       title: 'Auditorium'
     }
   },
   async created() {
-    this.initMain();
     await Config.init();
     this.initialized = true;
   },
@@ -55,12 +55,6 @@ export default {
     };
   },
   methods: {
-    initMain() {
-      Main.addToast = this.addToast;
-    },
-    addToast(toast: Toast) {
-      this.$refs.toasts.addToast(toast);
-    }
   }
 }
 </script>
