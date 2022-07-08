@@ -35,5 +35,5 @@ export default {
       Vue.delete(this.toasts, e.toast.id);
     }
   }
-});
+};
 </script>

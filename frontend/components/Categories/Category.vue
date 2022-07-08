@@ -78,5 +78,5 @@ export default {
       this.$root.$emit('category.change');
     }
   }
-});
+};
 </script>

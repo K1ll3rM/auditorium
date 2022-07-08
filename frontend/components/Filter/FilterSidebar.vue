@@ -99,5 +99,5 @@ export default {
       this.$root.$emit('applyFilters');
     }
   }
-});
+};
 </script>

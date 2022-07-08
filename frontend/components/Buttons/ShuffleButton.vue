@@ -29,5 +29,5 @@ export default {
       this.$music.currentCategory.songs[rand(1, length) - 1].player?.play();
     }
   }
-});
+};
 </script>

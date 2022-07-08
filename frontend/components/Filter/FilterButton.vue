@@ -17,5 +17,5 @@ export default {
       this.$root.$emit('toggleFilterSidebar');
     }
   }
-});
+};
 </script>

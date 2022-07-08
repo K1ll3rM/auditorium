@@ -76,5 +76,5 @@ export default {
       this.$root.$emit('refresh');
     }
   }
-});
+};
 </script>
