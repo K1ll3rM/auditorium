@@ -3,7 +3,7 @@
     <div class="main-container">
       <toasts ref="toasts"/>
       <div class="container">
-        <!--                    <songs></songs>-->
+        <songs></songs>
       </div>
     </div>
     <control-bar/>
@@ -30,9 +30,10 @@ import {Main} from "~~/lib/Main";
 import ControlBar from "~~/components/controls/ControlBar.vue";
 import {Config} from "~~/lib/Config";
 import Toasts from "~~/components/Toast/Toasts.vue";
+import Songs from "~~/components/songs/songs.vue";
 
 export default {
-  components: {Toasts, ControlBar},
+  components: {Songs, Toasts, ControlBar},
   errorCaptured(err: Error): boolean | void {
     Main.toast.addToast(new Toast('An error has occurred! Check the console for more information.', ToastStyle.danger, 0));
 
@@ -54,7 +55,6 @@ export default {
       initialized: false
     };
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>

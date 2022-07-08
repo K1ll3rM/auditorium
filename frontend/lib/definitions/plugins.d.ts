@@ -7,7 +7,7 @@ import {ToastControllerInterface} from "~~/lib/Toast";
 declare module 'vue/types/vue' {
   interface Vue {
     $music: MusicInterface;
-    $mitt: Emitter;
+    $eventBus: Emitter;
     $toast: ToastControllerInterface;
   }
 }

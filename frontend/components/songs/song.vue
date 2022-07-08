@@ -60,12 +60,13 @@
 <script lang="ts">
 import Card from "~~/components/Card.vue";
 import {Song} from "~~/lib/Songs/Song";
+import {PropType} from "vue";
 
 export default {
   components: {Card},
   props: {
     song: {
-      type: Object as Vue.PropType<Song>,
+      type: Object as PropType<Song>,
       required: true
     },
   },
@@ -79,7 +80,7 @@ export default {
     this.filter();
     this.beforeUpdateId = this.song.id;
 
-    this.$root.$on('applyFilters', () => {
+    this.$eventBus.on('applyFilters', () => {
       this.filter();
     });
   },

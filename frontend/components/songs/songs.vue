@@ -73,7 +73,7 @@ export default {
       if (!this.$music.currentCategory) {
         this.$music.currentCategory = CategoryClass.root;
       }
-      this.$root.$emit('refresh');
+      this.$eventBus.emit('refresh');
     }
   }
 };
