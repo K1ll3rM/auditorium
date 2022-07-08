@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import {formatSeconds} from "~~/helpers";
-import Music from "~~/lib/MusicInterface";
+import Music from "~~/lib/Music";
 
 export default {
   components: {},

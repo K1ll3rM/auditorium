@@ -1,5 +1,5 @@
 import {ToastController} from "~~/lib/Toast";
-import Music from "~~/lib/MusicInterface";
+import Music from "~~/lib/Music";
 import EventBus from "~~/lib/EventBus";
 
 export class Main {

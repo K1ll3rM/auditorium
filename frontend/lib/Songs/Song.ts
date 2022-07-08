@@ -34,8 +34,12 @@ export class Song implements SongInterface {
     }
   }
 
-  public cloneWithoutPlayer() {
-    return new Song(this.id, this.manifest, false);
+  public toSimpleObject() {
+    return {
+      id: this.id,
+      path: this.getSongPath(),
+      manifest: JSON.parse(JSON.stringify(this.manifest))
+    };
   }
 
   static async getSongs(): Promise<SongsInterface> {
@@ -87,7 +91,7 @@ export class Song implements SongInterface {
   }
 
   getFiles<T extends SongFilesInterface>() {
-    return window.api.getSongFiles<T>(this.cloneWithoutPlayer());
+    return window.api.getSongFiles<T>(this.toSimpleObject());
   }
 }
 

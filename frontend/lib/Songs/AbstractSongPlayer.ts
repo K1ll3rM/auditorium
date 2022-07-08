@@ -116,21 +116,21 @@ export abstract class AbstractSongPlayer {
   }
 
   public async play() {
-    if (Main.$root.$music.songChanging) {
+    if (Main.music.songChanging) {
       return;
     }
 
-    if (Main.$root.$music.currentSong?.id === this.song.id) {
+    if (Main.music.currentSong?.id === this.song.id) {
       return;
     }
 
     this.state = 'starting';
-    Main.$root.$music.songChanging = true;
+    Main.music.songChanging = true;
 
     try {
-      if (Main.$root.$music.currentSong) {
+      if (Main.music.currentSong) {
         let result = await Promise.allSettled([
-          Main.$root.$music.currentSong.player?.stop(),
+          Main.music.currentSong.player?.stop(),
           this.init()
         ]);
 
@@ -144,18 +144,18 @@ export abstract class AbstractSongPlayer {
       await this.startTracks();
     } catch (e) {
       this.state = 'stopped';
-      Main.$root.$music.currentSong = null;
-      Main.$root.$music.songChanging = false;
+      Main.music.currentSong = null;
+      Main.music.songChanging = false;
 
       throw e;
     }
 
-    Main.$root.$emit('play', {
+    Main.eventBus.emit('play', {
       duration: this.getDuration()
     });
 
-    Main.$root.$music.currentSong = this.song;
-    Main.$root.$music.songChanging = false;
+    Main.music.currentSong = this.song;
+    Main.music.songChanging = false;
     this.startProgressTimer();
 
     await this.fadeIn();
@@ -169,7 +169,7 @@ export abstract class AbstractSongPlayer {
     await this.stopTracks();
 
     this.state = 'stopped';
-    Main.$root.$emit('stop');
+    Main.eventBus.emit('stop');
 
     this.purgeTracks();
   }
@@ -197,7 +197,7 @@ export abstract class AbstractSongPlayer {
     this.progressTimer = setInterval(() => {
       this.checkProgressTimer();
 
-      Main.$root.$music.currentSongProgress = this.getCurrentTime();
+      Main.music.currentSongProgress = this.getCurrentTime();
     }, 100);
   }
 
@@ -208,7 +208,7 @@ export abstract class AbstractSongPlayer {
   }
 
   public setProgress(progress: number) {
-    Main.$root.$music.currentSongProgress = progress;
+    Main.music.currentSongProgress = progress;
     return this.setCurrentTime(progress);
   }
 
