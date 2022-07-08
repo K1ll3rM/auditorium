@@ -51,12 +51,13 @@
 <script lang="ts">
 import {Categories, Category} from "~~/lib/Category";
 import CategoryButton from "~~/components/Categories/CategoryButton.vue";
+import {PropType} from "vue";
 
 export default {
   components: {CategoryButton},
   props: {
     categories: {
-      type: Object as Vue.PropType<Categories>,
+      type: Object as PropType<Categories>,
       required: true
     },
   },
@@ -75,7 +76,8 @@ export default {
         this.breadcrumb = [];
       }
 
-      Main.eventBus.emit('category.change');
+      this.$music.setVisibleSongs();
+      this.$eventBus.emit('category.change');
     }
   }
 };
