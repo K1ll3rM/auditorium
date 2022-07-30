@@ -19,14 +19,27 @@ export default {
   },
   methods: {
     randomSong() {
-      let length = this.$music.currentCategory.songs.length;
+      let length = this.$music.visibleSongs.length;
 
       if (length <= 0) {
-        Main.toast.addToast(new Toast("Can't shuffle: no songs in current category"));
+        Main.toast.addToast(new Toast("Can't shuffle: no songs in current selection"));
         return;
       }
 
-      this.$music.currentCategory.songs[rand(1, length) - 1].player?.play();
+      let currentSongIndex = this.$music.visibleSongs.indexOf(this.$music.currentSong);
+
+      if (length - 1 === 0 && currentSongIndex === 0) {
+        Main.toast.addToast(new Toast("Can't shuffle: only song in selection is already playing"));
+        return;
+      }
+
+      let randomSongIndex = rand(1, length) - 1;
+
+      while (randomSongIndex === currentSongIndex) {
+        randomSongIndex = rand(1, length) - 1;
+      }
+
+      this.$music.visibleSongs[randomSongIndex].player?.play();
     }
   }
 };
