@@ -18,6 +18,42 @@
     </div>
 </template>
 
+<script lang="ts">
+import {Song} from "~~/lib/Songs/Song";
+import {PropType} from "vue";
+
+export default {
+    name: "Song",
+    props: {
+        song: {
+            type: Object as PropType<Song>,
+            required: true
+        },
+    },
+    data() {
+        return {};
+    },
+    methods: {
+        toggle() {
+            if (!this.song.player) {
+                return;
+            }
+
+            if (!this.$music.currentSong || this.$music.currentSong.id !== this.song.id) {
+                this.song.player.play();
+                return;
+            }
+
+            if (this.song.player.state === "paused") {
+                this.song.player.unPause();
+            } else if (this.song.player.state === "playing") {
+                this.song.player.pause();
+            }
+        }
+    }
+};
+</script>
+
 <style lang="scss" scoped>
 .card {
     transition: border ease-in-out .1s;
@@ -58,53 +94,3 @@
     display: block;
 }
 </style>
-<script lang="ts">
-import Card from "~~/components/Card.vue";
-import {Song} from "~~/lib/Songs/Song";
-import {PropType} from "vue";
-
-export default {
-    components: {Card},
-    props: {
-        song: {
-            type: Object as PropType<Song>,
-            required: true
-        },
-    },
-    data() {
-        return {};
-    },
-    methods: {
-        // filter: function () {
-        //   let show = true;
-        //
-        //   for (const [filterName, filterValue] of Object.entries(this.$music.selectedFilters)) {
-        //     if (this.song.manifest.filters && this.song.manifest.filters[filterName] && this.song.manifest.filters[filterName] === filterValue) {
-        //       continue;
-        //     }
-        //
-        //     show = false;
-        //     break;
-        //   }
-        //
-        //   this.show = show;
-        // },
-        toggle() {
-            if (!this.song.player) {
-                return;
-            }
-
-            if (!this.$music.currentSong || this.$music.currentSong.id !== this.song.id) {
-                this.song.player.play();
-                return;
-            }
-
-            if (this.song.player.state === 'paused') {
-                this.song.player.unPause();
-            } else if (this.song.player.state === 'playing') {
-                this.song.player.pause();
-            }
-        }
-    }
-};
-</script>

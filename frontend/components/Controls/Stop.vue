@@ -7,21 +7,10 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
-.stop {
-    display: inline-block;
-}
-
-.button {
-    cursor: pointer;
-    font-size: 1rem;
-    line-height: 2rem;
-}
-</style>
-
 <script lang="ts">
 
 export default {
+    name: "Stop",
     components: {},
     props: {},
     data() {
@@ -43,3 +32,15 @@ export default {
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.stop {
+    display: inline-block;
+}
+
+.button {
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+</style>

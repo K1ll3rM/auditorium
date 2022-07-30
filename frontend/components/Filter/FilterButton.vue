@@ -2,11 +2,10 @@
     <button class="btn btn-secondary mb-3" @click="toggleFilterSidebar"><i class="bi bi-sliders"></i></button>
 </template>
 
-<style>
-</style>
 <script lang="ts">
 
 export default {
+    name: "FilterButton",
     components: {},
     props: {},
     data() {
@@ -14,7 +13,7 @@ export default {
     },
     methods: {
         toggleFilterSidebar() {
-            this.$eventBus.emit('toggleFilterSidebar');
+            this.$eventBus.emit("toggleFilterSidebar");
         }
     }
 };

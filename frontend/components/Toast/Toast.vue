@@ -8,35 +8,13 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
-.alert {
-    opacity: 0;
-    transition: .15s opacity ease-in-out;
-    display: block;
-    width: 350px;
-    pointer-events: auto;
-
-    &.show {
-        opacity: 1;
-    }
-
-    &.danger {
-        background: rgba(var(--bs-danger-rgb));
-    }
-
-    .bi {
-        font-size: 1.2rem;
-    }
-}
-
-</style>
-
 <script lang="ts">
 import {Toast, ToastStyle} from "~~/lib/Toast";
 import {timeout} from "~~/helpers";
 import {PropType} from 'vue';
 
 export default {
+    name: "Toast",
     props: {
         toast: {
             type: Object as PropType<Toast>,
@@ -65,29 +43,52 @@ export default {
         },
         fadeOut() {
             return new Promise<void>((resolve) => {
-                this.$el.addEventListener('transitionend', () => {
+                this.$el.addEventListener("transitionend", () => {
                     resolve();
                 })
                 this.show = false;
             });
         },
         removeToast() {
-            this.$emit('remove-toast', {
+            this.$emit("remove-toast", {
                 toast: this.toast
             });
         },
         style() {
             switch (this.toast.style) {
                 case ToastStyle.success:
-                    return ' alert-success';
+                    return " alert-success";
                 case ToastStyle.warning:
-                    return ' alert-warning';
+                    return " alert-warning";
                 case ToastStyle.danger:
-                    return ' alert-danger';
+                    return " alert-danger";
                 default:
-                    return ' alert-info';
+                    return " alert-info";
             }
         }
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.alert {
+    opacity: 0;
+    transition: .15s opacity ease-in-out;
+    display: block;
+    width: 350px;
+    pointer-events: auto;
+
+    &.show {
+        opacity: 1;
+    }
+
+    &.danger {
+        background: rgba(var(--bs-danger-rgb));
+    }
+
+    .bi {
+        font-size: 1.2rem;
+    }
+}
+
+</style>

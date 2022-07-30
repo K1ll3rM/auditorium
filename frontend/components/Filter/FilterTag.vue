@@ -4,6 +4,29 @@
     </div>
 </template>
 
+<script lang="ts">
+
+export default {
+    name: "FilterTag",
+    components: {},
+    props: {
+        filterName: String,
+        filterValue: String
+    },
+    data() {
+        return {}
+    },
+    methods: {
+        remove() {
+            if (this.$music.selectedFilters[this.filterName]) {
+                delete this.$music.selectedFilters[this.filterName];
+                this.$eventBus.emit("applyFilters");
+            }
+        }
+    }
+};
+</script>
+
 <style lang="scss" scoped>
 .tag {
     background: #3B3B3B;
@@ -35,24 +58,3 @@
     }
 }
 </style>
-<script lang="ts">
-
-export default {
-    components: {},
-    props: {
-        filterName: String,
-        filterValue: String
-    },
-    data() {
-        return {}
-    },
-    methods: {
-        remove() {
-            if (this.$music.selectedFilters[this.filterName]) {
-                delete this.$music.selectedFilters[this.filterName];
-                this.$eventBus.emit('applyFilters');
-            }
-        }
-    }
-};
-</script>

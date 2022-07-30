@@ -4,8 +4,6 @@
             @click="randomSong"><i class="bi bi-shuffle"></i></button>
 </template>
 
-<style>
-</style>
 <script lang="ts">
 import {Main} from "~~/lib/Main";
 import {Toast} from "~~/lib/Toast";

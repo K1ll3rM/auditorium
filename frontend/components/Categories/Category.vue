@@ -32,30 +32,13 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
-.breadcrumb {
-    max-width: 90%;
-}
-
-.breadcrumb-item {
-    line-height: 2rem;
-
-    .btn {
-        height: 2rem;
-    }
-
-    &::before {
-        font-size: 20px;
-    }
-}
-</style>
-
 <script lang="ts">
 import {Categories, Category} from "~~/lib/Category";
 import CategoryButton from "~~/components/Categories/CategoryButton.vue";
 import {PropType} from "vue";
 
 export default {
+    name: "Category",
     components: {CategoryButton},
     props: {
         categories: {
@@ -78,8 +61,26 @@ export default {
                 this.breadcrumb = [];
             }
 
-            this.$eventBus.emit('category.change');
+            this.$eventBus.emit("category.change");
         }
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.breadcrumb {
+    max-width: 90%;
+}
+
+.breadcrumb-item {
+    line-height: 2rem;
+
+    .btn {
+        height: 2rem;
+    }
+
+    &::before {
+        font-size: 20px;
+    }
+}
+</style>

@@ -5,20 +5,20 @@
                 <div class="position-relative mb-3">
                     <Category :categories="sortedCategories"/>
                     <div class="actions">
-                        <shuffle-button/>
-                        <filter-button/>
+                        <ShuffleButton/>
+                        <FilterButton/>
                         <button class="btn btn-secondary mb-3" @click="refreshSongs">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
                 </div>
                 <div class="mb-1 p-2" v-if="Object.keys($music.selectedFilters).length">
-                    <filter-tag v-for="(filterValue, filterName) in $music.selectedFilters" :key="filterName"
+                    <FilterTag v-for="(filterValue, filterName) in $music.selectedFilters" :key="filterName"
                                 :filter-name="filterName" :filter-value="filterValue"/>
                 </div>
                 <div class="songs-container prevent-overflow" v-if="$music.currentCategory">
                     <div class="h-100 overflow-auto p-2">
-                        <song v-for="(song, id) in $music.visibleSongs" :key="id" :song="song"/>
+                        <Song v-for="(song, id) in $music.visibleSongs" :key="id" :song="song"/>
                     </div>
                 </div>
             </div>
@@ -35,8 +35,7 @@
 </style>
 
 <script lang="ts">
-import Card from "~~/components/Card.vue";
-import Song from "~~/components/songs/song.vue";
+import Song from "~~/components/Songs/song.vue";
 import {Song as SongClass} from "~~/lib/Songs/Song";
 import {Categories} from "~~/lib/Category";
 import Category from "~~/components/Categories/Category.vue";
@@ -45,7 +44,14 @@ import FilterTag from "~~/components/Filter/FilterTag.vue";
 import ShuffleButton from "~~/components/Buttons/ShuffleButton.vue";
 
 export default {
-    components: {ShuffleButton, FilterTag, FilterButton, Category, Song, Card},
+    name: "Songs",
+    components: {
+        ShuffleButton,
+        FilterTag,
+        FilterButton,
+        Category,
+        Song
+    },
     props: [],
     created() {
         this.refreshSongs();
@@ -72,7 +78,7 @@ export default {
 
             this.$music.currentSong = null;
 
-            this.$eventBus.emit('refresh');
+            this.$eventBus.emit("refresh");
         }
     }
 };

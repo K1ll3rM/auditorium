@@ -14,6 +14,52 @@
     </div>
 </template>
 
+<script lang="ts">
+import {Config} from "~~/lib/Config";
+import {debounce, round} from "~~/helpers";
+
+export default {
+    name: "Volume",
+    components: {},
+    props: {},
+    data() {
+        return {
+            volume: Config.data.volume
+        }
+    },
+    mounted() {
+        this.setBubble();
+    },
+    methods: {
+        setVolume() {
+            Config.data.volume = this.volume;
+            this.$music.currentSong?.player?.triggerVolumeUpdate();
+            this.saveConfig();
+
+            this.setBubble();
+        },
+        saveConfig: debounce(() => {
+            Config.save();
+        }, 2000),
+        setBubble() {
+            let range = <HTMLInputElement>this.$refs.volume;
+            let bubble = <HTMLElement>this.$refs.bubble;
+            let rangeBar = <HTMLElement>this.$refs.rangeBar;
+
+            const val = Number(range.value);
+            const min = range.min ? Number(range.min) : 0;
+            const max = range.max ? Number(range.max) : 100;
+            const newVal = Number(((val - min) * 100) / (max - min));
+            bubble.innerHTML = String(round(val * 100, 0));
+
+            // Sorta magic numbers based on size of the native UI thumb
+            bubble.style.bottom = `calc(${newVal}% + (${-newVal * 0.32}px))`;
+            rangeBar.style.height = `calc(${newVal}% + (${-newVal * 0.165}px))`;
+        }
+    }
+};
+</script>
+
 <style lang="scss" scoped>
 @use "sass:math";
 
@@ -132,48 +178,3 @@
     transform: translateX(.15rem);
 }
 </style>
-
-<script lang="ts">
-import {Config} from "~~/lib/Config";
-import {debounce, round} from "~~/helpers";
-
-export default {
-    components: {},
-    props: {},
-    data() {
-        return {
-            volume: Config.data.volume
-        }
-    },
-    mounted() {
-        this.setBubble();
-    },
-    methods: {
-        setVolume() {
-            Config.data.volume = this.volume;
-            this.$music.currentSong?.player?.triggerVolumeUpdate();
-            this.saveConfig();
-
-            this.setBubble();
-        },
-        saveConfig: debounce(() => {
-            Config.save();
-        }, 2000),
-        setBubble() {
-            let range = <HTMLInputElement>this.$refs.volume;
-            let bubble = <HTMLElement>this.$refs.bubble;
-            let rangeBar = <HTMLElement>this.$refs.rangeBar;
-
-            const val = Number(range.value);
-            const min = range.min ? Number(range.min) : 0;
-            const max = range.max ? Number(range.max) : 100;
-            const newVal = Number(((val - min) * 100) / (max - min));
-            bubble.innerHTML = String(round(val * 100, 0));
-
-            // Sorta magic numbers based on size of the native UI thumb
-            bubble.style.bottom = `calc(${newVal}% + (${-newVal * 0.32}px))`;
-            rangeBar.style.height = `calc(${newVal}% + (${-newVal * 0.165}px))`;
-        }
-    }
-};
-</script>

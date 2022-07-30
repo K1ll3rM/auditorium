@@ -1,13 +1,13 @@
 <template>
     <main v-if="initialized">
         <div class="main-container">
-            <toasts ref="toasts"/>
+            <Toasts ref="toasts"/>
             <div class="container">
-                <songs></songs>
+                <Songs></Songs>
             </div>
         </div>
-        <control-bar/>
-        <filter-sidebar/>
+        <ControlBar/>
+        <FilterSidebar/>
     </main>
 </template>
 

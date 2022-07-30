@@ -10,18 +10,6 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
-.play-pause {
-    display: inline-block;
-}
-
-.button {
-    cursor: pointer;
-    font-size: 2rem;
-    line-height: 2rem;
-}
-</style>
-
 <script lang="ts">
 
 export default {
@@ -37,12 +25,24 @@ export default {
                 return;
             }
 
-            if (this.$music.currentSong.player.state === 'paused') {
+            if (this.$music.currentSong.player.state === "paused") {
                 this.$music.currentSong.player.unPause();
-            } else if (this.$music.currentSong.player.state === 'playing') {
+            } else if (this.$music.currentSong.player.state === "playing") {
                 this.$music.currentSong.player.pause();
             }
         }
     }
 };
 </script>
+
+<style lang="scss" scoped>
+.play-pause {
+    display: inline-block;
+}
+
+.button {
+    cursor: pointer;
+    font-size: 2rem;
+    line-height: 2rem;
+}
+</style>

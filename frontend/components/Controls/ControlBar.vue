@@ -2,18 +2,35 @@
     <div class="bar bg-gray">
         <div class="container">
             <div class="left">
-                <play-pause class="me-2"/>
+                <PlayPause class="me-2"/>
                 <stop/>
             </div>
             <div class="middle">
-                <progress-bar/>
+                <ProgressBar/>
             </div>
             <div class="right">
-                <volume/>
+                <Volume/>
             </div>
         </div>
     </div>
 </template>
+
+<script lang="ts">
+import Volume from "~~/components/controls/volume.vue";
+import PlayPause from "~~/components/controls/PlayPause.vue";
+import Stop from "~~/components/controls/Stop.vue";
+import ProgressBar from "~~/components/controls/ProgressBar.vue";
+
+export default {
+    name: "ControlBar",
+    components: {ProgressBar, PlayPause, Volume, Stop},
+    props: {},
+    data() {
+        return {}
+    },
+    methods: {}
+};
+</script>
 
 <style lang="scss" scoped>
 .bar {
@@ -39,20 +56,3 @@
     flex: 1 0 0;
 }
 </style>
-
-<script lang="ts">
-import Volume from "~~/components/controls/volume.vue";
-import PlayPause from "~~/components/controls/PlayPause.vue";
-import Stop from "~~/components/controls/Stop.vue";
-import ProgressBar from "~~/components/controls/ProgressBar.vue";
-
-export default {
-    name: "ControlBar",
-    components: {ProgressBar, PlayPause, Volume, Stop},
-    props: {},
-    data() {
-        return {}
-    },
-    methods: {}
-};
-</script>

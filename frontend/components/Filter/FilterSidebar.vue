@@ -24,6 +24,54 @@
     </div>
 </template>
 
+<script lang="ts">
+import {FiltersInterface} from "~~/lib/Filter";
+import {timeout} from "~~/helpers";
+
+export default {
+    name: "FilterSidebar",
+    components: {},
+    props: {},
+    data() {
+        return {
+            hidden: true,
+            filters: <FiltersInterface>{}
+        }
+    },
+    created() {
+        this.$eventBus.on("toggleFilterSidebar", () => {
+            this.toggle();
+        });
+    },
+    methods: {
+        async toggle() {
+            await timeout(5);
+            this.hidden = !this.hidden;
+        },
+        close() {
+            if (!this.hidden) {
+                this.hidden = true;
+            }
+        },
+        apply() {
+            let data = new FormData(this.$refs.filterForm as HTMLFormElement);
+
+            let filters = {};
+
+            data.forEach((value, filter) => {
+                if (value) {
+                    filters[filter] = value as string;
+                }
+            });
+
+            this.$music.setSelectedFilters(filters);
+
+            this.$eventBus.emit("applyFilters");
+        }
+    }
+};
+</script>
+
 <style lang="scss" scoped>
 .filter-sidebar-container {
     position: absolute;
@@ -58,50 +106,3 @@
     }
 }
 </style>
-<script lang="ts">
-import {FiltersInterface} from "~~/lib/Filter";
-import {timeout} from "~~/helpers";
-
-export default {
-    name: 'FilterSidebar',
-    components: {},
-    props: {},
-    data() {
-        return {
-            hidden: true,
-            filters: <FiltersInterface>{}
-        }
-    },
-    created() {
-        this.$eventBus.on('toggleFilterSidebar', () => {
-            this.toggle();
-        });
-    },
-    methods: {
-        async toggle() {
-            await timeout(5);
-            this.hidden = !this.hidden;
-        },
-        close() {
-            if (!this.hidden) {
-                this.hidden = true;
-            }
-        },
-        apply() {
-            let data = new FormData(this.$refs.filterForm as HTMLFormElement);
-
-            let filters = {};
-
-            data.forEach((value, filter) => {
-                if (value) {
-                    filters[filter] = value as string;
-                }
-            });
-
-            this.$music.setSelectedFilters(filters);
-
-            this.$eventBus.emit('applyFilters');
-        }
-    }
-};
-</script>

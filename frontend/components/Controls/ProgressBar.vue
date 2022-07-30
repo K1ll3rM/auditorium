@@ -20,13 +20,14 @@ import {formatSeconds} from "~~/helpers";
 import Music from "~~/lib/Music";
 
 export default {
+    name: "ProgressBar",
     components: {},
     props: {},
     created() {
-        this.$eventBus.on('play', (e: { duration: number }) => {
+        this.$eventBus.on("play", (e: { duration: number }) => {
             this.max = e.duration ? e.duration : 0;
         });
-        this.$eventBus.on('stop', () => {
+        this.$eventBus.on("stop", () => {
             this.$music.currentSongProgress = 0;
             this.max = 0;
         });

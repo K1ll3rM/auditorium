@@ -8,6 +8,7 @@
 <script lang="ts">
 
 export default {
+    name: "CategoryButtonStyle",
     components: {},
     props: {
         id: String
