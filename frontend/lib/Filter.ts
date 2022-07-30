@@ -16,3 +16,7 @@ export class Filter {
 export interface FiltersInterface {
   [key: string]: Filter;
 }
+
+export interface FiltersSelectedInterface {
+  [key: string]: string;
+}

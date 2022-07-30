@@ -18,7 +18,7 @@
         </div>
         <div class="songs-container prevent-overflow" v-if="$music.currentCategory">
           <div class="h-100 overflow-auto p-2">
-            <song v-for="(song, id) in $music.currentCategory.songs" :key="id" :song="song"/>
+            <song v-for="(song, id) in $music.visibleSongs" :key="id" :song="song"/>
           </div>
         </div>
       </div>
@@ -65,14 +65,15 @@ export default {
       this.sortedCategories = SongClass.sortedCategories;
 
       if (this.$music.currentCategory) {
-        this.$music.currentCategory = this.categories[this.$music.currentCategory.id];
+        this.$music.setCurrentCategory(this.categories[this.$music.currentCategory.id]);
       }
 
       this.$music.currentSong = null;
 
       if (!this.$music.currentCategory) {
-        this.$music.currentCategory = CategoryClass.root;
+        this.$music.setCurrentCategory(CategoryClass.root);
       }
+
       this.$eventBus.emit('refresh');
     }
   }

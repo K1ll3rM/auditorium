@@ -1,5 +1,5 @@
 <template>
-  <div :class="show ? '' : 'd-none'">
+  <div>
     <div class="card bg-dark mb-3"
          :class="($music.currentSong && $music.currentSong.id === song.id ? 'selected' : '') + ' ' + song.player.state">
       <div class="card-body">
@@ -71,40 +71,23 @@ export default {
     },
   },
   data() {
-    return {
-      show: true,
-      beforeUpdateId: ''
-    }
-  },
-  created() {
-    this.filter();
-    this.beforeUpdateId = this.song.id;
-
-    this.$eventBus.on('applyFilters', () => {
-      this.filter();
-    });
-  },
-  updated() {
-    if (this.beforeUpdateId !== this.song.id) {
-      this.filter();
-    }
-    this.beforeUpdateId = this.song.id;
+    return {};
   },
   methods: {
-    filter: function () {
-      let show = true;
-
-      for (const [filterName, filterValue] of Object.entries(this.$music.selectedFilters)) {
-        if (this.song.manifest.filters && this.song.manifest.filters[filterName] && this.song.manifest.filters[filterName] === filterValue) {
-          continue;
-        }
-
-        show = false;
-        break;
-      }
-
-      this.show = show;
-    },
+    // filter: function () {
+    //   let show = true;
+    //
+    //   for (const [filterName, filterValue] of Object.entries(this.$music.selectedFilters)) {
+    //     if (this.song.manifest.filters && this.song.manifest.filters[filterName] && this.song.manifest.filters[filterName] === filterValue) {
+    //       continue;
+    //     }
+    //
+    //     show = false;
+    //     break;
+    //   }
+    //
+    //   this.show = show;
+    // },
     toggle() {
       if (!this.song.player) {
         return;

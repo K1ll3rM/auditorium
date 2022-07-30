@@ -76,7 +76,6 @@ export default {
         this.breadcrumb = [];
       }
 
-      this.$music.setVisibleSongs();
       this.$eventBus.emit('category.change');
     }
   }

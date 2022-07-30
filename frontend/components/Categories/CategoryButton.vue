@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     select(category: Category) {
-      this.$music.currentCategory = category;
+      this.$music.setCurrentCategory(category);
       this.$emit('select');
     }
   }

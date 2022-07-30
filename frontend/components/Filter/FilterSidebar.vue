@@ -88,13 +88,15 @@ export default {
     apply() {
       let data = new FormData(this.$refs.filterForm as HTMLFormElement);
 
-      this.$music.selectedFilters = {};
+      let filters = {};
 
       data.forEach((value, filter) => {
         if (value) {
-          this.$music.selectedFilters[filter] = value as string;
+          filters[filter] = value as string;
         }
       });
+
+      this.$music.setSelectedFilters(filters);
 
       this.$eventBus.emit('applyFilters');
     }
