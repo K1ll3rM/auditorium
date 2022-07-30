@@ -4,13 +4,13 @@ import {Storage} from "./lib/Storage";
 
 const serve = require("electron-serve");
 const path = require("path");
-const loadURL = serve({ directory: "frontend/build" });
+const loadURL = serve({directory: "frontend/build"});
 
 app.commandLine.appendSwitch('disable-features', 'HardwareMediaKeyHandling,MediaSessionService');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow: BrowserWindow|null;
+let mainWindow: BrowserWindow | null;
 
 function isDev() {
     return !app.isPackaged;

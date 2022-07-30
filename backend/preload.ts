@@ -3,7 +3,7 @@ import {Storage} from "./lib/Storage";
 
 export const api: Api = {
     checkReply(reply) {
-        if(reply === 'reply was never sent') {
+        if (reply === 'reply was never sent') {
             console.log(reply);
             throw new Error('Expected reply but didn\'t get any');
         }

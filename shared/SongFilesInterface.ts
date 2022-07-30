@@ -1,1 +1,2 @@
-export interface SongFilesInterface {}
+export interface SongFilesInterface {
+}

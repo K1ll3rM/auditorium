@@ -60,47 +60,47 @@
 
 @include color-scheme-alt(alternative-color-scheme($default-color-scheme)) {
 
-  // Layout & components
-  @import "~bootstrap-dark-5/scss/dark/root";
-  @import "~bootstrap-dark-5/scss/dark/reboot";
-  @import "~bootstrap-dark-5/scss/dark/type";
-  @import "~bootstrap-dark-5/scss/dark/images";
-  // no colors in containers
-  // no colors in grid
-  @import "~bootstrap-dark-5/scss/dark/tables";
-  @import "~bootstrap-dark-5/scss/dark/forms";
-  @import "~bootstrap-dark-5/scss/dark/buttons";
-  // no colors in transitions
-  @import "~bootstrap-dark-5/scss/dark/dropdown";
-  @import "~bootstrap-dark-5/scss/dark/button-group";
-  @import "~bootstrap-dark-5/scss/dark/nav";
-  @import "~bootstrap-dark-5/scss/dark/navbar";
-  @import "~bootstrap-dark-5/scss/dark/card";
-  @import "~bootstrap-dark-5/scss/dark/accordion";
-  @import "~bootstrap-dark-5/scss/dark/breadcrumb";
-  @import "~bootstrap-dark-5/scss/dark/pagination";
-  @import "~bootstrap-dark-5/scss/dark/badge";
-  @import "~bootstrap-dark-5/scss/dark/alert";
-  @import "~bootstrap-dark-5/scss/dark/progress";
-  @import "~bootstrap-dark-5/scss/dark/list-group";
-  @import "~bootstrap-dark-5/scss/dark/close";
-  @import "~bootstrap-dark-5/scss/dark/toasts";
-  @import "~bootstrap-dark-5/scss/dark/modal";
-  @import "~bootstrap-dark-5/scss/dark/tooltip";
-  @import "~bootstrap-dark-5/scss/dark/popover";
-  @import "~bootstrap-dark-5/scss/dark/carousel";
-  // no colors in spinners
-  @import "~bootstrap-dark-5/scss/dark/offcanvas";
-  @import "~bootstrap-dark-5/scss/dark/placeholders";
+    // Layout & components
+    @import "~bootstrap-dark-5/scss/dark/root";
+    @import "~bootstrap-dark-5/scss/dark/reboot";
+    @import "~bootstrap-dark-5/scss/dark/type";
+    @import "~bootstrap-dark-5/scss/dark/images";
+    // no colors in containers
+    // no colors in grid
+    @import "~bootstrap-dark-5/scss/dark/tables";
+    @import "~bootstrap-dark-5/scss/dark/forms";
+    @import "~bootstrap-dark-5/scss/dark/buttons";
+    // no colors in transitions
+    @import "~bootstrap-dark-5/scss/dark/dropdown";
+    @import "~bootstrap-dark-5/scss/dark/button-group";
+    @import "~bootstrap-dark-5/scss/dark/nav";
+    @import "~bootstrap-dark-5/scss/dark/navbar";
+    @import "~bootstrap-dark-5/scss/dark/card";
+    @import "~bootstrap-dark-5/scss/dark/accordion";
+    @import "~bootstrap-dark-5/scss/dark/breadcrumb";
+    @import "~bootstrap-dark-5/scss/dark/pagination";
+    @import "~bootstrap-dark-5/scss/dark/badge";
+    @import "~bootstrap-dark-5/scss/dark/alert";
+    @import "~bootstrap-dark-5/scss/dark/progress";
+    @import "~bootstrap-dark-5/scss/dark/list-group";
+    @import "~bootstrap-dark-5/scss/dark/close";
+    @import "~bootstrap-dark-5/scss/dark/toasts";
+    @import "~bootstrap-dark-5/scss/dark/modal";
+    @import "~bootstrap-dark-5/scss/dark/tooltip";
+    @import "~bootstrap-dark-5/scss/dark/popover";
+    @import "~bootstrap-dark-5/scss/dark/carousel";
+    // no colors in spinners
+    @import "~bootstrap-dark-5/scss/dark/offcanvas";
+    @import "~bootstrap-dark-5/scss/dark/placeholders";
 
-  // Helpers
-  @import "~bootstrap-dark-5/scss/dark/helpers";
+    // Helpers
+    @import "~bootstrap-dark-5/scss/dark/helpers";
 
-  // Utilities
-  @import "~bootstrap-dark-5/scss/dark/utilities/api";
+    // Utilities
+    @import "~bootstrap-dark-5/scss/dark/utilities/api";
 
-  // Unique to dark-mode
-  @import "~bootstrap-dark-5/scss/dark/dark";
+    // Unique to dark-mode
+    @import "~bootstrap-dark-5/scss/dark/dark";
 }
 
 // Additional Global Utilities

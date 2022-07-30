@@ -1,9 +1,9 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <slot></slot>
+    <div class="card">
+        <div class="card-body">
+            <slot></slot>
+        </div>
     </div>
-  </div>
 </template>
 
 <style>

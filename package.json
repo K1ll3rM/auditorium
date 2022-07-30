@@ -1,54 +1,54 @@
 {
-  "name": "auditorium",
-  "version": "0.5.0",
-  "private": true,
-  "main": "backend/main.js",
-  "build": {
-    "icon": "frontend/static/favicon.png",
-    "productName": "auditorium",
-    "files": [
-      "frontend/build/**/*",
-      "backend/**/*",
-      "shared/**/*"
-    ],
-    "directories": {
-      "output": "dist"
+    "name": "auditorium",
+    "version": "0.5.0",
+    "private": true,
+    "main": "backend/main.js",
+    "build": {
+        "icon": "frontend/static/favicon.png",
+        "productName": "auditorium",
+        "files": [
+            "frontend/build/**/*",
+            "backend/**/*",
+            "shared/**/*"
+        ],
+        "directories": {
+            "output": "dist"
+        },
+        "win": {},
+        "linux": {},
+        "mac": {}
     },
-    "win": {},
-    "linux": {},
-    "mac": {}
-  },
-  "scripts": {
-    "compile": "tsc -w",
-    "build": "nuxt build frontend",
-    "dev": "nuxt dev frontend",
-    "generate": "nuxt generate frontend",
-    "preview": "nuxt preview frontend",
-    "electron": "wait-on http://localhost:3000 && electron .",
-    "electron-dev": "concurrently \"yarn dev\" \"yarn electron\"",
-    "preelectron-pack": "yarn generate",
-    "electron-pack": "electron-builder"
-  },
-  "dependencies": {
-    "@types/node": "^16.11.36",
-    "concurrently": "^7.2.1",
-    "core-js": "^3.22.7",
-    "cross-env": "^7.0.3",
-    "electron": "^19.0.1",
-    "electron-builder": "^23.0.3",
-    "electron-devtools-installer": "^3.2.0",
-    "electron-serve": "^1.1.0",
-    "platform-folders": "^0.6.0",
-    "typescript": "^4.7.4",
-    "wait-on": "^6.0.1"
-  },
-  "devDependencies": {
-    "sass": "^1.53.0",
-    "sass-loader": "^13.0.2",
-    "fibers": "^5.0.1",
-    "mitt": "^3.0.0",
-    "nuxt": "3.0.0-rc.3",
-    "bootstrap": "^5.1.3",
-    "bootstrap-dark-5": "^1.1.3"
-  }
+    "scripts": {
+        "compile": "tsc -w",
+        "build": "nuxt build frontend",
+        "dev": "nuxt dev frontend",
+        "generate": "nuxt generate frontend",
+        "preview": "nuxt preview frontend",
+        "electron": "wait-on http://localhost:3000 && electron .",
+        "electron-dev": "concurrently \"yarn dev\" \"yarn electron\"",
+        "preelectron-pack": "yarn generate",
+        "electron-pack": "electron-builder"
+    },
+    "dependencies": {
+        "@types/node": "^16.11.36",
+        "concurrently": "^7.2.1",
+        "core-js": "^3.22.7",
+        "cross-env": "^7.0.3",
+        "electron": "^19.0.1",
+        "electron-builder": "^23.0.3",
+        "electron-devtools-installer": "^3.2.0",
+        "electron-serve": "^1.1.0",
+        "platform-folders": "^0.6.0",
+        "typescript": "^4.7.4",
+        "wait-on": "^6.0.1"
+    },
+    "devDependencies": {
+        "sass": "^1.53.0",
+        "sass-loader": "^13.0.2",
+        "fibers": "^5.0.1",
+        "mitt": "^3.0.0",
+        "nuxt": "3.0.0-rc.3",
+        "bootstrap": "^5.1.3",
+        "bootstrap-dark-5": "^1.1.3"
+    }
 }

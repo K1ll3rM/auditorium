@@ -1,10 +1,10 @@
 .prevent-overflow {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .button-disabled {
-  opacity: .5;
-  pointer-events: none;
+    opacity: .5;
+    pointer-events: none;
 }

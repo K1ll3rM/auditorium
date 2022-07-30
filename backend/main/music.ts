@@ -40,17 +40,17 @@ ipcMain.on(CHANNEL_GETSONGFILES, async (event, song: SongInterface) => {
 
 async function getDefaultFiles(song: SongInterface) {
     let dirCont = await fs.readdir(song.path);
-    let introPath = dirCont.filter(function(elm) {
+    let introPath = dirCont.filter(function (elm) {
         return elm.match(/intro\..*/ig);
     })[0];
-    let loopPath = dirCont.filter(function(elm) {
+    let loopPath = dirCont.filter(function (elm) {
         return elm.match(/loop\..*/ig);
     })[0];
 
     let intro = introPath ? await fs.readFile(song.path + '/' + introPath) : null;
     let loop = loopPath ? await fs.readFile(song.path + '/' + loopPath) : null;
 
-    return  {
+    return {
         intro: intro,
         loop: loop
     };
@@ -58,13 +58,13 @@ async function getDefaultFiles(song: SongInterface) {
 
 async function getLoopFiles(song: SongInterface) {
     let dirCont = await fs.readdir(song.path);
-    let loopPath = dirCont.filter(function(elm) {
+    let loopPath = dirCont.filter(function (elm) {
         return elm.match(/loop\..*/ig);
     })[0];
 
     let loop = await fs.readFile(song.path + '/' + loopPath);
 
-    return  {
+    return {
         loop: loop
     };
 }
@@ -89,6 +89,7 @@ ipcMain.on(CHANNEL_GETCATEGORIES, async (event) => {
 interface Songs {
     [id: string]: SongManifestInterface
 }
+
 interface Categories {
     [id: string]: CategoryManifestInterface
 }

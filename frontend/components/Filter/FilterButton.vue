@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-secondary mb-3" @click="toggleFilterSidebar"><i class="bi bi-sliders"></i></button>
+    <button class="btn btn-secondary mb-3" @click="toggleFilterSidebar"><i class="bi bi-sliders"></i></button>
 </template>
 
 <style>
@@ -7,15 +7,15 @@
 <script lang="ts">
 
 export default {
-  components: {},
-  props: {},
-  data() {
-    return {}
-  },
-  methods: {
-    toggleFilterSidebar() {
-      this.$eventBus.emit('toggleFilterSidebar');
+    components: {},
+    props: {},
+    data() {
+        return {}
+    },
+    methods: {
+        toggleFilterSidebar() {
+            this.$eventBus.emit('toggleFilterSidebar');
+        }
     }
-  }
 };
 </script>

@@ -1,5 +1,5 @@
 export interface CategoryManifestInterface {
     name: string;
-    fullName?: string|null;
-    description?: string|null;
+    fullName?: string | null;
+    description?: string | null;
 }

@@ -6,8 +6,8 @@
 $default-color-scheme: light;
 
 $color-schemes: (
-  light,
-  dark
+    light,
+    dark
 );
 //
 // items marked //** from https://bootswatch.com/darkly/
@@ -27,15 +27,15 @@ $black-alt: #111; //~~
 //
 // fusv-disable
 $grays-alt: (
-  "100": $gray-100-alt,
-  "200": $gray-200-alt,
-  "300": $gray-300-alt,
-  "400": $gray-400-alt,
-  "500": $gray-500-alt,
-  "600": $gray-600-alt,
-  "700": $gray-700-alt,
-  "800": $gray-800-alt,
-  "900": $gray-900-alt
+    "100": $gray-100-alt,
+    "200": $gray-200-alt,
+    "300": $gray-300-alt,
+    "400": $gray-400-alt,
+    "500": $gray-500-alt,
+    "600": $gray-600-alt,
+    "700": $gray-700-alt,
+    "800": $gray-800-alt,
+    "900": $gray-900-alt
 );
 // fusv-enable
 //
@@ -51,20 +51,20 @@ $teal-alt: #45b5aa; // Panatone CotY 2010
 $cyan-alt: #17a2b8;
 //
 $colors-alt: (
-  "blue": $blue-alt,
-  "indigo": $indigo-alt,
-  "purple": $purple-alt,
-  "pink": $pink-alt,
-  "red": $red-alt,
-  "orange": $orange-alt,
-  "yellow": $yellow-alt,
-  "green": $green-alt,
-  "teal": $teal-alt,
-  "cyan": $cyan-alt,
-  "white": $white-alt,
-  "black": $black-alt,
-  "gray": #7e7e7e, // $gray-600,
-  "gray-dark": #121212 //$gray-800
+    "blue": $blue-alt,
+    "indigo": $indigo-alt,
+    "purple": $purple-alt,
+    "pink": $pink-alt,
+    "red": $red-alt,
+    "orange": $orange-alt,
+    "yellow": $yellow-alt,
+    "green": $green-alt,
+    "teal": $teal-alt,
+    "cyan": $cyan-alt,
+    "white": $white-alt,
+    "black": $black-alt,
+    "gray": #7e7e7e, // $gray-600,
+    "gray-dark": #121212 //$gray-800
 );
 //
 $primary-alt: $blue-alt;
@@ -77,14 +77,14 @@ $light-alt: $gray-400-alt;
 $dark-alt: $gray-800-alt;
 //
 $theme-colors-alt: (
-  "primary": $primary-alt,
-  "secondary": $secondary-alt,
-  "success": $success-alt,
-  "info": $info-alt,
-  "warning": $warning-alt,
-  "danger": $danger-alt,
-  "light": $light-alt,
-  "dark": $dark-alt
+    "primary": $primary-alt,
+    "secondary": $secondary-alt,
+    "success": $success-alt,
+    "info": $info-alt,
+    "warning": $warning-alt,
+    "danger": $danger-alt,
+    "light": $light-alt,
+    "dark": $dark-alt
 );
 //
 //$theme-colors-rgb-alt: map-loop($theme-colors-alt, to-rgb, "$value");

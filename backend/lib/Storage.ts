@@ -1,6 +1,6 @@
 'use strict';
 import * as os from 'os';
-import { promises as fs } from 'fs';
+import {promises as fs} from 'fs';
 import {getDocumentsFolder} from 'platform-folders';
 import {DEFAULT_CONFIG} from "./Constants";
 
@@ -36,8 +36,7 @@ export class Storage {
     static async createDir(path: string) {
         try {
             await fs.stat(path);
-        }
-        catch (e) {
+        } catch (e) {
             await fs.mkdir(path);
         }
     }
@@ -47,8 +46,7 @@ export class Storage {
 
         try {
             await fs.stat(file);
-        }
-        catch (e) {
+        } catch (e) {
             await fs.writeFile(file, JSON.stringify(DEFAULT_CONFIG));
         }
     }

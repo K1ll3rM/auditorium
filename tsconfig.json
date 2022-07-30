@@ -1,28 +1,28 @@
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "lib": [
-      "ESNext",
-      "ESNext.AsyncIterable",
-      "DOM"
-    ],
-    "esModuleInterop": true,
-    "allowJs": true,
-    "strict": true,
-    "experimentalDecorators": true,
-    "baseUrl": "./",
-    "types": [
-      "@types/node"
-    ],
-    "rootDirs": [
-      "./backend",
-      "./shared"
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "lib": [
+            "ESNext",
+            "ESNext.AsyncIterable",
+            "DOM"
+        ],
+        "esModuleInterop": true,
+        "allowJs": true,
+        "strict": true,
+        "experimentalDecorators": true,
+        "baseUrl": "./",
+        "types": [
+            "@types/node"
+        ],
+        "rootDirs": [
+            "./backend",
+            "./shared"
+        ]
+    },
+    "exclude": [
+        "./node_modules",
+        "./frontend"
     ]
-  },
-  "exclude": [
-    "./node_modules",
-    "./frontend",
-  ]
 }
