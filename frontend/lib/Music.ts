@@ -25,6 +25,10 @@ class Music implements MusicInterface {
   public selectedFilters: FiltersSelectedInterface = {};
 
   public setCurrentCategory(category: Category) {
+    if (!category) {
+      category = Category.root;
+    }
+
     this.currentCategory = category;
     this.setVisibleSongs();
   }

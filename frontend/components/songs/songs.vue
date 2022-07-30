@@ -38,7 +38,7 @@
 import Card from "~~/components/Card.vue";
 import Song from "~~/components/songs/song.vue";
 import {Song as SongClass} from "~~/lib/Songs/Song";
-import {Categories, Category as CategoryClass} from "~~/lib/Category";
+import {Categories} from "~~/lib/Category";
 import Category from "~~/components/Categories/Category.vue";
 import FilterButton from "~~/components/Filter/FilterButton.vue";
 import FilterTag from "~~/components/Filter/FilterTag.vue";
@@ -67,12 +67,11 @@ export default {
       if (this.$music.currentCategory) {
         this.$music.setCurrentCategory(this.categories[this.$music.currentCategory.id]);
       }
+      else {
+        this.$music.setCurrentCategory(null);
+      }
 
       this.$music.currentSong = null;
-
-      if (!this.$music.currentCategory) {
-        this.$music.setCurrentCategory(CategoryClass.root);
-      }
 
       this.$eventBus.emit('refresh');
     }
