@@ -5,11 +5,13 @@
                 <div class="position-relative mb-3">
                     <Category :categories="sortedCategories"/>
                     <div class="actions">
-                        <ShuffleButton/>
-                        <FilterButton/>
-                        <button class="btn btn-secondary mb-3" @click="refreshSongs">
-                            <i class="bi bi-arrow-clockwise"></i>
-                        </button>
+                        <div class="btn-group" role="group" aria-label="Controls">
+                            <ShuffleButton/>
+                            <FilterButton/>
+                            <button class="btn btn-secondary mb-3" @click="refreshSongs">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="mb-1 p-2" v-if="Object.keys($music.selectedFilters).length">
